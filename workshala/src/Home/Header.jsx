@@ -15,7 +15,7 @@ import {
     Button
   } from "@mui/material";
 
-export default function HomeHead() {
+export default function Header() {
   return (
     <AppBar color="transparent" elevation={0}>
       <Toolbar>

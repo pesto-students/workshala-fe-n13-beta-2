@@ -1,59 +1,38 @@
 import * as React from "react";
-import DashHead from '../Common/Header';
-import {makeStyles} from '@mui/styles';
-import {Typography, Box, Grid, Drawer} from "@mui/material";
-import Body from '../Dashboard/Body';
-import SideBarBack from '../Images/SideBarBack.jpeg'
-
-import SideBar from "../Common/SideBar";
-const useStyles = makeStyles({
-    drawer: {
-        width: 10
-    },
-    root: {
-        display: 'flex'
-    }
-});
-const myStyle = {
-    backgroundImage: `url(${SideBarBack})`,
-    backgroundSize: "cover",
-    height: "490px",
-    display: "flex",
-    margin: -8
-
-};
+import {Grid} from "@mui/material";
+import TopContent from '../Dashboard/TopContent';
+import ProfileInfo from "../Dashboard/ProfileInfo";
+import VacancyStat from "../charts/VacancyStat";
+import CandidateLayout from "../Layouts/CandidateLayout";
+import RecentActivity from '../Dashboard/RecentActivity'
 
 export default function Dashboard() {
     return (
-        <Grid container
-            sx={
-                {backgroundColor: "#EDEAEA"}
-        }>
-            <Grid item
-                xs={2.3}
-                sm={2.3}
-                md={2.3}>
-                <SideBar style={myStyle}/>
-            </Grid>
-            <Grid item
-                xs={9.7}
-                sm={9.7}
-                md={9.7}>
+        <CandidateLayout>
+            <div>
                 <Grid container>
                     <Grid item
                         xs={12}
                         sm={12}
                         md={12}>
-                        <DashHead/>
+                        <TopContent/>
                     </Grid>
                     <Grid item
-                        xs={12}
-                        sm={12}
-                        md={12}>
-                        <Body/>
+                        xs={3}
+                        sm={3}
+                        md={3}>
+                        <ProfileInfo wide={"270px"} high={"500px"}/>
+                        <RecentActivity/>
+                    </Grid>
+                    <Grid item
+                        xs={9}
+                        sm={9}
+                        md={9}>
+                        {/*<RightContent/>*/}
+                        <VacancyStat/>
                     </Grid>
                 </Grid>
-            </Grid>
-        </Grid>
+            </div>
+        </CandidateLayout>
     );
 }

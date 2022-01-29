@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { fontSize } from "@mui/system";
 
-export default function DashHead() {
+export default function Header(props) {
     return (
 
         <Grid container sx={{mt:3, p:2}}>

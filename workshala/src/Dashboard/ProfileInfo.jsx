@@ -31,16 +31,16 @@ const profileData = {
     Email: "Doe@gmail.com"
 }
 
-export default function LeftContent() {
+export default function LeftContent(props) {
     return (
-        <div>
+        
         <Card sx={
             {
                 mt: 1,
                 mx: 3.5,
                 border: 0,
-                width: 270,
-                height: 500,
+                width: props.wide,
+                height: props.high,
                 borderRadius: 4
             }
         }>
@@ -246,8 +246,7 @@ export default function LeftContent() {
 
             
         </Card>
-        <RecentActivity/>
-        </div>
+        
         
     );
 }
