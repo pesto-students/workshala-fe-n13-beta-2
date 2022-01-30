@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CandidateLayout from "../Layouts/CandidateLayout";
 import Job from "../Components/Job";
 import ProfileInfo from "../Dashboard/ProfileInfo";
+import QuickView from "../Components/CompanyQuickView";
 import {
   Button,
   Grid,
@@ -20,7 +21,7 @@ export default function Jobs() {
           <Job />
         </Grid>
         <Grid item md={4}>
-          <ProfileInfo wide={"270px"} high={"800px"} />
+          <QuickView wide={"270px"} high={"800px"} />
         </Grid>
       </Grid>
     </CandidateLayout>

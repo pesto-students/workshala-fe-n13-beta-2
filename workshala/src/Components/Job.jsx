@@ -13,6 +13,7 @@ import {
 import Switch from "@mui/material/Switch";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { DataGrid } from "@mui/x-data-grid";
 
 const label = { inputProps: { "aria-label": "Salary" } };
 const jobsList = [
@@ -54,33 +55,31 @@ const CardTemplate = (props) => {
 };
 function Job() {
   return (
-    <Grid container>
+    <Grid container sx={{ marginBottom: 15 }}>
       <Grid item sx={{ mt: 2 }}>
         <Typography>Suggestions</Typography>
       </Grid>
       <Grid item xs={0.5} sm={0.5} md={0.5}>
-        <Stack spacing={1} alignItems="right" sx={{ marginLeft: 30, mt: 2 }}>
-          <Stack direction="colunm" spacing={1}>
-            <Chip label="Technician" color="primary" sx={{ marginRight: 1 }} />
-            <Chip
-              label="Mechanic"
-              color="success"
-              style={{ backgroundColor: "#0000FF" }}
-              sx={{ marginRight: 1, marginLeft: 1 }}
-            />
-            <Chip
-              label="Delivery Boy"
-              color="success"
-              style={{ backgroundColor: "#0000FF" }}
-              sx={{ marginRight: 1, marginLeft: 1 }}
-            />
-            <Chip
-              label="Builder"
-              style={{ backgroundColor: "#0000FF" }}
-              color="success"
-              sx={{ marginRight: 1 }}
-            />
-          </Stack>
+        <Stack spacing={1} direction="colunm" sx={{ marginLeft: 30, mt: 2 }}>
+          <Chip label="Technician" color="primary" sx={{ marginRight: 1 }} />
+          <Chip
+            label="Mechanic"
+            color="success"
+            style={{ backgroundColor: "#0000FF" }}
+            sx={{ marginRight: 1, marginLeft: 10 }}
+          />
+          <Chip
+            label="Delivery Boy"
+            color="success"
+            style={{ backgroundColor: "#0000FF" }}
+            sx={{ marginRight: 10, marginLeft: 1 }}
+          />
+          <Chip
+            label="Builder"
+            style={{ backgroundColor: "#0000FF" }}
+            color="success"
+            sx={{ marginRight: 1 }}
+          />
         </Stack>
       </Grid>
 

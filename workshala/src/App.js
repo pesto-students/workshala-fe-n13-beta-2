@@ -13,7 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<Applications />} />
+        <Route index element={<Jobs />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Home" element={<Home />} />
 
