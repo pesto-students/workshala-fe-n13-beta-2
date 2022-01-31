@@ -2,14 +2,16 @@ import * as React from "react";
 
 import Header from '../Common/Header';
 import SideBar from "../Common/SideBar";
-
 import {Grid} from "@mui/material";
 
 export default function CandidateLayout({children}) {
     return (
-        <Grid container
+        <Grid container direction="row"
             sx={
-                {backgroundColor: "#EDEAEA"}
+                {
+                    backgroundColor: "#EDEAEA",
+                    height: '100vh'
+                }
         }>
             <Grid item
                 xs={2.3}
@@ -17,23 +19,23 @@ export default function CandidateLayout({children}) {
                 md={2.3}>
                 <SideBar/>
             </Grid>
-            <Grid item
+            <Grid item container direction="row"
                 xs={9.7}
                 sm={9.7}
                 md={9.7}>
-                <Grid container>
-                    <Grid item
-                        xs={12}
-                        sm={12}
-                        md={12}>
-                        <Header/>
-                    </Grid>
-                    <Grid item
-                        xs={12}
-                        sm={12}
-                        md={12}>
-                        {children} </Grid>
+
+                <Grid item
+                    xs={12}
+                    sm={12}
+                    md={12}>
+                    <Header/>
                 </Grid>
+                <Grid item
+                    xs={12}
+                    sm={12}
+                    md={12}>
+                    {children} </Grid>
+
             </Grid>
         </Grid>
     );

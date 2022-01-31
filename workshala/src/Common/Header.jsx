@@ -1,5 +1,4 @@
 import * as React from "react";
-import logo from "../Images/logo.png";
 import SegmentIcon from '@mui/icons-material/Segment';
 import SearchIcon from '@mui/icons-material/Search';
 import MessageIcon from '@mui/icons-material/Message';
@@ -13,12 +12,11 @@ import {
     Typography,
     InputAdornment
 } from "@mui/material";
-import { fontSize } from "@mui/system";
 
 export default function Header(props) {
     return (
 
-        <Grid container sx={{mt:3, p:2}}>
+        <Grid container sx={{mt:3, height:'7vh'}}>
             {/* icon */}
             <Grid item
                 xs={0.3}

@@ -1,8 +1,4 @@
 import * as React from "react";
-import jobs from "../Images/jobs.png";
-import manageJobs from "../Images/manageJobs.png";
-import expert from "../Images/expert.jpeg";
-import career from "../Images/career.jpeg";
 import WorkIcon from '@mui/icons-material/Work';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
@@ -12,8 +8,7 @@ import {
     Grid,
     Typography,
     CardContent,
-    Card,
-    Avatar
+    Card
 } from "@mui/material";
 import {blue} from "@mui/material/colors";
 
