@@ -1,9 +1,10 @@
+import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
 import Typography from "@mui/material/Typography";
 import IconRa from "../Images/react.jpg";
-import {Avatar, Button, CardActions, Grid} from "@mui/material";
+import {Avatar, Button, CardActions, Grid, Select, MenuItem, Box, FormControl, InputLabel} from "@mui/material";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
@@ -113,12 +114,21 @@ const CardTemplate = (props) => {
         </Card>
     );
 };
+
+
+
 function Job() {
+    const [sort, setValue] = React.useState('');
+
+    const handleChange = (event) => {
+        setValue(event.target.value);
+      };
+
     return (
       <Grid container>
         <Grid item container md={12}>
             <Grid item
-                md={2}
+                md={1.5}
                 sx={
                     {
                         ml: 2,
@@ -133,7 +143,7 @@ function Job() {
                 }
                 xs={0.5}
                 sm={0.5}
-                md={8}>
+                md={5}>
                 <Stack direction="colunm">
                     {
                     suggestions.map(item => (
@@ -148,6 +158,21 @@ function Job() {
                             }/>
                     ))
                 } </Stack>
+            </Grid>
+            <Grid item
+                sx={
+                    {mt:2}
+                }
+                xs={0.5}
+                sm={0.5}
+                md={5} align="right">
+                    
+                <Select sx={{height:35, width:120, borderRadius:4}}
+                        value={sort}    displayEmpty
+                        onChange={handleChange}>
+                    <MenuItem value="">Newest</MenuItem>
+                    <MenuItem value="Oldest">Oldest</MenuItem>
+                </Select>
             </Grid>
         </Grid>
                 <Grid item container md={12} spacing={1} sx={

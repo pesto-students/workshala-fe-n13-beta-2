@@ -15,6 +15,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Button, Grid, Avatar } from "@mui/material";
+import { purple, red } from '@mui/material/colors';
 
 const suggestions = [
   {
@@ -49,7 +50,7 @@ const columns = [
 ];
 
 function createData(id, date, company, type, position, contact, status) {
-  return { id, date, company, type, position, contact, status };
+  return { id, date, company, type, position, contact, status};
 }
 
 const rows = [
@@ -69,7 +70,34 @@ const rows = [
     "Freelance",
     "Delivery Boy",
     "",
-    "Pending"
+    "In-Progress"
+  ),
+  createData(
+    "APL-067",
+    "Jan 28, 2021 23:05 PM",
+    "ABC Company",
+    "Freelance",
+    "Delivery Boy",
+    "",
+    "On-Hold"
+  ),
+  createData(
+    "APL-067",
+    "Jan 28, 2021 23:05 PM",
+    "ABC Company",
+    "Freelance",
+    "Delivery Boy",
+    "",
+    "Hired"
+  ),
+  createData(
+    "APL-067",
+    "Jan 28, 2021 23:05 PM",
+    "ABC Company",
+    "Freelance",
+    "Delivery Boy",
+    "",
+    "Rejected"
   ),
   createData(
     "APL-067",
@@ -141,34 +169,7 @@ const rows = [
     "Freelance",
     "Delivery Boy",
     "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "ABC Company",
-    "Freelance",
-    "Delivery Boy",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "ABC Company",
-    "Freelance",
-    "Delivery Boy",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "ABC Company",
-    "Freelance",
-    "Delivery Boy",
-    "",
-    "Pending"
+    "Hired"
   ),
   createData(
     "APL-067",
@@ -189,6 +190,24 @@ const rows = [
     "Pending"
   ),
 ];
+
+const ColoredStatusCell = (props) => {
+  var statusColor = "blue";
+  switch(props.value) {
+    case "Pending" : statusColor = "blue"; break;
+    case "On-Hold" : statusColor = "orange";break;
+    case "In-Progress" : statusColor = "blueviolet";break;
+    case "Hired" : statusColor = "green";break;
+    case "Rejected" : statusColor = "red";break;
+    default:  statusColor = "blue";
+  }
+  return (
+    
+  <Button variant="outlined" 
+        style={{width:140, height:30, borderRadius:10, color:statusColor}} >
+        {props.value}
+  </Button>);
+}
 
 export default function Application() {
   const [page, setPage] = React.useState(0);
@@ -240,15 +259,15 @@ export default function Application() {
             </Grid>
         </Grid>
       
-      <Grid item md={12} alignItems="center" justifyContent="center" sx={{mt:2}}>
+      <Grid item md={12} alignItems="center" justifyContent="center" sx={{mt:1}}>
         <Paper
           sx={{
             m:1,
             borderRadius:4,
-            p:2
+            p:1
           }}
         >
-          <TableContainer>
+          <TableContainer sx={{maxHeight:500}}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -277,6 +296,12 @@ export default function Application() {
                         {columns.map((column, i) => {
                           const value = row[column.id];
                           return (
+                            (i == 7) ?  // do nothing
+                            <TableCell>
+                              column[i]
+                            </TableCell>
+                            
+                            :
                             (i == 5) ?
                               <TableCell>
                                 <Grid container>
@@ -292,15 +317,16 @@ export default function Application() {
                               </TableCell>
                             :
                             (i == 6) ? 
-                              <TableCell>
-                                <Button variant="outlined">{value}</Button>
-                              </TableCell> :
-                            
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
+                              
+                                    <TableCell>
+                                      <ColoredStatusCell value={value}/>
+                                    </TableCell>
+                                  :
+                                    <TableCell key={column.id} align={column.align}>
+                                      {column.format && typeof value === "number"
+                                        ? column.format(value)
+                                        : value}
+                                    </TableCell>
                           );
                         })}
                       </TableRow>
