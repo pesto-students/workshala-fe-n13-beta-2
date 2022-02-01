@@ -1,8 +1,8 @@
 import * as React from "react";
-import jobs from "../Images/jobs.png";
-import manageJobs from "../Images/manageJobs.png";
-import expert from "../Images/expert.jpeg";
-import career from "../Images/career.jpeg";
+import jobs from "../../Assets/Images/jobs.png";
+import manageJobs from "../../Assets/Images/manageJobs.png";
+import expert from "../../Assets/Images/expert.jpeg";
+import career from "../../Assets/Images/career.jpeg";
 import {
     Grid,
     Typography,

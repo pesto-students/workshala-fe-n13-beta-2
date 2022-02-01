@@ -1,18 +1,12 @@
 import * as React from "react";
-
-import user2 from "../Images/react.jpg";
-
-import userImage from "../Images/userImage.png";
-
-import { Grid, Typography, CardContent, Card, Avatar } from "@mui/material";
-
-import IconRa from "../Images/react.jpg";
-import star from "../Images/star.png";
-import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
+import user2 from "../../Assets/Images/react.jpg";
+import userImage from "../../Assets/Images/userImage.png";
+import { Grid, Typography, CardContent, Card, Avatar, Divider, Button } from "@mui/material";
+import IconRa from "../../Assets/Images/react.jpg";
+import star from "../../Assets/Images/star.png";
 import { VscAdd } from "react-icons/vsc";
-import locationIcon from "../Images/location_icon.png";
-import Stack from "@mui/material/Stack";
+import locationIcon from "../../Assets/Images/location_icon.png";
+
 const profileData = {
   Image: user2,
   Name: "ABC Pvt. Ltd.",

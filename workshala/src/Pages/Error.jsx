@@ -1,6 +1,6 @@
 import {Avatar, Grid, Typography, Button} from "@mui/material";
 import * as React from "react";
-import error from '../Images/404.png'
+import error from '../Assets/Images/404.png'
 import {useNavigate} from "react-router-dom";
 import { Link } from 'react-router-dom';
 

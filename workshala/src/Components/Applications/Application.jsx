@@ -7,15 +7,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import email from '../Images/email.png';
-import Phone_icon from '../Images/Phone_icon.png';
+import email from '../../Assets/Images/email.png';
+import Phone_icon from '../../Assets/Images/Phone_icon.png';
 
-import Switch from "@mui/material/Switch";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Button, Grid, Avatar } from "@mui/material";
-import { purple, red } from '@mui/material/colors';
 
 const suggestions = [
   {
@@ -296,13 +294,7 @@ export default function Application() {
                         {columns.map((column, i) => {
                           const value = row[column.id];
                           return (
-                            (i == 7) ?  // do nothing
-                            <TableCell>
-                              column[i]
-                            </TableCell>
-                            
-                            :
-                            (i == 5) ?
+                            (i === 5) ?
                               <TableCell>
                                 <Grid container>
                                   <Grid item sx={{mr:1}}> 
@@ -316,8 +308,7 @@ export default function Application() {
                                 </Grid>
                               </TableCell>
                             :
-                            (i == 6) ? 
-                              
+                            (i === 6) ? 
                                     <TableCell>
                                       <ColoredStatusCell value={value}/>
                                     </TableCell>

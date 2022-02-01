@@ -1,8 +1,8 @@
 import * as React from "react";
-import recImg from "../Images/recruiter.jpeg";
-import jsImg from "../Images/job_seeker.jpeg";
+import recImg from "../../Assets/Images/recruiter.jpeg";
+import jsImg from "../../Assets/Images/job_seeker.jpeg";
 import SignUpModal from "../Auth/SignUpModal";
-
+import SignInModal from "../Auth/SignInModal";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
     Grid,
@@ -14,7 +14,7 @@ import {
     CardContent,
     Card
   } from "@mui/material";
-import SignInModal from "../Auth/SignInModal";
+
 
   const style = {
     largeIcon: {

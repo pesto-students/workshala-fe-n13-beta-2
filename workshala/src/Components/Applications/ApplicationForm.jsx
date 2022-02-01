@@ -1,5 +1,5 @@
 import React from 'react';
-import companyLogo from '../Images/companyLogo.jpg';
+import companyLogo from '../../Assets/Images/companyLogo.jpg';
 import {Paid, Group, Work, School, Upload, Article} from '@mui/icons-material';
 import {Avatar, Button, Divider, Grid, Typography, TextField, Paper, Box,CardContent,
     Card} from '@mui/material';
