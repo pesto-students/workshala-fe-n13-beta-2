@@ -17,8 +17,9 @@ const profileData = {
   Image: user2,
   Name: "ABC Pvt. Ltd.",
   Role: "Home Food Delivery",
-  Employees: "100",
+  Employees: "100 - 120",
   Reviews: "4.9",
+  Location: "India",
   Mobile: "+1-398-976-876",
   Whatsapp: "+1-398-976-876",
   Email: "Doe@gmail.com",
@@ -32,38 +33,47 @@ export default function LeftContent(props) {
     <Card
       sx={{
         mt: 1,
-        mx: 3.5,
         border: 0,
         width: props.wide,
         height: props.high,
         borderRadius: 4,
       }}
     >
-      <Avatar
-        src={IconRa}
-        sx={{ marginLeft: 12, mt: 2, height: 80, width: 80 }}
-      />
+      
       <CardContent>
-        <Typography
-          variant="h5"
-          fontSize={18}
-          style={{ fontWeight: 600 }}
-          align="center"
-        >
-          {profileData.Name}{" "}
-        </Typography>
-        <Typography variant="h5" fontSize={14} align="center">
-          {profileData.Role}{" "}
-        </Typography>
-        <Button
-          sx={{ mt: 4, marginLeft: 8 }}
-          variant="outlined"
-          startIcon={<VscAdd sx={{ height: 5, width: 5 }} />}
-        >
-          Follow
-        </Button>
-        <Grid container sx={{ mt: 2 }}>
-          <Grid item xs={3} sm={3} md={3}>
+        <Grid container>
+          <Grid item align="center" md={12}>
+            <Avatar
+              src={IconRa}
+              sx={{mt:3, height: 80, width: 80}}
+            />
+          </Grid>
+        <Grid item align="center" md={12}>
+          <Typography
+            variant="h5"
+            fontSize={18}
+            style={{ fontWeight: 600 }}
+            align="center"
+          >
+          {profileData.Name}
+          </Typography>
+        </Grid>
+        <Grid item align="center" md={12}>
+          <Typography variant="h5" fontSize={14} align="center">
+            {profileData.Role}
+          </Typography>
+        </Grid>
+        <Grid item align="center" md={12}>
+          <Button
+            sx={{ mt:2, width:150, height:35, borderRadius:8}}
+            variant="outlined"
+            startIcon={<VscAdd/>}>
+            Follow
+          </Button>
+        </Grid>
+
+        <Grid item container sx={{ mt: 1 }} md={12}>
+          <Grid item xs={3} sm={3} md={2.5}>
             <Avatar
               src={userImage}
               sx={{
@@ -73,148 +83,123 @@ export default function LeftContent(props) {
               }}
             />
           </Grid>
-          <Grid item xs={1} sm={1} md={1} sx={{}}>
-            <Typography
-              variant="h6"
-              fontSize={12}
-              sx={{
-                mt: 2,
-                marginLeft: -3,
-              }}
-              align="center"
-              style={{ fontWeight: 600 }}
-            >
-              {profileData.Employees}{" "}
-            </Typography>
+          <Grid item container md={3.5} direction="column">
+              <Grid item>
+                <Typography
+                  variant="h6"
+                  fontSize={12}
+                  sx={{mt:2}}>
+                  {profileData.Employees}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  variant="h6"
+                  fontSize={10}
+                  color="#A69F9F"
+                  style={{ fontWeight: 600 }}>
+                  {"Employees"}
+                </Typography>
+              </Grid>
           </Grid>
-          <Grid item xs={3} sm={3} md={3} sx={{}}>
+
+          <Grid item xs={3} sm={3} md={2.5}>
             <Avatar
               src={star}
               sx={{
                 width: 30,
                 height: 30,
                 mt: 2,
-                marginLeft: 6,
+                ml:2
               }}
             />
-            <Grid item xs={1} sm={1} md={1} sx={{}}>
-              <Typography
-                variant="h6"
-                fontSize={12}
-                sx={{
-                  mt: -4,
-                  marginLeft: 12,
-                }}
-                align="center"
-                style={{ fontWeight: 600 }}
-              >
-                {profileData.Reviews}{" "}
-              </Typography>
-            </Grid>
           </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={5} sm={5} md={5} sx={{}}>
-            <Typography
-              variant="h6"
-              fontSize={10}
-              color="#A69F9F"
-              align="left"
-              style={{ fontWeight: 600 }}
-              sx={{ marginLeft: 5, mt: -1 }}
-            >
-              {"Employees"}{" "}
-            </Typography>
-          </Grid>
-          <Grid item xs={5} sm={5} md={5} sx={{ mx: 1 }}>
-            <Typography
-              variant="h6"
-              fontSize={10}
-              color="#A69F9F"
-              sx={{ mx: 5, mt: -1, marginLeft: 8 }}
-              align="right"
-              style={{ fontWeight: 600 }}
-            >
-              {"Reviews"}{" "}
-            </Typography>
+          <Grid item container md={3.5} direction="column">
+              <Grid item>
+                <Typography
+                  variant="h6"
+                  fontSize={12}
+                  sx={{mt:2, ml:2}}>
+                  {profileData.Reviews}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  variant="h6"
+                  fontSize={10}
+                  color="#A69F9F"
+                  sx={{ml:2}}
+                  style={{ fontWeight: 600 }}>
+                  {"Reviews"}
+                </Typography>
+              </Grid>
           </Grid>
         </Grid>
 
-        {/* Location of company */}
-        <Grid container sx={{ mt: 2 }}>
-          <Grid item xs={1} sm={1} md={1} sx={{}}>
+        <Grid item xs={3} sm={3} md={2.5}>
             <Avatar
               src={locationIcon}
               sx={{
                 width: 30,
                 height: 30,
                 mt: 2,
-                marginLeft: 0,
               }}
             />
-            <Grid item xs={5} sm={5} md={5} sx={{}}>
-              <Typography
-                variant="h6"
-                fontSize={12}
-                sx={{
-                  mt: -4,
-                  marginLeft: 5,
-                }}
-                style={{ fontWeight: 600 }}
-              >
-                {" India"}{" "}
-              </Typography>
+          </Grid>
+          <Grid item container md={3.5} direction="column">
+              <Grid item>
+                <Typography
+                  variant="h6"
+                  fontSize={12}
+                  sx={{mt:2}}>
+                  {profileData.Location}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  variant="h6"
+                  fontSize={10}
+                  color="#A69F9F"
+                  style={{ fontWeight: 600 }}>
+                  {"Location"}
+                </Typography>
+              </Grid>
+          </Grid>
+
+          <Grid item container sx={{mt:3}}>
+          <Grid item md={7.5}>
+              <Button variant="outlined" size="small">
+                More Details
+              </Button>
+            </Grid>
+
+            <Grid item md={4.5}>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ }}>
+                Apply
+              </Button>
             </Grid>
           </Grid>
-          <Grid container>
-            <Grid item xs={5} sm={5} md={5} sx={{}}>
-              <Typography
-                variant="h6"
-                fontSize={10}
-                color="#A69F9F"
-                align="left"
-                style={{ fontWeight: 600 }}
-                sx={{ marginLeft: 5, mt: 0 }}
-              >
-                {"Location"}{" "}
-              </Typography>
-            </Grid>
+          <Grid item md={12} sx={{ mt: 2 }}>
+              {/* Divider line  */}
+              <Divider/>
           </Grid>
-        </Grid>
-
-        {/* Divider line  */}
-        <Divider variant="middle" sx={{ mt: 4 }} />
-
-        <Grid container sx={{ p: 3 }}>
-          <Typography
-            variant="h5"
-            fontSize={12}
-            style={{ fontWeight: 600 }}
-            align="center"
-          >
-            {profileData.AboutCompany}{" "}
-          </Typography>
-          <Typography fontSize={12} color="text.secondary" variant="body2">
-            {profileData.Description}{" "}
-          </Typography>
-        </Grid>
-
-        {/* vacancy and more details buttons */}
-        <Stack spacing={2} direction="row" sx={{ mt: 4 }}>
-          <Button variant="contained" size="small" fontSize="small">
-            2 Vacancy
-          </Button>
-          <Button variant="outlined" size="small">
-            More Details
-          </Button>
-        </Stack>
-        <Button
-          variant="contained"
-          size="large"
-          sx={{ mt: 4, paddingRight: 11, paddingLeft: 11 }}
-        >
-          Apply
-        </Button>
+          <Grid item md={12} sx={{mt:1}}>
+            <Typography
+              variant="h5"
+              fontSize={12}
+              style={{ fontWeight: 600 }}>
+              {profileData.AboutCompany}
+            </Typography>
+          </Grid>
+          <Grid item md={12} sx={{m:1}}>
+            <Typography fontSize={12} color="text.secondary" variant="body2" align="justify">
+              {profileData.Description}
+            </Typography>
+          </Grid>
+      </Grid>
       </CardContent>
     </Card>
   );

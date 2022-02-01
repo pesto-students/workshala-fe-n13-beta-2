@@ -2,6 +2,7 @@ import {Avatar, Grid, Typography, Button} from "@mui/material";
 import * as React from "react";
 import error from '../Images/404.png'
 import {useNavigate} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 export default function Error() {
@@ -70,7 +71,10 @@ export default function Error() {
                         <br/>
                         assembled the link incorrectly
                     </Typography>
-                    <Button sx={
+                    <Button 
+                    component={Link}
+                    to="/Home"
+                    sx={
                             {mt: 10}
                         }
                         onClick={

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Link as RouteLink} from 'react-router-dom';
 
 import {
     Grid,
@@ -110,7 +111,8 @@ const SignUp = () => {
               control={<Checkbox value="TAC" color="primary" />}
               label="I agree to the  Terms of Service and the Code of Conduct"
             />
-            <Button type="submit" fullWidth variant="contained">
+            <Button component={RouteLink} to="/Dashboard"
+            type="submit" fullWidth variant="contained">
               Sign Up
             </Button>
                 <SignInModal/>

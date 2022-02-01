@@ -1,4 +1,5 @@
 import * as React from "react";
+import {Link} from 'react-router-dom';
 import {Typography, Box, Grid, Drawer} from "@mui/material";
 import {makeStyles, withStyles} from '@mui/styles';
 import List from '@mui/material/List';
@@ -55,30 +56,30 @@ const SideMenuItems = [
     {
         title: 'Dashboard',
         icon: <HomeOutlinedIcon color="secondary"/>,
-        to: '/dashboard'
+        to: '/Dashboard'
     },
     {
         title: 'Jobs',
         icon: <BusinessCenterOutlinedIcon color="secondary"/>,
-        to: '/jobs'
+        to: '/Jobs'
     },
     {
         title: 'Applications',
         icon: <AppsOutlinedIcon color="secondary"/>,
-        to: 'applications'
+        to: '/Applications'
     },
     {
         title: 'Message',
         icon: <MessageOutlinedIcon color="secondary"/>,
-        to: 'message'
+        to: '/Message'
     }, {
         title: 'Statistics',
         icon: <StackedBarChartOutlinedIcon color="secondary"/>,
-        to: 'statistics'
+        to: '/Statistics'
     }, {
         title: 'News',
         icon: <NewspaperOutlinedIcon color="secondary"/>,
-        to: 'news'
+        to: '/News'
     },
 
 
@@ -181,6 +182,7 @@ export default function SideBar() {
                         {
                         SideMenuItems.map(item => (
                             <ListItem button
+                                component={Link}
 
                                 to={
                                     item.to

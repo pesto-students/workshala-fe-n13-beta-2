@@ -15,12 +15,13 @@ function App() {
     <BrowserRouter>
     <Routes>
         <Route index element={<Home />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Home" element={<Home />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Jobs" element={<Jobs />} />
+        <Route path="/Applications" element={<Applications />} />
         <Route path="/Statistics" element={<Statistics />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/ApplyJOb" element={<ApplyJob />} />
-        <Route path="/Jobs" element={<Jobs />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
