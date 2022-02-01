@@ -16,12 +16,11 @@ export default function Jobs() {
   return (
     <CandidateLayout>
       <Grid container>
-        <Grid item md={8}>
-          {" "}
+        <Grid item md={9}>
           <Job />
         </Grid>
-        <Grid item md={4}>
-          <QuickView wide={"270px"} high={"800px"} />
+        <Grid item md={3}>
+          <QuickView wide={"230px"} high={"800px"} />
         </Grid>
       </Grid>
     </CandidateLayout>

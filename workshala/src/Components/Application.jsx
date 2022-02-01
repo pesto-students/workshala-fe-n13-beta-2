@@ -7,55 +7,50 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import email from '../Images/email.png';
+import Phone_icon from '../Images/Phone_icon.png';
 
 import Switch from "@mui/material/Switch";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { Button, Grid, Avatar } from "@mui/material";
+import { purple, red } from '@mui/material/colors';
 
-import { Grid } from "@mui/material";
+const suggestions = [
+  {
+      label: "All",
+      color: "primary"
+  }, {
+      label: "Pending",
+      color: "success"
+  }, {
+      label: "On-Hold",
+      color: "success"
+  }, {
+      label: "In-Progress",
+      color: "success"
+  },{
+    label: "Hired",
+    color: "success"
+},{
+  label: "Rejected",
+  color: "success"
+}
+]
+
 const columns = [
-  { id: "id", label: "ID", minWidth: 170 },
-  { id: "date", label: "Date\u00a0Applied", minWidth: 100 },
-  {
-    id: "company",
-    label: "Company",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "type",
-    label: "Type",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "position",
-    label: "Position",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: "contact",
-    label: "Contact",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: "status",
-    label: "Status",
-    minWidth: 170,
-    align: "right",
-    format: (value) => value.toFixed(2),
-  },
+  { id: "id", label: "ID"},
+  { id: "date", label: "Date\u00a0Applied"},
+  { id: "company", label: "Company", format: (value) => value.toLocaleString("en-US")},
+  { id: "type", label: "Type", format: (value) => value.toLocaleString("en-US")},
+  { id: "position", label: "Position", format: (value) => value.toFixed(2)},
+  { id: "contact",  label: "Contact", format: (value) => value.toFixed(2)},
+  { id: "status", label: "Status",  format: (value) => value.toFixed(2)},
 ];
 
 function createData(id, date, company, type, position, contact, status) {
-  return { id, date, company, type, position, contact, status };
+  return { id, date, company, type, position, contact, status};
 }
 
 const rows = [
@@ -75,7 +70,34 @@ const rows = [
     "Freelance",
     "Delivery Boy",
     "",
-    "Pending"
+    "In-Progress"
+  ),
+  createData(
+    "APL-067",
+    "Jan 28, 2021 23:05 PM",
+    "ABC Company",
+    "Freelance",
+    "Delivery Boy",
+    "",
+    "On-Hold"
+  ),
+  createData(
+    "APL-067",
+    "Jan 28, 2021 23:05 PM",
+    "ABC Company",
+    "Freelance",
+    "Delivery Boy",
+    "",
+    "Hired"
+  ),
+  createData(
+    "APL-067",
+    "Jan 28, 2021 23:05 PM",
+    "ABC Company",
+    "Freelance",
+    "Delivery Boy",
+    "",
+    "Rejected"
   ),
   createData(
     "APL-067",
@@ -147,34 +169,7 @@ const rows = [
     "Freelance",
     "Delivery Boy",
     "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "ABC Company",
-    "Freelance",
-    "Delivery Boy",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "ABC Company",
-    "Freelance",
-    "Delivery Boy",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "ABC Company",
-    "Freelance",
-    "Delivery Boy",
-    "",
-    "Pending"
+    "Hired"
   ),
   createData(
     "APL-067",
@@ -196,6 +191,24 @@ const rows = [
   ),
 ];
 
+const ColoredStatusCell = (props) => {
+  var statusColor = "blue";
+  switch(props.value) {
+    case "Pending" : statusColor = "blue"; break;
+    case "On-Hold" : statusColor = "orange";break;
+    case "In-Progress" : statusColor = "blueviolet";break;
+    case "Hired" : statusColor = "green";break;
+    case "Rejected" : statusColor = "red";break;
+    default:  statusColor = "blue";
+  }
+  return (
+    
+  <Button variant="outlined" 
+        style={{width:140, height:30, borderRadius:10, color:statusColor}} >
+        {props.value}
+  </Button>);
+}
+
 export default function Application() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -210,64 +223,51 @@ export default function Application() {
   };
 
   return (
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      style={{ minHeight: "100vh", width: "100px", radius: "8" }}
-      sx={{ mx: -10 }}
-    >
-      <Grid item md={12}>
-        <Grid container>
-          <Grid item sx={{ mt: 2, marginLeft: 15 }}>
-            <Typography>Suggestions</Typography>
-          </Grid>
-          <Grid item xs={0.5} sm={0.5} md={0.5}>
-            <Stack
-              direction="row"
-              spacing={1}
-              alignItems="right"
-              sx={{ marginLeft: 30, mt: 2 }}
-            >
-              <Chip
-                label="Technician"
-                color="primary"
-                sx={{ marginRight: 1 }}
-              />
-              <Chip
-                label="Mechanic"
-                color="success"
-                style={{ backgroundColor: "#0000FF" }}
-                sx={{ marginRight: 1, marginLeft: 1 }}
-              />
-              <Chip
-                label="Delivery Boy"
-                color="success"
-                style={{ backgroundColor: "#0000FF" }}
-                sx={{ marginRight: 1, marginLeft: 1 }}
-              />
-              <Chip
-                label="Builder"
-                style={{ backgroundColor: "#0000FF" }}
-                color="success"
-                sx={{ marginRight: 1 }}
-              />
-            </Stack>
-          </Grid>
+    <Grid container>
+      <Grid item container md={12}>
+            <Grid item
+                md={1.5}
+                sx={
+                    {
+                        ml: 2,
+                        mt: 3
+                    }
+            }>
+                <Typography>Suggestions</Typography>
+            </Grid>
+            <Grid item
+                sx={
+                    {mt: 2}
+                }
+                xs={0.5}
+                sm={0.5}
+                md={9.5}>
+                <Stack direction="colunm">
+                    {
+                    suggestions.map(item => (
+                        <Chip label={
+                                item.label
+                            }
+                            color={
+                                item.color
+                            }
+                            sx={
+                                {ml: 1}
+                            }/>
+                    ))
+                } </Stack>
+            </Grid>
         </Grid>
-      </Grid>
-
-      <Grid item xs={10} md={12} alignItems="center" justifyContent="center">
+      
+      <Grid item md={12} alignItems="center" justifyContent="center" sx={{mt:1}}>
         <Paper
           sx={{
-            width: "90%",
-
-            margin: 16,
-            height: "80%",
-            elevation: 3,
+            m:1,
+            borderRadius:4,
+            p:1
           }}
         >
-          <TableContainer sx={{ maxHeight: 800 }}>
+          <TableContainer sx={{maxHeight:500}}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -275,7 +275,7 @@ export default function Application() {
                     <TableCell
                       key={column.id}
                       align={column.align}
-                      style={{ minWidth: column.minWidth }}
+                      style={{ minWidth: column.minWidth , fontWeight:550}}
                     >
                       {column.label}
                     </TableCell>
@@ -293,14 +293,40 @@ export default function Application() {
                         tabIndex={-1}
                         key={row.code}
                       >
-                        {columns.map((column) => {
+                        {columns.map((column, i) => {
                           const value = row[column.id];
                           return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value}
+                            (i == 7) ?  // do nothing
+                            <TableCell>
+                              column[i]
                             </TableCell>
+                            
+                            :
+                            (i == 5) ?
+                              <TableCell>
+                                <Grid container>
+                                  <Grid item sx={{mr:1}}> 
+                                    <Avatar src={Phone_icon}
+                                      sx={{width: 30, height: 30}}/>
+                                  </Grid>
+                                  <Grid>
+                                    <Avatar src={email}
+                                      sx={{width: 30, height: 30}}/>
+                                  </Grid>
+                                </Grid>
+                              </TableCell>
+                            :
+                            (i == 6) ? 
+                              
+                                    <TableCell>
+                                      <ColoredStatusCell value={value}/>
+                                    </TableCell>
+                                  :
+                                    <TableCell key={column.id} align={column.align}>
+                                      {column.format && typeof value === "number"
+                                        ? column.format(value)
+                                        : value}
+                                    </TableCell>
                           );
                         })}
                       </TableRow>

@@ -29,7 +29,7 @@ export default function Dashboard() {
                         sm={9}
                         md={9}>
                         {/*<RightContent/>*/}
-                        <VacancyStat/>
+                        <VacancyStat wide={"820px"} high={"500px"}/>
                     </Grid>
                 </Grid>
             </div>

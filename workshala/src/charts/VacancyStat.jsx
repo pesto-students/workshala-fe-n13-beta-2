@@ -1,10 +1,6 @@
 import React from 'react';
 import Chart from 'chart.js/auto';
-import {
-    Grid,
-    Typography,
-    Paper
-} from "@mui/material";
+import {Grid, Typography, Paper} from "@mui/material";
 
 import {Line} from "react-chartjs-2";
 
@@ -114,9 +110,9 @@ export default function VacancyStat(props) {
                         options={options}
                         style={
                             {
-                                maxWidth: 450,
-                                maxHeight: 250,
-                                margin:3
+                                maxWidth: 760,
+                                maxHeight: 520,
+                                margin: 3
                             }
                         }/>
                 </Grid>

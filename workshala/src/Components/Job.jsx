@@ -1,125 +1,200 @@
+import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+
 import Typography from "@mui/material/Typography";
 import IconRa from "../Images/react.jpg";
-import {
-  Avatar,
-  Button,
-  CardActionArea,
-  CardActions,
-  Grid,
-} from "@mui/material";
-import Switch from "@mui/material/Switch";
+import {Avatar, Button, CardActions, Grid, Select, MenuItem, Box, FormControl, InputLabel} from "@mui/material";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import { DataGrid } from "@mui/x-data-grid";
 
-const label = { inputProps: { "aria-label": "Salary" } };
+const label = {
+    inputProps: {
+        "aria-label": "Salary"
+    }
+};
 const jobsList = [
-  { title: "ABC company", subTitle: "Home Food Delivery" },
-  { title: "ABC company", subTitle: "Home Food Delivery" },
-  { title: "ABC company", subTitle: "Home Food Delivery" },
-  { title: "ABC company", subTitle: "Home Food Delivery" },
+    {
+        title: "ABC company",
+        subTitle: "Home Food Delivery",
+        exp: "3 - 5 Years"
+    }, {
+        title: "ABC company",
+        subTitle: "Home Food Delivery",
+        exp: "3 - 5 Years"
+    }, {
+        title: "ABC company",
+        subTitle: "Home Food Delivery",
+        exp: "3 - 5 Years"
+    },{
+      title: "ABC company",
+      subTitle: "Home Food Delivery",
+      exp: "3 - 5 Years"
+  }, {
+      title: "ABC company",
+      subTitle: "Home Food Delivery",
+      exp: "3 - 5 Years"
+  }, {
+      title: "ABC company",
+      subTitle: "Home Food Delivery",
+      exp: "3 - 5 Years"
+  },{
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years"
+}, {
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years"
+}, {
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years"
+}
+
 ];
 
+const suggestions = [
+    {
+        label: "Technician",
+        color: "primary"
+    }, {
+        label: "Mechanic",
+        color: "success"
+    }, {
+        label: "Delivery Boy",
+        color: "success"
+    }, {
+        label: "Builder",
+        color: "success"
+    }
+]
+
 const CardTemplate = (props) => {
-  return (
-    <Card sx={{ maxWidth: 345, borderRadius: 8 }}>
-      <CardContent>
-        <Avatar src={IconRa} sx={{ marginLeft: 6, mt: 2 }} />
-        <Typography gutterBottom variant="h5" component="div">
-          {props.title}
-        </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ marginLeft: 1 }}
-        >
-          {props.subTitle}
-        </Typography>
-      </CardContent>
+    return (
+        <Card sx={
+            {
+                maxWidth: 445,
+                borderRadius: 8,
+                width: 280
+            }
+        }>
+            <CardContent>
+                <Avatar src={IconRa}/>
+                <Typography gutterBottom variant="h6" align="center">
+                    {
+                    props.title
+                } </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                    {
+                    props.subTitle
+                } </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                    {
+                    props.exp
+                } </Typography>
+            </CardContent>
 
-      <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          justifyContent="center"
-          sx={{ marginLeft: 4 }}
-        >
-          View more
-        </Button>
-      </CardActions>
-    </Card>
-  );
+            <CardActions>
+              <Grid container>
+                <Grid item md={12} align={"center"}>
+                <Button size="small" color="primary"  variant="contained"
+                    style={{width:100}}>
+                    Apply
+                </Button>
+                </Grid>
+                <Grid item md={12} align="right">
+                <Button size="small" color="primary" 
+                    style={{fontSize:9}}>
+                    View more
+                </Button>
+                </Grid>
+              </Grid>
+            </CardActions>
+        </Card>
+    );
 };
+
+
+
 function Job() {
-  return (
-    <Grid container sx={{ marginBottom: 15 }}>
-      <Grid item sx={{ mt: 2 }}>
-        <Typography>Suggestions</Typography>
-      </Grid>
-      <Grid item xs={0.5} sm={0.5} md={0.5}>
-        <Stack spacing={1} direction="colunm" sx={{ marginLeft: 30, mt: 2 }}>
-          <Chip label="Technician" color="primary" sx={{ marginRight: 1 }} />
-          <Chip
-            label="Mechanic"
-            color="success"
-            style={{ backgroundColor: "#0000FF" }}
-            sx={{ marginRight: 1, marginLeft: 10 }}
-          />
-          <Chip
-            label="Delivery Boy"
-            color="success"
-            style={{ backgroundColor: "#0000FF" }}
-            sx={{ marginRight: 10, marginLeft: 1 }}
-          />
-          <Chip
-            label="Builder"
-            style={{ backgroundColor: "#0000FF" }}
-            color="success"
-            sx={{ marginRight: 1 }}
-          />
-        </Stack>
-      </Grid>
+    const [sort, setValue] = React.useState('');
 
-      <Grid container sx={{ mt: 2 }}>
-        <Grid item>
-          <Typography>Showing 193 job results</Typography>
-        </Grid>
-        <Grid item>
-          <Typography sx={{ marginLeft: 80, mt: 1 }}>Salary</Typography>
-        </Grid>
-        <Grid item>
-          {" "}
-          <Switch {...label} defaultChecked />
-        </Grid>
-        <Grid item></Grid>
-        <Grid item></Grid>
-        <Grid item></Grid>
-      </Grid>
+    const handleChange = (event) => {
+        setValue(event.target.value);
+      };
 
-      {jobsList.map((item) => (
-        <Grid container>
-          <Grid item sx={{ marginLeft: 1, mt: 2, marginRight: 1 }}>
-            <CardTemplate title={item.title} subTitle={item.subTitle} />
-          </Grid>
-          <Grid item sx={{ marginLeft: 1, mt: 2, marginRight: 1 }}>
-            <CardTemplate title={item.title} subTitle={item.subTitle} />
-          </Grid>
-          <Grid item sx={{ marginLeft: 1, mt: 2, marginRight: 1 }}>
-            <CardTemplate title={item.title} subTitle={item.subTitle} />
-          </Grid>
-          <Grid item sx={{ marginLeft: 1, mt: 2, marginRight: 1 }}>
-            <CardTemplate title={item.title} subTitle={item.subTitle} />
-          </Grid>
-          <Grid item sx={{ marginLeft: 1, mt: 2, marginRight: 1 }}>
-            <CardTemplate title={item.title} subTitle={item.subTitle} />
-          </Grid>
+    return (
+      <Grid container>
+        <Grid item container md={12}>
+            <Grid item
+                md={1.5}
+                sx={
+                    {
+                        ml: 2,
+                        mt: 3
+                    }
+            }>
+                <Typography>Suggestions</Typography>
+            </Grid>
+            <Grid item
+                sx={
+                    {mt: 2}
+                }
+                xs={0.5}
+                sm={0.5}
+                md={5}>
+                <Stack direction="colunm">
+                    {
+                    suggestions.map(item => (
+                        <Chip label={
+                                item.label
+                            }
+                            color={
+                                item.color
+                            }
+                            sx={
+                                {ml: 1}
+                            }/>
+                    ))
+                } </Stack>
+            </Grid>
+            <Grid item
+                sx={
+                    {mt:2}
+                }
+                xs={0.5}
+                sm={0.5}
+                md={5} align="right">
+                    
+                <Select sx={{height:35, width:120, borderRadius:4}}
+                        value={sort}    displayEmpty
+                        onChange={handleChange}>
+                    <MenuItem value="">Newest</MenuItem>
+                    <MenuItem value="Oldest">Oldest</MenuItem>
+                </Select>
+            </Grid>
         </Grid>
-      ))}
-    </Grid>
-  );
+                <Grid item container md={12} spacing={1} sx={
+                    {mt: 2}
+                }>
+                  {jobsList.map((item) => (
+                    <Grid item
+                        >
+                        <CardTemplate title={
+                                item.title
+                            }
+                            subTitle={
+                                item.subTitle
+                            }
+                            exp={
+                              item.exp
+                            }/>
+                  </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+    );
 }
 
 export default Job;
