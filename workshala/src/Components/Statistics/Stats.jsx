@@ -5,9 +5,9 @@ import {
     CardContent,
     Card
 } from "@mui/material";
-import VacancyStat from "../charts/VacancyStat";
-import JobTrends from "../charts/JobTrends";
-import Network from "../charts/Network";
+import VacancyStat from "../../charts/VacancyStat";
+import JobTrends from "../../charts/JobTrends";
+import Network from "../../charts/Network";
 
 const CardTemplate = (props) => {
     return (

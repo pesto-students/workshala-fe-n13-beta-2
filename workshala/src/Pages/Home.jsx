@@ -1,10 +1,9 @@
 import * as React from "react";
-import homeImg from "../Images/home.jpeg";
-//import PropTypes from "prop-types";
-import Footer from "../Home/Footer";
-import Body from "../Home/Body";
+import homeImg from "../Assets/Images/home.jpeg";
+import Footer from "../Components/Home/Footer";
+import Body from "../Components/Home/Body";
 import {Grid} from "@mui/material";
-import Header from "../Home/Header";
+import Header from "../Components/Home/Header";
 
 export default function HomePage() {
   const myStyle = {

@@ -1,20 +1,18 @@
 import * as React from "react";
 import {Link} from 'react-router-dom';
 import {Typography, Box, Grid, Drawer} from "@mui/material";
-import {makeStyles, withStyles} from '@mui/styles';
+import {makeStyles} from '@mui/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import logo from "../Images/logo.png";
+import logo from "../Assets/Images/logo.png";
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import StackedBarChartOutlinedIcon from '@mui/icons-material/StackedBarChartOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
-import SideBarBack from '../Images/SideBarBack.jpeg'
 
 const useStyles = makeStyles({
     root: {
@@ -22,35 +20,6 @@ const useStyles = makeStyles({
         maxWidth: 360
     }
 })
-
-const ListItemStyle = withStyles({
-    root: {
-        "&$selected": {
-            backgroundColor: "red",
-            color: "white",
-            "& .MuiListItemIcon-root": {
-                color: "white"
-            }
-        },
-        "&$selected:hover": {
-            backgroundColor: "purple",
-            color: "white",
-            "& .MuiListItemIcon-root": {
-                color: "white"
-            }
-        },
-        "&:hover": {
-            backgroundColor: "blue",
-            color: "white",
-            "& .MuiListItemIcon-root": {
-                color: "white"
-            }
-        }
-    },
-    selected: {
-        backgroundColor: "white"
-    }
-})(ListItem);
 
 const SideMenuItems = [
     {
@@ -85,23 +54,10 @@ const SideMenuItems = [
 
 ]
 
-const styles = theme => ({
-    drawerPaper: {
-        backgroundImage: `url(${SideBarBack})`
-
-    },
-    listItemText: {
-        fontSize: '1.7em', // Insert your required size
-    }
-})
-
 export default function SideBar() {
     const classes = useStyles();
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
+    const [selectedIndex] = React.useState(1);
 
-    const handleListItemClick = (event, index) => {
-        setSelectedIndex(index);
-    };
     return (
         <Drawer variant="permanent" anchor="left">
             <Grid container

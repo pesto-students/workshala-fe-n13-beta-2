@@ -1,18 +1,15 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-
+import SearchIcon from '@mui/icons-material/Search';
 import Typography from "@mui/material/Typography";
-import IconRa from "../Images/react.jpg";
-import {Avatar, Button, CardActions, Grid, Select, MenuItem, Box, FormControl, InputLabel} from "@mui/material";
+import IconRa from "../../Assets/Images/react.jpg";
+import {Avatar, Button, CardActions, Grid, Select, MenuItem, 
+TextField,
+InputAdornment} from "@mui/material";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
-const label = {
-    inputProps: {
-        "aria-label": "Salary"
-    }
-};
 const jobsList = [
     {
         title: "ABC company",
@@ -126,6 +123,29 @@ function Job() {
 
     return (
       <Grid container>
+
+        {/* Search bar */}
+        <Grid item md={12} >
+                <TextField sx={{width:"96%", m:1,p:1, 
+                borderRadius:4, backgroundColor:"white", border:0, borderColor:"white"}} size="small" border={0} borderColor="white"
+                placeholder="Search by Title, company or keyword..."
+                variant="standard"
+                    InputProps={
+                        {
+                            endAdornment: (
+                                <InputAdornment>
+                                    <Button variant="contained" sx={{width:100, borderRadius:4}}
+                                    startIcon={<SearchIcon />}>
+                                        Find
+                                    </Button>
+                                    
+                                </InputAdornment>
+                            ),
+                            disableUnderline: true
+                        }
+                    }/>
+            </Grid>
+
         <Grid item container md={12}>
             <Grid item
                 md={1.5}

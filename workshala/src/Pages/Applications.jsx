@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import CandidateLayout from "../Layouts/CandidateLayout";
-import Job from "../Components/Job";
-import ProfileInfo from "../Dashboard/ProfileInfo";
-import Application from "../Components/Application";
+import Job from "../Components/Jobs/Job";
+import ProfileInfo from "../Components/Dashboard/ProfileInfo";
+import Application from "../Components/Applications/Application";
 import {
   Button,
   Grid,

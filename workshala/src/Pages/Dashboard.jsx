@@ -1,10 +1,10 @@
 import * as React from "react";
 import {Grid} from "@mui/material";
-import TopContent from '../Dashboard/TopContent';
-import ProfileInfo from "../Dashboard/ProfileInfo";
+import TopContent from '../Components/Dashboard/TopContent';
+import ProfileInfo from "../Components/Dashboard/ProfileInfo";
 import VacancyStat from "../charts/VacancyStat";
 import CandidateLayout from "../Layouts/CandidateLayout";
-import RecentActivity from '../Dashboard/RecentActivity'
+import RecentActivity from '../Components/Dashboard/RecentActivity'
 
 export default function Dashboard() {
     return (
