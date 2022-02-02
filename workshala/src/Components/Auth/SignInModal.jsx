@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import SignUpModal from "./SignUpModal"
+import SignUpModal from "./SignUp/SignUpModal"
 import { Link as RouteLink} from 'react-router-dom';
 
 import {
