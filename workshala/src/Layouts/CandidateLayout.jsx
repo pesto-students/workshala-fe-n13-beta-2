@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import Header from './Header';
-import SideBar from "./SideBar";
+import SideBar from "./Sidebar";
 import {Grid} from "@mui/material";
 
 export default function CandidateLayout({children}) {
