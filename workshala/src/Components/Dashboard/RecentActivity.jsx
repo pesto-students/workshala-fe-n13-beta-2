@@ -1,24 +1,11 @@
 import * as React from "react";
-import jobs from "../Images/jobs.png";
-import manageJobs from "../Images/manageJobs.png";
-import expert from "../Images/expert.jpeg";
-import career from "../Images/career.jpeg";
-import CardMedia from '@mui/material/CardMedia';
-import user2 from '../Images/user2.jpeg'
-import whatsapp from '../Images/whatsapp.png'
-import Phone_icon from '../Images/Phone_icon.png'
-import email from '../Images/email.png'
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
     Grid,
     Typography,
     CardContent,
-    Card,
-    Avatar
+    Card
 } from "@mui/material";
-import {getThemeProps} from "@mui/system";
 
 const RecentData = {
     Action: "You have applied for mechanic post in ABC company",

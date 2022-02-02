@@ -1,18 +1,18 @@
 import * as React from "react";
 
-import user2 from "../Images/react.jpg";
+import user2 from "../Assets/Images/react.jpg";
 
-import userImage from "../Images/userImage.png";
+import userImage from "../Assets/Images/userImage.png";
 
 import { Grid, Typography, CardContent, Card, Avatar } from "@mui/material";
 
-import IconRa from "../Images/react.jpg";
-import star from "../Images/star.png";
+import IconRa from "../Assets/Images/react.jpg";
+import star from "../Assets/Images/star.png";
 import officeImage from "../Images/office_image.png";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import { VscAdd } from "react-icons/vsc";
-import locationIcon from "../Images/location_icon.png";
+import locationIcon from "../Assets/Images/location_icon.png";
 import Stack from "@mui/material/Stack";
 import CardMedia from "@mui/material/CardMedia";
 const profileData = {

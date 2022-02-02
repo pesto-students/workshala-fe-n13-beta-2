@@ -1,9 +1,9 @@
 import * as React from "react";
 import CardMedia from '@mui/material/CardMedia';
-import user2 from '../Images/user2.jpeg'
-import whatsapp from '../Images/whatsapp.png'
-import Phone_icon from '../Images/Phone_icon.png';
-import email from '../Images/email.png';
+import user2 from '../../Assets/Images/user2.jpeg'
+import whatsapp from '../../Assets/Images/whatsapp.png'
+import Phone_icon from '../../Assets/Images/Phone_icon.png';
+import email from '../../Assets/Images/email.png';
 import {
     Grid,
     Typography,
