@@ -1,14 +1,9 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import SearchIcon from '@mui/icons-material/Search';
-import Typography from "@mui/material/Typography";
 import IconRa from "../../Assets/Images/react.jpg";
 import {Avatar, Button, CardActions, Grid, Select, MenuItem, 
-TextField,
-InputAdornment} from "@mui/material";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
+TextField, Chip, Stack, Typography, CardContent, InputAdornment, Card} from "@mui/material";
+import { Link } from 'react-router-dom';
 
 const jobsList = [
     {
@@ -96,13 +91,17 @@ const CardTemplate = (props) => {
               <Grid container>
                 <Grid item md={12} align={"center"}>
                 <Button size="small" color="primary"  variant="contained"
-                    style={{width:100}}>
+                    style={{width:100}}
+                    component={Link}
+                    to="/ApplyJob">
                     Apply
                 </Button>
                 </Grid>
                 <Grid item md={12} align="right">
                 <Button size="small" color="primary" 
-                    style={{fontSize:9}}>
+                    style={{fontSize:9}}
+                    component={Link}
+                    to="/CompanyDetails">
                     View more
                 </Button>
                 </Grid>
@@ -111,8 +110,6 @@ const CardTemplate = (props) => {
         </Card>
     );
 };
-
-
 
 function Job() {
     const [sort, setValue] = React.useState('');

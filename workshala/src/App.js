@@ -15,7 +15,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<CompanyDetails />} />
+        <Route index element={<Home />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Statistics" element={<Statistics />} />
@@ -23,6 +23,7 @@ function App() {
         <Route path="/ApplyJOb" element={<ApplyJob />} />
         <Route path="/Jobs" element={<Jobs />} />
         <Route path="/Applications" element={<Applications />} />
+        <Route path="/CompanyDetails" element={<CompanyDetails />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
