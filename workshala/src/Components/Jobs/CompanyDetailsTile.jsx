@@ -1,12 +1,13 @@
 import * as React from "react";
 import user2 from "../../Assets/Images/react.jpg";
+import office_image from "../../Assets/Images/office_image.png";
 import userImage from "../../Assets/Images/userImage.png";
-import { Grid, Typography, CardContent, Card, Avatar, Divider, Button } from "@mui/material";
+import { Grid, Typography, CardContent, Card, Avatar, CardMedia } from "@mui/material";
 import IconRa from "../../Assets/Images/react.jpg";
 import star from "../../Assets/Images/star.png";
+import Button from "@mui/material/Button";
 import { VscAdd } from "react-icons/vsc";
 import locationIcon from "../../Assets/Images/location_icon.png";
-import { Link } from 'react-router-dom';
 
 const profileData = {
   Image: user2,
@@ -31,16 +32,22 @@ export default function LeftContent(props) {
         border: 0,
         width: props.wide,
         height: props.high,
-        borderRadius: 4,
+        borderRadius: 4
       }}
     >
+      <CardMedia
+        component="img"
+        height="140"
+        image={office_image}
+        alt="office image"
+      />
       
       <CardContent>
         <Grid container>
           <Grid item align="center" md={12}>
             <Avatar
               src={IconRa}
-              sx={{mt:3, height: 80, width: 80}}
+              sx={{mt:-8,height: 80, width: 80}}
             />
           </Grid>
         <Grid item align="center" md={12}>
@@ -159,42 +166,6 @@ export default function LeftContent(props) {
                   {"Location"}
                 </Typography>
               </Grid>
-          </Grid>
-
-          <Grid item container sx={{mt:3}}>
-          <Grid item md={7.5}>
-              <Button variant="outlined" size="small" component={Link}
-                    to="/CompanyDetails">
-                More Details
-              </Button>
-            </Grid>
-
-            <Grid item md={4.5}>
-              <Button
-                variant="contained"
-                size="small"
-                component={Link}
-                    to="/ApplyJob">
-                Apply
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid item md={12} sx={{ mt: 2 }}>
-              {/* Divider line  */}
-              <Divider/>
-          </Grid>
-          <Grid item md={12} sx={{mt:1}}>
-            <Typography
-              variant="h5"
-              fontSize={12}
-              style={{ fontWeight: 600 }}>
-              {profileData.AboutCompany}
-            </Typography>
-          </Grid>
-          <Grid item md={12} sx={{m:1}}>
-            <Typography fontSize={12} color="text.secondary" variant="body2" align="justify">
-              {profileData.Description}
-            </Typography>
           </Grid>
       </Grid>
       </CardContent>

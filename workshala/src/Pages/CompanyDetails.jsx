@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import CandidateLayout from "../Layouts/CandidateLayout";
-
-import LeftTile from "../Components/CompanyDetailsTile";
-import JobDetails from "../Components/JobDetails";
+import LeftTile from "../Components/Jobs/CompanyDetailsTile";
+import JobDetails from "../Components/Jobs/JobDetails";
 import {
   Button,
   Grid,
@@ -16,11 +15,11 @@ export default function CompanyDetails() {
   return (
     <CandidateLayout>
       <Grid container>
-        <Grid item md={2} sx={{ marginLeft: -8 }}>
-          <LeftTile wide={"300px"} high={"600px"} />{" "}
+        <Grid item md={2.8} >
+          <LeftTile wide={"100%"} high={"45%"} />
         </Grid>
-        <Grid item md={8} sx={{ marginLeft: 8 }}>
-          <JobDetails wide={"1000px"} high={"600px"} />{" "}
+        <Grid item md={9.2} >
+          <JobDetails wide={"95%"} high={"90%"} />
         </Grid>
       </Grid>
     </CandidateLayout>

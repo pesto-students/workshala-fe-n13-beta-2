@@ -1,16 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import CandidateLayout from "../Layouts/CandidateLayout";
 import Job from "../Components/Jobs/Job";
-import ProfileInfo from "../Components/Dashboard/ProfileInfo";
 import QuickView from "../Components/Jobs/CompanyQuickView";
 import {
-  Button,
-  Grid,
-  Divider,
-  Switch,
-  Typography,
-  TextField,
-  Paper,
+  Grid
 } from "@mui/material";
 export default function Jobs() {
   return (
