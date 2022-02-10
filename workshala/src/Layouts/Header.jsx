@@ -3,74 +3,64 @@ import SegmentIcon from '@mui/icons-material/Segment';
 import MessageIcon from '@mui/icons-material/Message';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import PersonIcon from '@mui/icons-material/Person';
-
+import ProfileDropdown from '../Layouts/ProfileDropdown'
+import { Link } from 'react-router-dom';
 import {
-    Grid,
+    Grid, IconButton, 
     Typography
 } from "@mui/material";
 
-export default function Header(props) {
+export default function Header({dashBoardSideNavToggle}) {
     return (
-
-        <Grid container sx={{mt:3, height:'7vh'}}>
+        <Grid container sx={{mt:2, height:'10vh'}}>
             {/* icon */}
             <Grid item
                 xs={0.3}
                 sm={0.3}
-                md={0.3} sx={{mt:0.5}}>
-                <SegmentIcon />
+                md={1} >
+                <IconButton onClick={dashBoardSideNavToggle}>
+                    <SegmentIcon/>
+                </IconButton>
             </Grid>
-
-            {/* Dashboard */}
-
-            <Grid item xs={2} sm={2} md={2}>
-                <Typography component="h1" variant="h5" color="black">
-                    Dashboard
-                </Typography>
-            </Grid>
-            <Grid item xs={2} sm={2} md={3}>
-
-            </Grid>
-
             
             {/* message icon */}
-            
-            <Grid item
-                xs={0.5}
-                sm={0.5}
-                md={0.5}
-                sx={{marginLeft:45, mt:0.4, marginRight:1}}>
-                <MessageIcon style={{fontSize:34}}/>
-            </Grid>
+            <Grid item md={11} container justifyContent={"flex-end"} spacing={2}>
+                <Grid item  >
+                    <IconButton component={Link} to="/Error" sx={{mt:0.5}}>
+                        <MessageIcon style={{fontSize:34}}/>
+                    </IconButton>
+                </Grid>
 
-            {/* notification icon */}
-            <Grid item
-                xs={0.5}
-                sm={0.5}
-                md={0.5}
-                >
-                <NotificationsActiveIcon style={{fontSize:34}}/>
-            </Grid>
-            {/* user icon */}
-            <Grid item
-                xs={0.5}
-                sm={0.5}
-                md={0.5} sx={{ml:3}}>
-                <PersonIcon style={{fontSize:34}}/>
-            </Grid>
-            <Grid item container direction="column" md={0.8}>
+                {/* notification icon */}
                 <Grid item>
-                    <Typography component="h1" variant="h5" color="black" style={{fontSize:12}}>
-                        John Doe
-                    </Typography>
+                    <IconButton component={Link} to="/Error">
+                        <NotificationsActiveIcon style={{fontSize:34}}/>
+                    </IconButton>
+                </Grid>
+            
+                <Grid item>
+                    <IconButton component={Link} to="/Profile">
+                        <PersonIcon style={{fontSize:34}}/>
+                    </IconButton>
+                </Grid>
+                    
+                <Grid item direction="column" sx={{mt:0.5}}>
+                    <Grid item>
+                        <Typography component="h1" variant="h5" color="black" style={{fontSize:14}}>
+                            John Doe
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography component="h1" variant="h5" color="black" style={{fontSize:14, color:"brown"}}>
+                            Candidate
+                        </Typography>
+                    </Grid>
                 </Grid>
                 <Grid item>
-                    <Typography component="h1" variant="h5" color="black" style={{fontSize:12, color:"brown"}}>
-                        Candidate
-                    </Typography>
-                </Grid>
+                    {/*<ReorderIcon style={{fontSize:34}}/>*/}
+                    <ProfileDropdown/>
+                </Grid>                
             </Grid>
         </Grid>
-
     );
 }

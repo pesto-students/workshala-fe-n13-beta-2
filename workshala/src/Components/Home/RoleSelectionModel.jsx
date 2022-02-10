@@ -1,7 +1,7 @@
 import * as React from "react";
 import recImg from "../../Assets/Images/recruiter.jpeg";
 import jsImg from "../../Assets/Images/job_seeker.jpeg";
-import SignUpModal from "../Auth/SignUp/SignUpModal";
+import SignUpModal from "../Auth/SignUpModal";
 import SignInModal from "../Auth/SignInModal";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
@@ -94,7 +94,7 @@ import {
         >
           <Box sx={style.model}>
             <ThemeProvider theme={theme}>
-              <Grid container spacing>
+              <Grid container>
                 <Grid item xs>
                   <RoleCardTemplate
                     img={recImg}

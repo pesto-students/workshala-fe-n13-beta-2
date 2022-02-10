@@ -33,7 +33,7 @@ const footerItems = [
 
 const CardTemplate = (props) => {
     return (
-        <Card elevation="0"
+        <Card
             sx={
                 {
                     p: 3,
@@ -86,13 +86,13 @@ const CardTemplate = (props) => {
 
 export default function Footer() {
     return (
-        <Grid container spacing
+        <Grid container
             alignItems={"center"}
             justifyContent={"center"}>
 
             {
-            footerItems.map(item => (
-                <Grid item>
+            footerItems.map((item, i) => (
+                <Grid item key={i}>
                     <CardTemplate logo={
                             item.logo
                         }

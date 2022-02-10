@@ -3,6 +3,7 @@ import companyLogo from '../../Assets/Images/companyLogo.jpg';
 import {Paid, Group, Work, School, Upload, Article} from '@mui/icons-material';
 import {Avatar, Button, Divider, Grid, Typography, TextField, Paper, Box,CardContent,
     Card} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const data= [
                 {icon:<School/>, title: "Work Level", value: "Senior"}, 
@@ -305,7 +306,10 @@ export default function ApplicationForm() {
 
                     <Grid item container sx={{ml:1, mt:2}} spacing={2}>
                     <Grid item>
-                        <Button variant="contained" sx={{borderRadius:4, width:150}}>
+                        <Button variant="contained" sx={{borderRadius:4, width:150}}
+                        component={Link}
+                        to="/Applications"
+                        >
                             Submit
                         </Button>
                     </Grid>

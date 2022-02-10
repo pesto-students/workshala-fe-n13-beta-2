@@ -1,8 +1,6 @@
 import * as React from "react";
 import {
     Grid,
-    Tabs,
-    Tab,
     Typography,
     Box,
     Button,
@@ -18,7 +16,7 @@ import {
     //   };
       return (
         <Box sx={{ width: "100%" }}>
-          <Tabs
+          {/*<Tabs
            // value={value}
             //onChange={handleChange}
             textColor="secondary"
@@ -28,12 +26,12 @@ import {
             <Tab value="Find a Job" label="Find a Job" />
             <Tab value="Find a Candidate" label="Find a Candidate" />
           </Tabs>
-          {/* <TabPanel value={value} index={0}>
+           <TabPanel value={value} index={0}>
             <div>
               <TextField id="outlined-basic" label="Outlined" variant="outlined" />
              </div>
          </TabPanel>*/}
-          <Grid container spacing sx={{ mx: 1 }}>
+          <Grid container sx={{ mx: 1 }}>
             <Grid item xs={3} sm={3} md={3}>
               <TextField id="title" label="Title" variant="outlined" />
             </Grid>
@@ -50,8 +48,7 @@ import {
                 size="large"
                 sx={{ mx: 5, height: 50, width: 150 }}
               >
-                {" "}
-                Search{" "}
+                Search
               </Button>
             </Grid>
           </Grid>

@@ -16,6 +16,7 @@ import {
   } from "@mui/material";
 
 export default function Header() {
+  const [value] = React.useState('one');
   return (
     <AppBar color="transparent" elevation={0}>
       <Toolbar>
@@ -47,11 +48,11 @@ export default function Header() {
               sx={{ mr: 2 }}
             ></IconButton>
             <Box flexGrow={1} />
-            <Tabs textColor="inherit">
-              <Tab label="Home" />
-              <Tab label="About" />
-              <Tab label="Blog" />
-              <Tab label="Contact" />
+            <Tabs value={value} textColor="inherit">
+              <Tab label="Home" to="/" value="one"/>
+              <Tab label="About" to="/" value="two"/>
+              <Tab label="Blog" to="/" value="three"/>
+              <Tab label="Contact" to="/" value="four"/>
             </Tabs>
           </Grid>
 

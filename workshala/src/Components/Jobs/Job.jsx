@@ -1,14 +1,9 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import SearchIcon from '@mui/icons-material/Search';
-import Typography from "@mui/material/Typography";
 import IconRa from "../../Assets/Images/react.jpg";
 import {Avatar, Button, CardActions, Grid, Select, MenuItem, 
-TextField,
-InputAdornment} from "@mui/material";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
+TextField, Chip, Stack, Typography, CardContent, InputAdornment, Card, CardActionArea} from "@mui/material";
+import { Link } from 'react-router-dom';
 
 const jobsList = [
     {
@@ -69,40 +64,39 @@ const suggestions = [
 
 const CardTemplate = (props) => {
     return (
-        <Card sx={
-            {
-                maxWidth: 445,
-                borderRadius: 8,
-                width: 280
-            }
-        }>
-            <CardContent>
+        <Card sx={{borderRadius: 8, p:2}}>
+            <CardActionArea onClick={props.click}>
+            <CardContent align="center">
                 <Avatar src={IconRa}/>
-                <Typography gutterBottom variant="h6" align="center">
+                <Typography gutterBottom variant="h6">
                     {
                     props.title
                 } </Typography>
-                <Typography variant="body2" color="text.secondary" align="center">
+                <Typography variant="body2" color="text.secondary">
                     {
                     props.subTitle
                 } </Typography>
-                <Typography variant="body2" color="text.secondary" align="center">
+                <Typography variant="body2" color="text.secondary">
                     {
                     props.exp
                 } </Typography>
             </CardContent>
-
+            </CardActionArea>
             <CardActions>
               <Grid container>
                 <Grid item md={12} align={"center"}>
-                <Button size="small" color="primary"  variant="contained"
-                    style={{width:100}}>
+                <Button size="small" color="primary" variant="contained"
+                    style={{width:100}}
+                    component={Link}
+                    to="/ApplyJob">
                     Apply
                 </Button>
                 </Grid>
-                <Grid item md={12} align="right">
-                <Button size="small" color="primary" 
-                    style={{fontSize:9}}>
+                <Grid item md={12} align="right" sx={{mt:5}}>
+                <Button size="small" color="primary"
+                    style={{fontSize:9}}
+                    component={Link}
+                    to="/CompanyDetails">
                     View more
                 </Button>
                 </Grid>
@@ -112,9 +106,7 @@ const CardTemplate = (props) => {
     );
 };
 
-
-
-function Job() {
+export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
     const [sort, setValue] = React.useState('');
 
     const handleChange = (event) => {
@@ -127,7 +119,7 @@ function Job() {
         {/* Search bar */}
         <Grid item md={12} >
                 <TextField sx={{width:"96%", m:1,p:1, 
-                borderRadius:4, backgroundColor:"white", border:0, borderColor:"white"}} size="small" border={0} borderColor="white"
+                borderRadius:4, backgroundColor:"white", border:0}} size="small" border={0}
                 placeholder="Search by Title, company or keyword..."
                 variant="standard"
                     InputProps={
@@ -166,8 +158,8 @@ function Job() {
                 md={5}>
                 <Stack direction="colunm">
                     {
-                    suggestions.map(item => (
-                        <Chip label={
+                    suggestions.map((item, i) => (
+                        <Chip key={i} label={
                                 item.label
                             }
                             color={
@@ -198,8 +190,8 @@ function Job() {
                 <Grid item container md={12} spacing={1} sx={
                     {mt: 2}
                 }>
-                  {jobsList.map((item) => (
-                    <Grid item
+                  {jobsList.map((item, i) => (
+                    <Grid item key={i}
                         >
                         <CardTemplate title={
                                 item.title
@@ -209,12 +201,12 @@ function Job() {
                             }
                             exp={
                               item.exp
-                            }/>
+                            }
+                            click={quickViewToggle}
+                            />
                   </Grid>
                   ))}
                 </Grid>
               </Grid>
     );
-}
-
-export default Job;
+};
