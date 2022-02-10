@@ -7,7 +7,8 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
-import ReorderIcon from '@mui/icons-material/Reorder';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
 import { Link } from 'react-router-dom';
 
 export default function ProfileDropdown() {
@@ -57,7 +58,7 @@ export default function ProfileDropdown() {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          <ReorderIcon />
+          <ArrowDropDownIcon />
         </IconButton>
         <Popper
           open={open}

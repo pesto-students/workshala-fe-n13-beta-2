@@ -1,7 +1,13 @@
-import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link as RouteLink } from "react-router-dom";
+import React, {useEffect} from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import {postSignUp}  from '../../redux/actions/signUp';
+import { connect } from 'react-redux';
+import signUpRed from '../../redux/reducers/signUp'
+import {useNavigate} from "react-router-dom";
 
 import {
   Grid,
@@ -17,7 +23,8 @@ import {
   FormControlLabel,
 } from "@mui/material";
 
-import SignInModal from "../SignInModal";
+import SignInModal from "./SignInModal";
+import {useForm} from 'react-hook-form';
 
 const theme = createTheme();
 
@@ -33,7 +40,30 @@ const style = {
   p: 4,
 };
 
-const SignUp = () => {
+function Test () {
+  //const status = useSelector(state => state.signUp.status);
+
+  
+  //
+}
+
+
+
+const SignUpForm = (props) => {
+  const navigate = useNavigate();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const dispatch = useDispatch();
+  const signUp = useSelector(state => state.signUp.postSignUp);
+  const status = useSelector(state => state.signUp.status);
+
+  const onSubmit = data => {
+    console.log(data);
+    
+    dispatch(postSignUp(data));
+                                          //TODO: check for status and then navigate
+    navigate('Dashboard')
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Grid item xs={12} sm={12} md={12} component={Paper} elevation={0} square>
@@ -50,8 +80,16 @@ const SignUp = () => {
           <Typography component="h2" variant="h6">
             Please fill in the below form to create an account
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <Grid container spacing>
+          
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+            {/*
+            TODOD:
+            1. Email address validation (use regex)
+            2. Password and confirm pass should be same
+            */}
+          
+            <Grid container spacing={1}>
               <Grid item xs>
                 <TextField
                   margin="normal"
@@ -62,6 +100,7 @@ const SignUp = () => {
                   name="firstName"
                   autoComplete="firstName"
                   autoFocus
+                  {...register('firstName')}
                 />
               </Grid>
               <Grid item xs>
@@ -73,7 +112,7 @@ const SignUp = () => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="lastName"
-                  autoFocus
+                  {...register('lastName')}
                 />
               </Grid>
             </Grid>
@@ -85,7 +124,8 @@ const SignUp = () => {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              
+              {...register('email')}
             />
             <TextField
               margin="normal"
@@ -96,6 +136,7 @@ const SignUp = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              
             />
             <TextField
               margin="normal"
@@ -106,14 +147,13 @@ const SignUp = () => {
               type="password"
               id="confirmPassword"
               autoComplete="current-password"
+              
             />
-            <FormControlLabel
+          {/*  <FormControlLabel
               control={<Checkbox value="TAC" color="primary" />}
               label="I agree to the  Terms of Service and the Code of Conduct"
-            />
+          />*/}
             <Button
-              component={RouteLink}
-              to="/Dashboard"
               type="submit"
               fullWidth
               variant="contained"
@@ -121,17 +161,25 @@ const SignUp = () => {
               Sign Up
             </Button>
             <SignInModal />
-          </Box>
+          
+          </form>
         </Box>
       </Grid>
     </ThemeProvider>
   );
 };
 
-export default function SignUpModal(props) {
+
+
+ function SignUpModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  // const NavigateTo = () => {
+  //   const navigate = useNavigate();
+  //   navigate('Home')
+  // }
 
   if (props.flag) {
     return (
@@ -150,7 +198,7 @@ export default function SignUpModal(props) {
           onClose={handleClose}
         >
           <Box sx={style}>
-            <SignUp />
+            <SignUpForm />
           </Box>
         </Modal>
       </div>
@@ -177,9 +225,11 @@ export default function SignUpModal(props) {
         onClose={handleClose}
       >
         <Box sx={style}>
-          <SignUp />
+          <SignUpForm />
         </Box>
       </Modal>
     </div>
   );
 }
+
+export default SignUpModal;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import SignUpModal from "./SignUp/SignUpModal"
+import SignUpModal from "./SignUpModal"
 import { Link as RouteLink} from 'react-router-dom';
 
 import {
@@ -49,7 +49,7 @@ const SignIn = () => {
     return(
       <ThemeProvider theme={theme}>
         
-          <Grid item xs={12} sm={12} md={12} component={Paper} elevation={0} square>
+          <Grid item xs={12} sm={12} md={12} component={Paper} square>
             <Box
               sx={{
                 

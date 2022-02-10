@@ -3,13 +3,7 @@ import CandidateLayout from "../Layouts/CandidateLayout";
 import LeftTile from "../Components/Jobs/CompanyDetailsTile";
 import JobDetails from "../Components/Jobs/JobDetails";
 import {
-  Button,
-  Grid,
-  Divider,
-  Switch,
-  Typography,
-  TextField,
-  Paper,
+  Grid
 } from "@mui/material";
 export default function CompanyDetails() {
   return (

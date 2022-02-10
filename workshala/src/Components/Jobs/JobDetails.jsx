@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Typography, Button, Card, Avatar, ImageList, ImageListItem } from "@mui/material";
+import { Grid, Typography, Button, Card, ImageList, ImageListItem } from "@mui/material";
 import office1 from "../../Assets/Images/ofc1.png";
 import office2 from "../../Assets/Images/ofc2.png";
 import office3 from "../../Assets/Images/ofc3.png";

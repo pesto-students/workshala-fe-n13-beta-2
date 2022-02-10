@@ -17,10 +17,7 @@ export default function LeftContent() {
         <Card sx={
             {
                 mt: 1,
-                mx: 3.5,
                 border: 0,
-                width: 270,
-                height: 180,
                 borderRadius: 4
             }
         }>
