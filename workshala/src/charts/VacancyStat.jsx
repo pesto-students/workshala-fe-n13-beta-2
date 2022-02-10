@@ -62,28 +62,12 @@ const options = {
     responsive: true
 };
 
-export default function VacancyStat(props) {
+export default function VacancyStat() {
     return (
 
-        <Paper sx={
-            {
-                mt: 1,
-                mx: 2.5,
-                border: 0,
-                width: props.wide,
-                height: props.high,
-                borderRadius: 4
-
-            }
-        }>
-            <Grid container>
+        <Paper sx={{borderRadius: 4}}>
+            <Grid container sx={{p:3}}>
                 <Grid item
-                    sx={
-                        {
-                            marginTop: 3,
-                            marginLeft: 3
-                        }
-                    }
                     xs={12}
                     sm={12}
                     md={12}>
@@ -97,24 +81,10 @@ export default function VacancyStat(props) {
                 <Grid item
                     xs={12}
                     sm={12}
-                    md={12}
-                    sx={
-                        {
-                            marginLeft: 5,
-                            marginTop: 2,
-                            marginBottom: 2
-                        }
-                }>
+                    md={12}>
                     <Line data={data}
                         legend={legend}
-                        options={options}
-                        style={
-                            {
-                                maxWidth: 760,
-                                maxHeight: 520,
-                                margin: 3
-                            }
-                        }/>
+                        options={options}/>
                 </Grid>
             </Grid>
 

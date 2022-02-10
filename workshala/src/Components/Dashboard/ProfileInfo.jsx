@@ -23,20 +23,10 @@ const profileData = {
     Email: "Doe@gmail.com"
 }
 
-export default function LeftContent(props) {
+export default function LeftContent() {
     return (
-        
-        <Card sx={
-            {
-                mt: 1,
-                mx: 3.5,
-                border: 0,
-                width: props.wide,
-                height: props.high,
-                borderRadius: 4
-            }
-        }>
-            <CardMedia component="img" height="45%" objectFit='cover'
+        <Card sx={{borderRadius: 4}}>
+            <CardMedia  height="45%" 
                 image={
                     profileData.Image
                 }
@@ -62,9 +52,7 @@ export default function LeftContent(props) {
                         xs={5}
                         sm={5}
                         md={5}
-                        sx={
-                            {}
-                    }>
+                        >
                         <Typography variant="h6"
                             fontSize={15}
                             sx={
@@ -85,9 +73,7 @@ export default function LeftContent(props) {
                         xs={5}
                         sm={5}
                         md={5}
-                        sx={
-                            {}
-                    }>
+                        >
                         <Typography variant="h6"
                             fontSize={15}
                             sx={
@@ -106,10 +92,7 @@ export default function LeftContent(props) {
                     <Grid item
                         xs={5}
                         sm={5}
-                        md={5}
-                        sx={
-                            {}
-                    }>
+                        md={5}>
                         <Typography variant="h6"
                             fontSize={15}
                             color="#A69F9F"
@@ -161,11 +144,9 @@ export default function LeftContent(props) {
                         xs={9}
                         sm={9}
                         md={9}
-                        
                         sx={
                             {mt:0.5}
                     }>
-
                         {
                         profileData.Mobile
                     } </Grid>
@@ -192,11 +173,9 @@ export default function LeftContent(props) {
                         xs={9}
                         sm={9}
                         md={9}
-                        
                         sx={
                             {mt:0.5}
                     }>
-
                         {
                         profileData.Whatsapp
                     } </Grid>
@@ -217,17 +196,14 @@ export default function LeftContent(props) {
                                     height: 30
                                 }
                             }/>
-
                     </Grid>
                     <Grid item
                         xs={9}
                         sm={9}
                         md={9}
-                        
                         sx={
                             {mt:0.5}
                     }>
-
                         {
                         profileData.Email
                     } </Grid>

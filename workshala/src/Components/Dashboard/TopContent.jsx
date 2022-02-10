@@ -38,8 +38,8 @@ const CardTemplate = (props) => {
             {
                 mt: 1,
                 border: 0,
-                width: 270,
-                height: 150,
+                
+                
                 color: blue,
                 borderRadius: 8
             }
@@ -88,10 +88,9 @@ export default function TopContent() {
         <Grid container spacing={1}
             alignItems={"center"}
             justifyContent={"center"}>
-
             {
-            tileItems.map(item => (
-                <Grid item>
+            tileItems.map((item, i) => (
+                <Grid item key={i} maxWidth={"25%"}>
                     <CardTemplate logo={
                             item.logo
                         }

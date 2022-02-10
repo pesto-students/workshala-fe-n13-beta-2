@@ -23,18 +23,9 @@ const profileData = {
     "This is about the company . What company does and how many empolyees. This is just gibberish text nothing more than that.",
 };
 
-export default function LeftContent(props) {
+export default function LeftContent() {
   return (
-    <Card
-      sx={{
-        mt: 1,
-        border: 0,
-        width: props.wide,
-        height: props.high,
-        borderRadius: 4,
-      }}
-    >
-      
+    <Card sx={{borderRadius: 4}} width="100%">
       <CardContent>
         <Grid container>
           <Grid item align="center" md={12}>
@@ -161,15 +152,15 @@ export default function LeftContent(props) {
               </Grid>
           </Grid>
 
-          <Grid item container sx={{mt:3}}>
-          <Grid item md={7.5}>
+          <Grid item container sx={{mt:3}} spacing={1} justifyContent={"center"}>
+            <Grid item >
               <Button variant="outlined" size="small" component={Link}
                     to="/CompanyDetails">
-                More Details
+                Details
               </Button>
             </Grid>
 
-            <Grid item md={4.5}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="small"
