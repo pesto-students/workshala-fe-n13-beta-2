@@ -5,12 +5,31 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import PersonIcon from '@mui/icons-material/Person';
 import ProfileDropdown from '../Layouts/ProfileDropdown'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
     Grid, IconButton, 
     Typography
 } from "@mui/material";
 
-export default function Header({dashBoardSideNavToggle}) {
+export default function Header({dashBoardSideNavToggle}, props) {
+
+    var profileData = {
+        Name: 'John Doe',
+        Role: 'Candidate'
+    };
+/*          //TODO
+    const userInfo = useSelector(state => state.userInfo);
+    if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
+        && userInfo.data.results != undefined) {
+
+        const userData = userInfo.data.results[0];
+
+        profileData = {
+            Name: userData.firstName + " " + userData.lastName,
+            Role: userData.role
+        }
+    }
+*/
     return (
         <Grid container sx={{mt:2, height:'10vh'}}>
             {/* icon */}
@@ -47,12 +66,12 @@ export default function Header({dashBoardSideNavToggle}) {
                 <Grid item direction="column" sx={{mt:0.5}}>
                     <Grid item>
                         <Typography component="h1" variant="h5" color="black" style={{fontSize:14}}>
-                            John Doe
+                            {profileData.Name}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Typography component="h1" variant="h5" color="black" style={{fontSize:14, color:"brown"}}>
-                            Candidate
+                            {profileData.Role}
                         </Typography>
                     </Grid>
                 </Grid>

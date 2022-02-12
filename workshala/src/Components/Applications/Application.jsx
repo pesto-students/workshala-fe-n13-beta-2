@@ -232,8 +232,8 @@ export default function Application() {
                 md={9.5}>
                 <Stack direction="colunm">
                     {
-                    suggestions.map(item => (
-                        <Chip label={
+                    suggestions.map((item, i) => (
+                        <Chip key={i} label={
                                 item.label
                             }
                             color={
