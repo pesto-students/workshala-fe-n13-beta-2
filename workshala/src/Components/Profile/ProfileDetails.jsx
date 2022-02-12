@@ -1,6 +1,5 @@
 import * as React from "react";
-import {makeStyles} from '@mui/styles';
-
+import { useSelector} from "react-redux";
 import {
   Grid,
   Typography,
@@ -17,30 +16,6 @@ import {
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-const SkillItems = [
-  {
-    skill: "Cooking",
-    experience: "3 years",
-  },
-  {
-    skill: "Cooking",
-    experience: "3 years",
-  },
-];
-
-const ExperienceData = [
-  {
-    lastCompany: "Last Company",
-    startDate: "10/01/2019",
-    endDate: "10/1/2019",
-  },
-  {
-    lastCompany: "Company",
-    startDate: "10/01/2019",
-    endDate: "10/1/2019",
-  },
-];
 
 const CardTemplate = (props) => {
   return (
@@ -97,17 +72,20 @@ const CardTemplate = (props) => {
 /* 
  * Data used in Body
  */
-const AboutMeData = {user: 'John Doe', AboutMeText: 'The lines are random and randomly typed the lines are random and randomly typed the lines are random and randomly typed randomly typed the lines are random and randomly typed the lines are random and randomly typed randomly typed the lines are random and randomly typed the lines are random and randomly typed randomly typed the lines are random and randomly typed the lines are random.'}
-const BasicData = [
+var AboutMeData = {
+                      user: 'John Doe', 
+                      AboutMeText: 'The lines are random and randomly typed the lines are random and randomly typed the lines are random and randomly typed randomly typed the lines are random and randomly typed the lines are random and randomly typed randomly typed the lines are random and randomly typed the lines are random and randomly typed randomly typed the lines are random and randomly typed the lines are random.'
+                    }
+var BasicData = [
                     {title: 'Age', val: '18'}, 
                     {title: 'From', val: 'Hyderabad'}, 
                     {title: 'Date of Birth', val: '20/12/2003'},
                     {title: 'Gender', val: 'Male'},
-                    {title: 'Password', val: '*****'},
+                    {title: 'Role', val: 'Mechanic'},
                     {title: 'Password', val: '*****'}
                   ]
 
-const ContactData= [
+var ContactData= [
                     {title: 'Mobile', val: '+1-398-976-876'}, 
                     {title: 'Email', val: 'Doe@gmail.com'}, 
                     {title: 'Address', val: 'ABC Street'},
@@ -116,11 +94,34 @@ const ContactData= [
                     {title: 'PinCode', val: '110 011'}
                   ]
 
+var SkillItems = [
+    {
+        skill: "Cooking",
+        experience: "3 years"
+    }, {
+        skill: "Cooking",
+        experience: "3 years"
+    }
+];
+
+var ExperienceData = [
+    {
+        lastCompany: "Last Company",
+        startDate: "10/01/2019",
+        endDate: "10/1/2019"
+    }, {
+        lastCompany: "Company",
+        startDate: "10/01/2019",
+        endDate: "10/1/2019"
+    }
+];
+
+
 const TileHeading = (props) => {
   return (
     <Grid container sx={{p:2}}>
       <Grid item md={11.5}>
-        <Typography variant="h6"  fontSize={props.size} style={{ fontWeight: 600 }} align="start">
+        <Typography variant="h6"  fontSize={props.size} style={{ fontWeight: 600 }}>
           {props.heading}
         </Typography>
       </Grid>
@@ -135,17 +136,17 @@ const AboutMeTile = () => {
     <Paper sx={{borderRadius: 4}}>
         <Grid container>
             <TileHeading heading={AboutMeData.user} size={30}/>
-          <Grid item container sx={{ p:3 }}>
+          <Grid item container sx={{ p:3 }} md={12}>
+            <Grid item md={12}>
             <Typography
               variant="h6"
               fontSize={16}
               style={{ fontWeight: 600, fontFamily: "Fira Sans" }}
-              align="start"
-              
             >
               About Me
             </Typography>
-
+            </Grid>
+            <Grid item md={12}>
             <Typography
               variant="h6"
               fontSize={15}
@@ -154,6 +155,7 @@ const AboutMeTile = () => {
             >
               {AboutMeData.AboutMeText}
             </Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
@@ -368,7 +370,65 @@ const ResumeTile = () => {
   );
 }
 
+const UpdateData = (userData) => {
+  AboutMeData = {
+                  ...AboutMeData,
+                  user: userData.firstName + " " + userData.lastName,
+                  AboutMeText: userData.bio
+                }
+
+  BasicData = [
+              {title: 'Age', val: userData.age}, 
+              {title: 'From', val: userData.city}, 
+              {title: 'Date of Birth', val: "dob"},
+              {title: 'Gender', val: userData.gender},
+              {title: 'Profile', val: userData.profile},
+              {title: 'Password', val: '*****'}
+            ]
+    
+  ContactData= [
+              {title: 'Mobile', val: userData.mobile}, 
+              {title: 'Email', val: userData.email}, 
+              {title: 'Address', val: userData.address},
+              {title: 'City', val: userData.city},
+              {title: 'Country', val: userData.country},
+              {title: 'PinCode', val: userData.pin}
+            ]
+
+
+            /*
+             * create an json object using data type arrays 
+             */
+
+            const skillsTemp = userData.skills
+            const expTemp = userData.experience
+            skillsTemp.forEach(function (k, i) {
+              SkillItems[i] = {skill: skillsTemp[i], experience: ""+expTemp[i]};
+            })
+
+            const compList = userData.lastCompanyList
+            const startDates = userData.lastCompStartDates
+            const endDates = userData.lastCompEndDates
+            
+            compList.forEach(function (k, i) {
+              ExperienceData[i] = {lastCompany: compList[i], startDate: startDates[i], endDate: endDates[i]};
+            })
+}
+
 export default function ProfileDetails(props) {
+
+  const userInfo = useSelector(state => state.userInfo.userInfo);
+
+    if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
+            && userInfo.data.result != undefined) {
+
+            const userData = userInfo.data.result[0];
+            console.log("userData-"+userData);
+            
+            UpdateData(userData);
+            
+    }
+
   return (
     <Grid container spacing={1}>
       <Grid item md={12}>

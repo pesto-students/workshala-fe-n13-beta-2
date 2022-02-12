@@ -11,15 +11,36 @@ const headers = {
 
 var navigation = '';
 
-function getUserInfo(data) {    
+function getUser(data) {    
     if(data !== undefined && data.data !== undefined) {
         const userId = data.data.objectId;
         
         var url = baseUrl + '/users/' + userId;
+        //var url = baseUrl + "/functions/getCandidateProfile";
+        //const params = {userId: userId}
         
         return axios.get(url, {headers: headers})
                 .then(response => {
-                    setProfileData(response.data);
+                    //setProfileData(response.data);
+                    //navigation('Dashboard');
+                    return response;
+                })
+                .catch((error) => {throw error});
+    }
+}
+
+function getUserInfo(data) {    
+    if(data !== undefined && data.data !== undefined) {
+        const userId = data.data.objectId;
+        const role = data.data.role;
+        
+        //var url = baseUrl + '/classes/UserInfo';
+        var url = baseUrl + "/functions/getCandidateProfile";
+        const params = {userId: userId, role: role}
+        
+        return axios.post(url, params, {headers: headers})
+                .then(response => {
+                    setProfileData(response.data.result[0]);
                     navigation('Dashboard');
                     return response;
                 })
@@ -49,14 +70,33 @@ function signUpApi(data) {
             return response;
         }).catch((error) => {throw error});
 }
+/*
+function* fetchUser(action) {
+    var userData = '';
+    if(parentComp === 'signIn') {
+        userData = yield select((state) => state.signIn.signIn);
+    } else {
+        userData = yield select((state) => state.signUp.signUp);
+    }
+    console.log("experimenting: "+userData);
+
+     try {
+         const user = yield call(getUser, action.payload);
+         yield put({type: 'USER_REQUESTED', user: user});
+     } catch(e) {
+         yield put({ type: 'USER_FAILED', message: e.message});
+     }
+}*/
 
 function* fetchUserInfo(action) {
-     try {
-         const users = yield call(getUserInfo, action.payload);
-         yield put({type: 'USER_INFO_SUCCESS', userInfo: users});
-     } catch(e) {
-         yield put({ type: 'USER_INFO_FAILED', message: e.message});
-     }
+    const userData = yield select((state) => state.user.user);
+    
+    try {
+        const users = yield call(getUserInfo, userData);
+        yield put({type: 'USER_INFO_SUCCESS', userInfo: users});
+    } catch(e) {
+        yield put({ type: 'USER_INFO_FAILED', message: e.message});
+    }
 }
 
 function signInApi(data) { 
@@ -84,10 +124,10 @@ function* signUpUser(action) {
 
 function* signInUser(action) {
     try {
-        const signIn = yield call(signInApi, action.payload);
-        yield put({type: 'USER_SIGNIN_SUCCESS', signIn: signIn});    
+        const user = yield call(signInApi, action.payload);
+        yield put({type: 'USER_SUCCESS', user: user});    
     } catch(e) {
-        yield put({ type: 'USER_SIGNIN_FAILED', message: e.message});
+        yield put({ type: 'USER_FAILED', message: e.message});
     }
 }
 
@@ -107,7 +147,7 @@ function* showError(parentComp, action) {       // TODO: Pages need to be create
     }
 }
 
-function* showDashBoard(parentComp, action) {
+function* fetchUser(parentComp, action) {
     var userData = '';
     if(parentComp === 'signIn') {
         userData = yield select((state) => state.signIn.signIn);
@@ -117,31 +157,38 @@ function* showDashBoard(parentComp, action) {
     console.log("experimenting: "+userData);
 
     if(userData == undefined) {
-        yield put({ type: 'USER_INFO_FAILED', message: 'userData is null'});
+        yield put({ type: 'USER_FAILED', message: 'userData is null'});
     } else {    
         try {
-            const userInfo = yield call(getUserInfo, userData);
-            yield put({type: 'USER_INFO_SUCCESS', userInfo: userInfo});    
+            const user = yield call(getUser, userData);
+            yield put({type: 'USER_SUCCESS', user: user});    
         } catch(e) {
-            yield put({ type: 'USER_INFO_FAILED', message: e.message});
+            yield put({ type: 'USER_FAILED', message: e.message});
         }
     }
 }
 
 function* userSaga() {
     //SIGN-UP
-    yield takeEvery('USER_SIGNUP_REQUESTED', signUpUser);
-    yield takeEvery('USER_SIGNUP_SUCCESS',   showDashBoard, 'signUp');
-    yield takeEvery('USER_SIGNUP_FAILED', showError, 'signUp');
+    yield takeEvery('USER_SIGNUP_REQUESTED', signUpUser);              // make entry in user - POST (reducer-signup) ->USER_SIGNUP_SUCCESS
+    yield takeEvery('USER_SIGNUP_SUCCESS',   fetchUser, 'signUp');       // get userId from sigup, GET (users/UserId) -> USER_SUCCESS
+   // yield takeEvery('USER_SIGNUP_SUCCESS',   showDashBoard, 'signUp');
+    //yield takeEvery('USER_SIGNUP_FAILED', showError, 'signUp');
 
-    yield takeEvery('USER_SIGNIN_REQUESTED', signInUser);
-    yield takeEvery('USER_SIGNIN_SUCCESS',   showDashBoard, 'signIn');
-    yield takeEvery('USER_SIGNIN_FAILED',   showError, 'signIn');
+    //SIGN-IN
+    yield takeEvery('USER_SIGNIN_REQUESTED', signInUser);               // login, reducer-signIn, -> USER_SUCCESS
+    //yield takeEvery('USER_SIGNIN_SUCCESS',   showDashBoard, 'signIn');
+    //yield takeEvery('USER_SIGNIN_FAILED',   showError, 'signIn');
+
+    //User
+   // yield takeEvery('USER_REQUESTED', fetchUserInfo);          
+    yield takeEvery('USER_SUCCESS', fetchUserInfo);       // get role and userid from user, feed to profile and navigate to dashboard -> USER_INFO_SUCCESS
+    //yield takeEvery('USER_FAILED', fetchUserInfo);
 
     //User Info
-    yield takeEvery('USER_INFO_REQUESTED', fetchUserInfo);
-    //yield takeEvery('USER_INFO_SUCCESS', NavigateTo);
-    yield takeEvery('USER_INFO_FAILED', showError, 'userInfo');
+    //yield takeEvery('USER_INFO_REQUESTED', fetchUser);
+    
+    //yield takeEvery('USER_INFO_FAILED', showError, 'userInfo');
 }
 
 export default userSaga;

@@ -3,6 +3,7 @@ import CandidateLayout from "../Layouts/CandidateLayout";
 import ProfileDetails from "../Components/Profile/ProfileDetails";
 import ProfileInfo from "../Components/Profile/ProfileInfo";
 import {Grid} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function EditProfile() {
   return (

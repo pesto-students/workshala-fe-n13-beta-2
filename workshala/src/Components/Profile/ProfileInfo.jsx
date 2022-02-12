@@ -13,13 +13,13 @@ import {
     Card,
     Avatar
 } from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 
 // Default data
 var profileData = {
     Image: user2,
     Name: "John Doe",
-    Role: "Mechanic",
+    Profile: "Mechanic",
     Followers: 5962,
     Following: 228,
     Mobile: "+1-398-976-876",
@@ -36,32 +36,26 @@ export function setProfileData(userData) {
 }
 
 export default function ProfileInfo(props) {
-    const dispatch = useDispatch();
+  
     const userInfo = useSelector(state => state.userInfo.userInfo);
 
-   const signIn = useSelector(state => state.signIn);  
+    if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
+            && userInfo.data.result != undefined) {
 
-    if(signIn != undefined && !signIn.loading 
-        && signIn.signIn != undefined && signIn.signIn.data != undefined) {
-        
-        dispatch(getUser({userId: signIn.signIn.data.objectId}));
-
-        if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
-            && userInfo.data.results != undefined) {
-
-            const userData = userInfo.data.results[0];
+            const userData = userInfo.data.result[0];
+            console.log("userData-"+userData);
             profileData = {
                 ...profileData,
                 Name: userData.firstName + " " + userData.lastName,
-                Email: userData.email
+                Email: userData.email,
+                Image: userData.profileImg.url,
+                Profile: userData.profile,
+                Followers: userData.followers,
+                Following: userData.following,
+                Mobile: userData.mobile
             }
-        }
     }
-
-    //const users = useSelector(state => state.userInfo);  
-    //console.log("users:"+users);
     
-    //}, [])
     return (
         <Card sx={
             {borderRadius: 4}
@@ -85,7 +79,7 @@ export default function ProfileInfo(props) {
                     fontSize={14}
                     align="center">
                     {
-                    profileData.Role
+                    profileData.Profile
                 } </Typography>
                 <Grid container>
                     <Grid item
