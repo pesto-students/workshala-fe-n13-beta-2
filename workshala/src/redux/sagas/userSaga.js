@@ -1,6 +1,6 @@
 import {call, put, takeEvery, select} from 'redux-saga/effects';
 import axios from 'axios';
-import {setProfileData} from '../../Components/Dashboard/ProfileInfo'
+import {setProfileData} from '../../Components/Profile/ProfileInfo'
 
 const baseUrl = 'https://workshala.b4a.io';
 
@@ -14,11 +14,8 @@ var navigation = '';
 function getUserInfo(data) {    
     if(data !== undefined && data.data !== undefined) {
         const userId = data.data.objectId;
-        //const role = data.data.role;
         
         var url = baseUrl + '/users/' + userId;
-
-        //const payload = {'userId': userId}
         
         return axios.get(url, {headers: headers})
                 .then(response => {

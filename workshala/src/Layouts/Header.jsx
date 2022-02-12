@@ -17,19 +17,7 @@ export default function Header({dashBoardSideNavToggle}, props) {
         Name: 'John Doe',
         Role: 'Candidate'
     };
-/*          //TODO
-    const userInfo = useSelector(state => state.userInfo);
-    if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
-        && userInfo.data.results != undefined) {
 
-        const userData = userInfo.data.results[0];
-
-        profileData = {
-            Name: userData.firstName + " " + userData.lastName,
-            Role: userData.role
-        }
-    }
-*/
     return (
         <Grid container sx={{mt:2, height:'10vh'}}>
             {/* icon */}
@@ -58,7 +46,7 @@ export default function Header({dashBoardSideNavToggle}, props) {
                 </Grid>
             
                 <Grid item>
-                    <IconButton component={Link} to="/Profile">
+                    <IconButton component={Link} to="/EditProfile">
                         <PersonIcon style={{fontSize:34}}/>
                     </IconButton>
                 </Grid>

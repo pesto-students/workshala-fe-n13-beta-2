@@ -9,6 +9,7 @@ import Jobs from "./Pages/Jobs";
 import Applications from "./Pages/Applications";
 import ApplyJob from "./Pages/ApplyJob";
 import CompanyDetails from "./Pages/CompanyDetails";
+import EditProfile from "./Pages/EditProfile";
 import Parse from "parse/dist/parse.min.js";
 
 // Your Parse initialization configuration goes here
@@ -38,6 +39,7 @@ function App() {
         <Route path="/Jobs" element={<Jobs />} />
         <Route path="/Applications" element={<Applications />} />
         <Route path="/CompanyDetails" element={<CompanyDetails />} />
+        <Route path="/EditProfile" element={<EditProfile />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

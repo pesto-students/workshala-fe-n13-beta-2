@@ -9,7 +9,7 @@ import {
     Paper
 } from "@mui/material";
 
-import ProfileInfo from '../Components/Dashboard/ProfileInfo';
+import ProfileInfo from '../Components/Profile/ProfileInfo';
 import CandidateLayout from "../Layouts/CandidateLayout";
 
 const FormItems = [
