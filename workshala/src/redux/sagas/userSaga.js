@@ -14,15 +14,15 @@ var navigation = '';
 function getUserInfo(data) {    
     if(data !== undefined && data.data !== undefined) {
         const userId = data.data.objectId;
-        const role = data.data.role;
+        //const role = data.data.role;
         
-        var url = baseUrl + '/functions/getCandidateProfile';
+        var url = baseUrl + '/users/' + userId;
 
-        const payload = {'userId': userId, 'role': role}
+        //const payload = {'userId': userId}
         
-        return axios.post(url, payload, {headers: headers})
+        return axios.get(url, {headers: headers})
                 .then(response => {
-                    setProfileData(response.data.result[0]);
+                    setProfileData(response.data);
                     navigation('Dashboard');
                     return response;
                 })
