@@ -1,25 +1,27 @@
 import {type} from './types';
 
 const initialState = {
-    users : [],
+    userInfo : [],
     loading: false,
-    error: null
+    error: null,
+    status: false
 }
 
-export default function users(state= initialState, action) {
+export default function userInfo(state= initialState, action) {
     switch (action.type) {
-        case type.GET_USERS_REQUESTED:
+        case type.USER_INFO_REQUESTED:
             return {
                 ...state,
                 loading: true
             }
-        case type.GET_USERS_SUCCESS:
+        case type.USER_INFO_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                users: action.users
+                userInfo: action.userInfo,
+                status: true
             }
-        case type.GET_USERS_FAILED:
+        case type.USER_INFO_FAILED:
             return {
                 ...state,
                 loading: false,

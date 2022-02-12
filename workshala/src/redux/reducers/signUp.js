@@ -9,19 +9,19 @@ const initialState = {
 
 export default function signUp(state= initialState, action) {
     switch (action.type) {
-        case type.POST_USER_SIGNUP_REQUESTED:
+        case type.USER_SIGNUP_REQUESTED:
             return {
                 ...state,
                 loading: true,
             }
-        case type.POST_USER_SIGNUP_SUCCESS:
+        case type.USER_SIGNUP_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 signUp: action.signUp,
                 status: true
             }
-        case type.POST_USER_SIGNUP_FAILED:
+        case type.USER_SIGNUP_FAILED:
             return {
                 ...state,
                 loading: false,

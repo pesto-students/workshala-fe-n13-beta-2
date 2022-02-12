@@ -1,32 +1,72 @@
 import * as React from "react";
-import CardMedia from '@mui/material/CardMedia';
 import user2 from '../../Assets/Images/user2.jpeg'
 import whatsapp from '../../Assets/Images/whatsapp.png'
 import Phone_icon from '../../Assets/Images/Phone_icon.png';
 import email from '../../Assets/Images/email.png';
+import getUser from '../../redux/actions/user'
+
 import {
     Grid,
     Typography,
+    CardMedia,
     CardContent,
     Card,
     Avatar
 } from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
 
-const profileData = {
+// Default data
+var profileData = {
     Image: user2,
     Name: "John Doe",
     Role: "Mechanic",
-    Following: 228,
     Followers: 5962,
+    Following: 228,
     Mobile: "+1-398-976-876",
     Whatsapp: "+1-398-976-876",
     Email: "Doe@gmail.com"
 }
 
-export default function LeftContent() {
+export function setProfileData(userData) {
+    profileData = {
+        ...profileData,
+        Name: userData.firstName + " " + userData.lastName,
+        Email: userData.email
+    }
+}
+
+export default function ProfileInfo(props) {
+    const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.userInfo.userInfo);
+
+   const signIn = useSelector(state => state.signIn);  
+
+    if(signIn != undefined && !signIn.loading 
+        && signIn.signIn != undefined && signIn.signIn.data != undefined) {
+        
+        dispatch(getUser({userId: signIn.signIn.data.objectId}));
+
+        if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
+            && userInfo.data.results != undefined) {
+
+            const userData = userInfo.data.results[0];
+            profileData = {
+                ...profileData,
+                Name: userData.firstName + " " + userData.lastName,
+                Email: userData.email
+            }
+        }
+    }
+
+    //const users = useSelector(state => state.userInfo);  
+    //console.log("users:"+users);
+    
+    //}, [])
     return (
-        <Card sx={{borderRadius: 4}}>
-            <CardMedia  height="45%" 
+        <Card sx={
+            {borderRadius: 4}
+        }>
+            <CardMedia height="45%" component="img"
                 image={
                     profileData.Image
                 }
@@ -51,8 +91,7 @@ export default function LeftContent() {
                     <Grid item
                         xs={5}
                         sm={5}
-                        md={5}
-                        >
+                        md={5}>
                         <Typography variant="h6"
                             fontSize={15}
                             sx={
@@ -72,8 +111,7 @@ export default function LeftContent() {
                     <Grid item
                         xs={5}
                         sm={5}
-                        md={5}
-                        >
+                        md={5}>
                         <Typography variant="h6"
                             fontSize={15}
                             sx={
@@ -123,14 +161,14 @@ export default function LeftContent() {
                     </Grid>
                 </Grid>
 
-                <Grid container sx={
-                            {p:3}
-                    } >
+                <Grid container
+                    sx={
+                        {p: 3}
+                }>
                     <Grid item
                         xs={3}
                         sm={3}
-                        md={3}
-                      >
+                        md={3}>
                         <Avatar src={Phone_icon}
                             sx={
                                 {
@@ -145,21 +183,24 @@ export default function LeftContent() {
                         sm={9}
                         md={9}
                         sx={
-                            {mt:0.5}
+                            {mt: 0.5}
                     }>
                         {
                         profileData.Mobile
                     } </Grid>
                 </Grid>
 
-                <Grid container sx={
-                            {p:3, mt:-4}
-                    } >
+                <Grid container
+                    sx={
+                        {
+                            p: 3,
+                            mt: -4
+                        }
+                }>
                     <Grid item
                         xs={3}
                         sm={3}
-                        md={3}
-                      >
+                        md={3}>
                         <Avatar src={whatsapp}
                             sx={
                                 {
@@ -174,21 +215,24 @@ export default function LeftContent() {
                         sm={9}
                         md={9}
                         sx={
-                            {mt:0.5}
+                            {mt: 0.5}
                     }>
                         {
                         profileData.Whatsapp
                     } </Grid>
                 </Grid>
 
-                <Grid container sx={
-                            {p:3, mt:-4}
-                    } >
+                <Grid container
+                    sx={
+                        {
+                            p: 3,
+                            mt: -4
+                        }
+                }>
                     <Grid item
                         xs={3}
                         sm={3}
-                        md={3}
-                      >
+                        md={3}>
                         <Avatar src={email}
                             sx={
                                 {
@@ -202,7 +246,7 @@ export default function LeftContent() {
                         sm={9}
                         md={9}
                         sx={
-                            {mt:0.5}
+                            {mt: 0.5}
                     }>
                         {
                         profileData.Email
