@@ -5,7 +5,7 @@ import {Avatar, Button, CardActions, Grid, Select, MenuItem,
 TextField, Chip, Stack, Typography, CardContent, InputAdornment, Card, CardActionArea} from "@mui/material";
 import { Link } from 'react-router-dom';
 
-const jobsList = [
+var jobsList = [
     {
         title: "ABC company",
         subTitle: "Home Food Delivery",
@@ -45,6 +45,10 @@ const jobsList = [
 }
 
 ];
+
+export const updateJobList = (data) => {
+    jobsList = data;
+}
 
 const suggestions = [
     {

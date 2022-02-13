@@ -14,6 +14,7 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import StackedBarChartOutlinedIcon from '@mui/icons-material/StackedBarChartOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
 import SegmentIcon from '@mui/icons-material/Segment';
+import getJobsList from '../redux/actions/jobs'
 
 const useStyles = makeStyles({
     root: {
@@ -26,33 +27,37 @@ const SideMenuItems = [
     {
         title: 'Dashboard',
         icon: <HomeOutlinedIcon color="secondary"/>,
-        to: '/Dashboard'
+        to: '/Dashboard',
+        click: getJobsList
     },
     {
         title: 'Jobs',
         icon: <BusinessCenterOutlinedIcon color="secondary"/>,
-        to: '/Jobs'
+        to: '/Jobs',
+        click: getJobsList
     },
     {
         title: 'Applications',
         icon: <AppsOutlinedIcon color="secondary"/>,
-        to: '/Applications'
+        to: '/Applications',
+        click: getJobsList
     },
     {
         title: 'Message',
         icon: <MessageOutlinedIcon color="secondary"/>,
-        to: '/Message'
+        to: '/Message',
+        click: getJobsList
     }, {
         title: 'Statistics',
         icon: <StackedBarChartOutlinedIcon color="secondary"/>,
-        to: '/Statistics'
+        to: '/Statistics',
+        click: getJobsList
     }, {
         title: 'News',
         icon: <NewspaperOutlinedIcon color="secondary"/>,
-        to: '/News'
-    },
-
-
+        to: '/News',
+        click: getJobsList
+    }
 ]
 
 export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, dashBoardSideNavClose}) {
@@ -148,8 +153,8 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                             }
                     }>
                         {
-                        SideMenuItems.map(item => (
-                            <ListItem button
+                        SideMenuItems.map((item, i) => (
+                            <ListItem key={i} button
                                 component={Link}
 
                                 to={
@@ -158,6 +163,7 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                                 key={
                                     item.title
                                 }
+                                onClick={item.click}
                                 classes={
                                     {root: useStyles.listItem}
                                 }

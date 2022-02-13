@@ -22,6 +22,8 @@ Parse.initialize(
 );
 
 function App() {
+
+  //
   return (
     /*  <div>
       <Users/>
@@ -33,7 +35,7 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
         <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Home" element={<Home />} />
+        <Route path="/Home" element={<Home />} />                   
         <Route path="/Statistics" element={<Statistics />} />
         <Route path="/ApplyJOb" element={<ApplyJob />} />
         <Route path="/Jobs" element={<Jobs />} />

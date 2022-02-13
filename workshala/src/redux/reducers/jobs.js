@@ -1,27 +1,27 @@
 import {type} from './types';
 
 const initialState = {
-    user : [],
+    jobs : [],
     loading: false,
     error: null,
     status: false
 }
 
-export default function user(state= initialState, action) {
+export default function jobs(state= initialState, action) {
     switch (action.type) {
-        case type.USER_REQUESTED:
+        case type.JOBS_LIST_REQUESTED:
             return {
                 ...state,
                 loading: true
             }
-        case type.USER_SUCCESS:
+        case type.JOBS_LIST_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                user: action.user,
+                jobs: action.user,
                 status: true
             }
-        case type.USER_FAILED:
+        case type.JOBS_LIST_FAILED:
             return {
                 ...state,
                 loading: false,
