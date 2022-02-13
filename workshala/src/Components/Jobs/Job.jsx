@@ -16,17 +16,7 @@ import {
   InputAdornment,
   Card,
   CardActionArea,
-  TablePagination,
-  TableRow,
-  TableHead,
-  TableContainer,
-  TableCell,
-  TableBody,
-  Table,
-  Paper,
 } from "@mui/material";
-import email from "../../Assets/Images/email.png";
-import Phone_icon from "../../Assets/Images/Phone_icon.png";
 import { Link } from "react-router-dom";
 
 const jobsList = [
@@ -96,202 +86,6 @@ const suggestions = [
   },
 ];
 
-const columns = [
-  { id: "id", label: "Job\u00a0ID" },
-  { id: "date", label: "Date\u00a0Applied" },
-  {
-    id: "title",
-    label: "Job\u00a0Title",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "candidateEmail",
-    label: "Candidate\u00a0Email-ID",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  { id: "resume", label: "Resume", format: (value) => value.toFixed(2) },
-  { id: "contact", label: "Contact", format: (value) => value.toFixed(2) },
-  { id: "status", label: "Details", format: (value) => value.toFixed(2) },
-];
-
-function createData(id, date, title, candidateEmail, resume, contact, status) {
-  return { id, date, title, candidateEmail, resume, contact, status };
-}
-
-const rows = [
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "In-Progress"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "On-Hold"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Hired"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Rejected"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Hired"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "candidate@test.com",
-    "",
-    "",
-    "Pending"
-  ),
-];
-
-const DownloadResumeCell = (props) => {
-  var statusColor = "blue";
-
-  return (
-    <Button
-      variant="outlined"
-      style={{
-        width: "100px",
-        height: "10%",
-        borderRadius: 10,
-        color: statusColor,
-      }}
-    >
-      Download
-    </Button>
-  );
-};
-
-const ColoredStatusCell = (props) => {
-  var statusColor = "blue";
-
-  return (
-    <Button
-      variant="outlined"
-      style={{
-        width: "100%",
-        height: "10%",
-        borderRadius: 10,
-        color: statusColor,
-      }}
-    >
-      Details
-    </Button>
-  );
-};
-
 const CardTemplate = (props) => {
   return (
     <Card sx={{ borderRadius: 8, p: 2 }}>
@@ -345,22 +139,10 @@ export default function Job({
   quickViewClose,
   quickViewOpen,
 }) {
-  //   const [sort, setValue] = React.useState("");
+  const [sort, setValue] = React.useState("");
 
-  //   const handleChange = (event) => {
-  //     setValue(event.target.value);
-  //   };
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+  const handleChange = (event) => {
+    setValue(event.target.value);
   };
 
   return (
@@ -423,9 +205,9 @@ export default function Job({
         <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5} align="right">
           <Select
             sx={{ height: 35, width: 120, borderRadius: 4 }}
-            // value={sort}
+            value={sort}
             displayEmpty
-            // onChange={handleChange}
+            onChange={handleChange}
           >
             <MenuItem value="">Newest</MenuItem>
             <MenuItem value="Oldest">Oldest</MenuItem>
@@ -433,98 +215,16 @@ export default function Job({
         </Grid>
       </Grid>
       <Grid item container md={12} spacing={1} sx={{ mt: 2 }}>
-        <Grid
-          item
-          md={12}
-          alignItems="center"
-          justifyContent="center"
-          sx={{ mt: 1 }}
-        >
-          <Paper
-            sx={{
-              m: 1,
-              borderRadius: 4,
-              p: 1,
-            }}
-          >
-            <TableContainer sx={{ maxHeight: 500 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth, fontWeight: 550 }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row.code}
-                        >
-                          {columns.map((column, i) => {
-                            const value = row[column.id];
-                            return i === 4 ? (
-                              <TableCell>
-                                <DownloadResumeCell value={value} />
-                              </TableCell>
-                            ) : i === 5 ? (
-                              <TableCell>
-                                <Grid container>
-                                  <Grid item sx={{ mr: 1 }}>
-                                    <Avatar
-                                      src={Phone_icon}
-                                      sx={{ width: 30, height: 30 }}
-                                    />
-                                  </Grid>
-                                  <Grid>
-                                    <Avatar
-                                      src={email}
-                                      sx={{ width: 30, height: 30 }}
-                                    />
-                                  </Grid>
-                                </Grid>
-                              </TableCell>
-                            ) : i === 6 ? (
-                              <TableCell>
-                                <ColoredStatusCell value={value} />
-                              </TableCell>
-                            ) : (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 100]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
+        {jobsList.map((item, i) => (
+          <Grid item key={i}>
+            <CardTemplate
+              title={item.title}
+              subTitle={item.subTitle}
+              exp={item.exp}
+              click={quickViewToggle}
             />
-          </Paper>
-        </Grid>
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   );

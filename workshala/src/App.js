@@ -7,6 +7,8 @@ import Profile from "./Pages/Profile";
 import Statistics from "./Pages/Statistics";
 import Jobs from "./Pages/Jobs";
 import Applications from "./Pages/Applications";
+import RecruiterApplication from "./Pages/RecruiterApp";
+import ActiveJobs from "./Pages/ActiveJobs";
 import ApplyJob from "./Pages/ApplyJob";
 import CompanyDetails from "./Pages/CompanyDetails";
 import Parse from "parse/dist/parse.min.js";
@@ -31,7 +33,7 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-        <Route index element={<Home />} />
+        <Route index element={<RecruiterApplication />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Statistics" element={<Statistics />} />
@@ -41,6 +43,8 @@ function App() {
         <Route path="/Applications" element={<Applications />} />
         <Route path="/CompanyDetails" element={<CompanyDetails />} />
         <Route path="/PostJob" element={<PostJob />} />
+        <Route path="/RecruiterApp" element={<RecruiterApplication />} />
+        <Route path="/ActiveJobs" element={<ActiveJobs />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
