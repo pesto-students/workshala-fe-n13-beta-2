@@ -10,6 +10,8 @@ import Applications from "./Pages/Applications";
 import ApplyJob from "./Pages/ApplyJob";
 import CompanyDetails from "./Pages/CompanyDetails";
 import Parse from "parse/dist/parse.min.js";
+import EditProfile from "./Pages/EditProfile";
+import PostJob from "./Pages/PostJob";
 
 // Your Parse initialization configuration goes here
 Parse.serverURL = "https://workshala.b4a.io";
@@ -25,9 +27,9 @@ function App() {
       <Users/>
 
     </div>
-  */ 
-    
-  <BrowserRouter>
+  */
+
+    <BrowserRouter>
       <Routes>
         <Route index element={<Home />} />
         <Route path="/Dashboard" element={<Dashboard />} />
@@ -38,10 +40,10 @@ function App() {
         <Route path="/Jobs" element={<Jobs />} />
         <Route path="/Applications" element={<Applications />} />
         <Route path="/CompanyDetails" element={<CompanyDetails />} />
+        <Route path="/PostJob" element={<PostJob />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
-    
   );
 }
 
