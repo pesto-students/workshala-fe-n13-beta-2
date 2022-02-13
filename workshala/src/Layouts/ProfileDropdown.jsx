@@ -84,10 +84,10 @@ export default function ProfileDropdown() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem component={Link} to="/Profile">Profile</MenuItem>
+                    <MenuItem component={Link} to="Profile">Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
                     <MenuItem component={Link}
-                    to="/Home">Logout</MenuItem>
+                    to="Home">Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
