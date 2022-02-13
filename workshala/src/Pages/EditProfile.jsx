@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CandidateLayout from "../Layouts/CandidateLayout";
 
-import LeftTile from "../Components/CompanyDetailsTile";
+import LeftTile from "../Components/Jobs/CompanyDetailsTile";
 import ProfileDetails from "../Components/Dashboard/ProfileDetails";
 import ProfileInfo from "../Components/Dashboard/ProfileInfo";
 import {
