@@ -2,7 +2,10 @@ import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import SignUpModal from "./SignUpModal"
-import { Link as RouteLink} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {useForm} from 'react-hook-form';
+import {useNavigate} from "react-router-dom";
+import signIn  from '../../redux/actions/signIn';
 
 import {
     Grid,
@@ -46,16 +49,25 @@ const style = {
 };
 
 const SignIn = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = data => {
+    const payload = {
+      ...data,
+      'navigation': navigate
+    }
+    dispatch(signIn(payload));
+  }
     return(
       <ThemeProvider theme={theme}>
-        
           <Grid item xs={12} sm={12} md={12} component={Paper} square>
             <Box
               sx={{
-                
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
+                alignItems: 'center'
               }}
             >
               <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -64,7 +76,8 @@ const SignIn = () => {
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
-              <Box component="form" noValidate sx={{ mt: 1 }}>
+              <Box noValidate sx={{ mt: 1 }}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                   margin="normal"
                   required
@@ -74,6 +87,7 @@ const SignIn = () => {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  {...register('username')}
                 />
                 <TextField
                   margin="normal"
@@ -84,13 +98,13 @@ const SignIn = () => {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  {...register('password')}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
                 <Button
-                  component={RouteLink} to="/Dashboard"
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -98,6 +112,7 @@ const SignIn = () => {
                 >
                   Sign In
                 </Button>
+                </form>
                 <Grid container>
                   <Grid item xs>
                     <Link href="#" variant="body2">
