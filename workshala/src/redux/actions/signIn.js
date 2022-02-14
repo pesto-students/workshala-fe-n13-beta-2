@@ -1,8 +1,8 @@
 import {type} from '../reducers/types';
 
-export default function signUp(data) {
+export default function signIn(data) {
     return {
-      type: type.USER_SIGNUP_REQUESTED,
+      type: type.USER_SIGNIN_REQUESTED,
       payload: data
     };
 }

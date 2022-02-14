@@ -61,7 +61,7 @@ import {
               <Typography sx={{ mt: 5, fontSize: 17 }}>{props.desc}</Typography>
             </Grid>
             <Grid>
-              <SignUpModal flag={1}/>
+              <SignUpModal flag={1} role={props.role}/>
             </Grid>
           </Grid>
         </CardContent>
@@ -96,14 +96,14 @@ import {
             <ThemeProvider theme={theme}>
               <Grid container>
                 <Grid item xs>
-                  <RoleCardTemplate
+                  <RoleCardTemplate role="recruiter"
                     img={recImg}
                     title={"Do you want to Hire?"}
                     desc={"Post Job for Free"}
                   />
                 </Grid>
                 <Grid item xs>
-                  <RoleCardTemplate
+                  <RoleCardTemplate role="candidate"
                     img={jsImg}
                     title={"Do you want Job?"}
                     desc={"Search Job for Free"}

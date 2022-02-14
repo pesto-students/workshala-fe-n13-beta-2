@@ -19,7 +19,37 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const jobsList = [
+var jobsList = [
+  {
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years",
+  },
+  {
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years",
+  },
+  {
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years",
+  },
+  {
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years",
+  },
+  {
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years",
+  },
+  {
+    title: "ABC company",
+    subTitle: "Home Food Delivery",
+    exp: "3 - 5 Years",
+  },
   {
     title: "ABC company",
     subTitle: "Home Food Delivery",
@@ -66,6 +96,10 @@ const jobsList = [
     exp: "3 - 5 Years",
   },
 ];
+
+export const updateJobList = (data) => {
+  jobsList = data;
+};
 
 const suggestions = [
   {

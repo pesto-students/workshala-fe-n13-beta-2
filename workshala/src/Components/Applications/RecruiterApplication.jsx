@@ -49,7 +49,7 @@ const suggestions = [
 ];
 
 const columns = [
-  { id: "id", label: "Job\u00a0ID" },
+  { id: "id", label: "Application\u00a0ID" },
   { id: "date", label: "Date\u00a0Applied" },
   {
     id: "title",

@@ -1,12 +1,8 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link as RouteLink } from "react-router-dom";
-import React, {useEffect} from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import {postSignUp}  from '../../redux/actions/signUp';
-import { connect } from 'react-redux';
-import signUpRed from '../../redux/reducers/signUp'
+import SignUp  from '../../redux/actions/signUp'
 import {useNavigate} from "react-router-dom";
 
 import {
@@ -40,28 +36,19 @@ const style = {
   p: 4,
 };
 
-function Test () {
-  //const status = useSelector(state => state.signUp.status);
-
-  
-  //
-}
-
-
-
 const SignUpForm = (props) => {
   const navigate = useNavigate();
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
-  const signUp = useSelector(state => state.signUp.postSignUp);
-  const status = useSelector(state => state.signUp.status);
 
   const onSubmit = data => {
-    console.log(data);
+    const payload = {
+      ...data,
+      role: props.role,
+      'navigation': navigate
+    }
     
-    dispatch(postSignUp(data));
-                                          //TODO: check for status and then navigate
-    navigate('Dashboard')
+    dispatch(SignUp(payload));
   }
 
   return (
@@ -100,7 +87,7 @@ const SignUpForm = (props) => {
                   name="firstName"
                   autoComplete="firstName"
                   autoFocus
-                  {...register('firstName')}
+                  {...register('firstName', { required: true, maxLength: 30 })}
                 />
               </Grid>
               <Grid item xs>
@@ -112,7 +99,7 @@ const SignUpForm = (props) => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="lastName"
-                  {...register('lastName')}
+                  {...register('lastName', { required: true, maxLength: 30 })}
                 />
               </Grid>
             </Grid>
@@ -124,7 +111,6 @@ const SignUpForm = (props) => {
               label="Email Address"
               name="email"
               autoComplete="email"
-              
               {...register('email')}
             />
             <TextField
@@ -136,7 +122,7 @@ const SignUpForm = (props) => {
               type="password"
               id="password"
               autoComplete="current-password"
-              
+              {...register('password')}
             />
             <TextField
               margin="normal"
@@ -198,7 +184,7 @@ const SignUpForm = (props) => {
           onClose={handleClose}
         >
           <Box sx={style}>
-            <SignUpForm />
+            <SignUpForm role={props.role}/>
           </Box>
         </Modal>
       </div>
@@ -225,7 +211,7 @@ const SignUpForm = (props) => {
         onClose={handleClose}
       >
         <Box sx={style}>
-          <SignUpForm />
+          <SignUpForm role={props.role}/>
         </Box>
       </Modal>
     </div>
