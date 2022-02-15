@@ -2,6 +2,8 @@ import { call, put, takeEvery, select } from "redux-saga/effects";
 import axios from "axios";
 import { setProfileData } from "../../Components/Profile/ProfileInfo";
 import { updateJobList } from "../../Components/Jobs/Job";
+import { isRejected } from "@reduxjs/toolkit";
+//import Promise from 'react-promise';
 
 const baseUrl = "https://workshala.b4a.io";
 
@@ -39,7 +41,7 @@ function getUserInfo(data) {
     const role = data.data.role;
 
     //var url = baseUrl + '/classes/UserInfo';
-    var url = baseUrl + "/functions/getCandidateProfile";
+    var url = baseUrl + "/functions/getProfile";
     const params = { userId: userId, role: role };
 
     return axios
@@ -56,18 +58,41 @@ function getUserInfo(data) {
 }
 
 function getJobsList() {
-  var url = baseUrl + "classes/JobInfo";
+  var url = baseUrl + "/classes/JobInfo";
 
-  return axios
+  return new Promise(resolve => {
+  axios
     .get(url, { headers: headers })
     .then((response) => {
-      updateJobList(response.data.result[0]);
+      //updateJobList(response.data.results);
       //navigation('Dashboard');
-      return response;
+      resolve(response);
     })
     .catch((error) => {
+      console.log("Error:"+error);
       throw error;
+    //  reject(error);
     });
+  });
+}
+
+function getAppsList() {
+  var url = baseUrl + "/classes/ApplicationInfo";
+
+  return new Promise(resolve => {
+  axios
+    .get(url, { headers: headers })
+    .then((response) => {
+      //updateJobList(response.data.results);
+      //navigation('Dashboard');
+      resolve(response);
+    })
+    .catch((error) => {
+      console.log("Error:"+error);
+      throw error;
+    //  reject(error);
+    });
+  });
 }
 
 function signUpApi(data) {
@@ -177,6 +202,15 @@ function* showError(parentComp, action) {
   }
 }
 
+function* fetchApplications (action) {
+  try {
+    const applications = yield call(getAppsList, action);
+    yield put({ type: "APPLICATIONS_LIST_SUCCESS", applications: applications });
+  } catch (e) {
+    yield put({ type: "APPLICATIONS_LIST_FAILED", message: e.message });
+  }
+}
+
 function* fetchUser(parentComp, action) {
   var userData = "";
   if (parentComp === "signIn") {
@@ -208,7 +242,7 @@ function* fetchJobsList(action) {
 }
 
 function* userSaga() {
-  yield takeEvery("JOBS_LIST_REQUESTED", fetchJobsList, "test");
+  yield takeEvery("JOBS_LIST_REQUESTED", fetchJobsList);
   //SIGN-UP
   yield takeEvery("USER_SIGNUP_REQUESTED", signUpUser); // make entry in user - POST (reducer-signup) ->USER_SIGNUP_SUCCESS
   yield takeEvery("USER_SIGNUP_SUCCESS", fetchUser, "signUp"); // get userId from sigup, GET (users/UserId) -> USER_SUCCESS
@@ -229,7 +263,8 @@ function* userSaga() {
   //yield takeEvery('USER_INFO_REQUESTED', fetchUser);
   //yield takeEvery('USER_INFO_FAILED', showError, 'userInfo');
 
-  //Jobs
+  //applications
+  yield takeEvery('APPLICATIONS_LIST_REQUESTED', fetchApplications);
 }
 
 export default userSaga;

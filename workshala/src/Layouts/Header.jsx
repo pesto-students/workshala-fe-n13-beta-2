@@ -42,12 +42,14 @@ export default function Header({ dashBoardSideNavToggle }) {
           </IconButton>
         </Grid>
 
-        {/* notification icon */}
-        <Grid item>
-          <IconButton component={Link} to="/Error">
-            <NotificationsActiveIcon style={{ fontSize: 34 }} />
-          </IconButton>
-        </Grid>
+            const userData = user.data;
+
+            profileData = {
+                ...profileData,
+                Name: userData.firstName + " " + userData.lastName,
+                Role: userData.role
+            }
+    }
 
         <Grid item>
           <IconButton component={Link} to="/Profile">
@@ -55,31 +57,36 @@ export default function Header({ dashBoardSideNavToggle }) {
           </IconButton>
         </Grid>
 
-        <Grid item direction="column" sx={{ mt: 0.5 }}>
-          <Grid item>
-            <Typography
-              component="h1"
-              variant="h5"
-              color="black"
-              style={{ fontSize: 14 }}
-            >
-              John Doe
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography
-              component="h1"
-              variant="h5"
-              color="black"
-              style={{ fontSize: 14, color: "brown" }}
-            >
-              Candidate
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid item>
-          {/*<ReorderIcon style={{fontSize:34}}/>*/}
-          <ProfileDropdown />
+                {/* notification icon */}
+                <Grid item md={0.8}>
+                    <IconButton component={Link} to="/Error">
+                        <NotificationsActiveIcon style={{fontSize:34}}/>
+                    </IconButton>
+                </Grid>
+            
+                <Grid item md={0.8}>
+                    <IconButton component={Link} to="/EditProfile">
+                        <PersonIcon style={{fontSize:34}}/>
+                    </IconButton>
+                </Grid>
+                    
+                <Grid item container direction="column" sx={{mt:0.5}} md={1.4}>
+                    <Grid item>
+                        <Typography component="h1" variant="h5" color="black" style={{fontSize:14}}>
+                            {profileData.Name}
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography component="h1" variant="h5" color="black" style={{fontSize:14, color:"brown"}}>
+                            {profileData.Role}
+                        </Typography>
+                    </Grid>
+                </Grid>
+                <Grid item md={0.1}>
+                    {/*<ReorderIcon style={{fontSize:34}}/>*/}
+                    <ProfileDropdown/>
+                </Grid>                
+            </Grid>
         </Grid>
       </Grid>
     </Grid>

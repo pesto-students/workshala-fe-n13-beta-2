@@ -5,7 +5,7 @@ import Body from "../Components/Home/Body";
 import {Grid} from "@mui/material";
 import Header from "../Components/Home/Header";
 
-export default function HomePage() {
+export default function Home() {
   const myStyle = {
     backgroundImage: `url(${homeImg})`,
     backgroundSize: "cover",

@@ -16,11 +16,15 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 
 const sagaMiddleware = createSagaMiddleware();
 
+const composeEnhancers = composeWithDevTools({
+    trace: true,
+});
+
 const store = createStore(
     //persistedReducer,
     rootReducer,
     {},
-    composeWithDevTools(applyMiddleware(sagaMiddleware))
+    composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 //let persistor = persistStore(store)
 

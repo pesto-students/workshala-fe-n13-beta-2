@@ -394,8 +394,6 @@ const UpdateData = (userData) => {
               {title: 'Country', val: userData.country},
               {title: 'PinCode', val: userData.pin}
             ]
-
-
             /*
              * create an json object using data type arrays 
              */
@@ -421,12 +419,8 @@ export default function ProfileDetails(props) {
 
     if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
             && userInfo.data.result != undefined) {
-
             const userData = userInfo.data.result[0];
-            console.log("userData-"+userData);
-            
             UpdateData(userData);
-            
     }
 
   return (
