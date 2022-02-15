@@ -1,5 +1,5 @@
 import * as React from "react";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import IconRa from "../../Assets/Images/react.jpg";
 import {Avatar, Button, CardActions, Grid, Select, MenuItem, 
 TextField, Chip, Stack, Typography, CardContent, InputAdornment, Card, CardActionArea} from "@mui/material";
@@ -19,63 +19,70 @@ export const updateJobList = (data) => {
 }
 
 const suggestions = [
-    {
-        label: "Technician",
-        color: "primary"
-    }, {
-        label: "Mechanic",
-        color: "success"
-    }, {
-        label: "Delivery Boy",
-        color: "success"
-    }, {
-        label: "Builder",
-        color: "success"
-    }
-]
+  {
+    label: "Technician",
+    color: "primary",
+  },
+  {
+    label: "Mechanic",
+    color: "success",
+  },
+  {
+    label: "Delivery Boy",
+    color: "success",
+  },
+  {
+    label: "Builder",
+    color: "success",
+  },
+];
 
 const CardTemplate = (props) => {
-    return (
-        <Card sx={{borderRadius: 8, p:2}}>
-            <CardActionArea onClick={props.click}>
-            <CardContent align="center">
-                <Avatar src={IconRa}/>
-                <Typography gutterBottom variant="h6">
-                    {
-                    props.title
-                } </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {
-                    props.subTitle
-                } </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {
-                    props.exp
-                } </Typography>
-            </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Grid container>
-                <Grid item md={12} align={"center"}>
-                <Button size="small" color="primary" variant="contained"
-                    style={{width:100}}
-                    component={Link}
-                    to="/ApplyJob">
-                    Apply
-                </Button>
-                </Grid>
-                <Grid item md={12} align="right" sx={{mt:5}}>
-                <Button size="small" color="primary"
-                    style={{fontSize:9}}
-                    component={Link}
-                    to="/CompanyDetails">
-                    View more
-                </Button>
-                </Grid>
-              </Grid>
-            </CardActions>
-        </Card>
-    );
+  return (
+    <Card sx={{ borderRadius: 8, p: 2 }}>
+      <CardActionArea onClick={props.click}>
+        <CardContent align="center">
+          <Avatar src={IconRa} />
+          <Typography gutterBottom variant="h6">
+            {props.title}{" "}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {props.subTitle}{" "}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {props.exp}{" "}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Grid container>
+          <Grid item md={12} align={"center"}>
+            <Button
+              size="small"
+              color="primary"
+              variant="contained"
+              style={{ width: 100 }}
+              component={Link}
+              to="/ApplyJob"
+            >
+              Apply
+            </Button>
+          </Grid>
+          <Grid item md={12} align="right" sx={{ mt: 5 }}>
+            <Button
+              size="small"
+              color="primary"
+              style={{ fontSize: 9 }}
+              component={Link}
+              to="/CompanyDetails"
+            >
+              View more
+            </Button>
+          </Grid>
+        </Grid>
+      </CardActions>
+    </Card>
+  );
 };
 
 const SearchBar = () => {
