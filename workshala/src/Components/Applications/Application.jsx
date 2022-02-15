@@ -4,6 +4,9 @@ import Phone_icon from '../../Assets/Images/Phone_icon.png';
 import { Button, Grid, Avatar, Chip, Stack, Typography, 
   TablePagination, TableRow, TableHead, TableContainer, 
   TableCell, TableBody, Table, Paper} from "@mui/material";
+import { useDispatch, useSelector } from 'react-redux';
+import getApplications from '../../redux/actions/applications'
+import Loader from '../../Services/Utils/Loader'
 
 const suggestions = [
   {
@@ -210,6 +213,42 @@ export default function Application() {
     setPage(0);
   };
 
+  const dispatch = useDispatch();
+
+  const applications = useSelector(state => state.applications);
+
+  React.useEffect(() => {
+    dispatch(getApplications());
+  }, []);
+
+  var appsList = [];
+    
+    if(applications.loading) {
+        return (
+                <Loader/>
+            );
+    } else {
+
+        if(applications != undefined && applications.status && applications.applications != undefined &&
+          applications.applications.data != undefined 
+            && applications.applications.data.results != undefined) {
+            const data = applications.applications.data.results;
+            data.forEach(function (k, i) {
+              //appsList[i] = {title: data[i].title, desc: data[i].desc, experience: data[i].experience};
+  //             { id: "id", label: "ID"},
+  // { id: "date", label: "Date\u00a0Applied"},
+  // { id: "company", label: "Company", format: (value) => value.toLocaleString("en-US")},
+  // { id: "type", label: "Type", format: (value) => value.toLocaleString("en-US")},
+  // { id: "position", label: "Position", format: (value) => value.toFixed(2)},
+  // { id: "contact",  label: "Contact", format: (value) => value.toFixed(2)},
+  // { id: "status", label: "Status",  format: (value) => value.toFixed(2)},
+  appsList[i] = {id: data[i].ObjectId, date: data[i].createdAt, company: "test", type: data[i].type, position: data[i].position,
+            contact: data[i].mobile, status: data[i].status};
+            });
+            console.log(appsList);
+           // UpdateData(userData);
+        }
+
   return (
     <Grid container>
       <Grid item container md={12}>
@@ -230,7 +269,7 @@ export default function Application() {
                 xs={0.5}
                 sm={0.5}
                 md={9.5}>
-                <Stack direction="colunm">
+                <Grid>
                     {
                     suggestions.map((item, i) => (
                         <Chip key={i} label={
@@ -243,7 +282,7 @@ export default function Application() {
                                 {ml: 1}
                             }/>
                     ))
-                } </Stack>
+                } </Grid>
             </Grid>
         </Grid>
       
@@ -259,9 +298,8 @@ export default function Application() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
+                  {columns.map((column, i) => (
+                    <TableCell key={i}
                       align={column.align}
                       style={{ minWidth: column.minWidth , fontWeight:550}}
                     >
@@ -271,21 +309,20 @@ export default function Application() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
+                {appsList
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
+                  .map((row, i) => {
                     return (
-                      <TableRow
+                      <TableRow key={i}
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.code}
                       >
                         {columns.map((column, i) => {
                           const value = row[column.id];
                           return (
                             (i === 5) ?
-                              <TableCell>
+                              <TableCell key={i}>
                                 <Grid container>
                                   <Grid item sx={{mr:1}}> 
                                     <Avatar src={Phone_icon}
@@ -299,11 +336,11 @@ export default function Application() {
                               </TableCell>
                             :
                             (i === 6) ? 
-                                    <TableCell>
+                                    <TableCell key={i}>
                                       <ColoredStatusCell value={value}/>
                                     </TableCell>
                                   :
-                                    <TableCell key={column.id} align={column.align}>
+                                    <TableCell key={i} align={column.align}>
                                       {column.format && typeof value === "number"
                                         ? column.format(value)
                                         : value}
@@ -329,4 +366,5 @@ export default function Application() {
       </Grid>
     </Grid>
   );
+                }
 }

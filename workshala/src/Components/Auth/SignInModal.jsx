@@ -42,11 +42,18 @@ const style = {
   width: 700,
   height: 470,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   borderRadius:4,
   boxShadow: 24,
   p: 4
 };
+
+const handleSignInFailure = () => {
+  return (
+    <Typography component="h1" variant="h5">
+      SignIn failed...!!! Please check the Username or password.
+    </Typography>
+  );
+}
 
 const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -63,11 +70,12 @@ const SignIn = () => {
     return(
       <ThemeProvider theme={theme}>
           <Grid item xs={12} sm={12} md={12} component={Paper} square>
-            <Box
+            <Box 
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
+                
               }}
             >
               <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -149,7 +157,7 @@ export default function SignInModal(props) {
             aria-describedby="SignIn button"
             open={open}
             onClose={handleClose}>
-            <Box sx={style}>
+            <Box sx={style} >
                 <SignIn/>
             </Box>
       </Modal>

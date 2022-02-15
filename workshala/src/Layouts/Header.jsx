@@ -23,7 +23,7 @@ export default function Header({dashBoardSideNavToggle}, props) {
     if(user != undefined && user.data != undefined) {
 
             const userData = user.data;
-            console.log("userData-"+userData);
+
             profileData = {
                 ...profileData,
                 Name: userData.firstName + " " + userData.lastName,
@@ -59,12 +59,12 @@ export default function Header({dashBoardSideNavToggle}, props) {
                 </Grid>
             
                 <Grid item md={0.8}>
-                    <IconButton component={Link} to="EditProfile">
+                    <IconButton component={Link} to="/EditProfile">
                         <PersonIcon style={{fontSize:34}}/>
                     </IconButton>
                 </Grid>
                     
-                <Grid item container direction="column" sx={{mt:0.5}} md={1}>
+                <Grid item container direction="column" sx={{mt:0.5}} md={1.4}>
                     <Grid item>
                         <Typography component="h1" variant="h5" color="black" style={{fontSize:14}}>
                             {profileData.Name}

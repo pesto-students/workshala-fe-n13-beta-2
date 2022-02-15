@@ -4,50 +4,18 @@ import IconRa from "../../Assets/Images/react.jpg";
 import {Avatar, Button, CardActions, Grid, Select, MenuItem, 
 TextField, Chip, Stack, Typography, CardContent, InputAdornment, Card, CardActionArea} from "@mui/material";
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {isEmpty} from '../../Services/Utils/Generic'
+import getJobsList from '../../redux/actions/jobs'
+import Loader from '../../Services/Utils/Loader'
 
-var jobsList = [
-    {
-        title: "ABC company",
-        subTitle: "Home Food Delivery",
-        exp: "3 - 5 Years"
-    }, {
-        title: "ABC company",
-        subTitle: "Home Food Delivery",
-        exp: "3 - 5 Years"
-    }, {
-        title: "ABC company",
-        subTitle: "Home Food Delivery",
-        exp: "3 - 5 Years"
-    },{
-      title: "ABC company",
-      subTitle: "Home Food Delivery",
-      exp: "3 - 5 Years"
-  }, {
-      title: "ABC company",
-      subTitle: "Home Food Delivery",
-      exp: "3 - 5 Years"
-  }, {
-      title: "ABC company",
-      subTitle: "Home Food Delivery",
-      exp: "3 - 5 Years"
-  },{
-    title: "ABC company",
-    subTitle: "Home Food Delivery",
-    exp: "3 - 5 Years"
-}, {
-    title: "ABC company",
-    subTitle: "Home Food Delivery",
-    exp: "3 - 5 Years"
-}, {
-    title: "ABC company",
-    subTitle: "Home Food Delivery",
-    exp: "3 - 5 Years"
-}
+var jobsList;
 
-];
-
-export const updateJobList = (data) => {
-    jobsList = data;
+export const updateJobList = (data) => {    
+    data.forEach(function (k, i) {
+        jobsList[i] = {title: data[i].title, desc: data[i].desc, experience: data[i].experience};
+    });
+    console.log(jobsList);
 }
 
 const suggestions = [
@@ -110,37 +78,73 @@ const CardTemplate = (props) => {
     );
 };
 
+const SearchBar = () => {
+    return (
+        <Grid item md={12} >
+        <TextField sx={{width:"96%", m:1,p:1, 
+        borderRadius:4, backgroundColor:"white", border:0}} size="small" border={0}
+        placeholder="Search by Title, company or keyword..."
+        variant="standard"
+            InputProps={
+                {
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <Button variant="contained" sx={{width:100, borderRadius:4}}
+                                                        startIcon={<SearchIcon />}>
+                                Find
+                            </Button>
+                            
+                        </InputAdornment>
+                    ),
+                    disableUnderline: true
+                }
+            }/>
+    </Grid>
+    );
+}
+
 export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
     const [sort, setValue] = React.useState('');
 
+    const dispatch = useDispatch();
+
+    const jobsInfo = useSelector(state => state.jobs);
+
     const handleChange = (event) => {
         setValue(event.target.value);
-      };
+    };
+        
+    React.useEffect(() => {
+        dispatch(getJobsList());
+    }, [])
 
-    return (
-      <Grid container>
+    //if(jobsInfo != undefined && isEmpty(jobsInfo.jobs) && !jobsInfo.status) {
+      //  dispatch(getJobsList());
+    //}
+    var jobsList = [];
+    
+    if(jobsInfo.loading) {
+        return (
+                <Loader/>
+            );
+    } else {
 
+        if(jobsInfo != undefined && jobsInfo.status && jobsInfo.jobs != undefined && jobsInfo.jobs.data != undefined 
+            && jobsInfo.jobs.data.results != undefined) {
+            const data = jobsInfo.jobs.data.results;
+            data.forEach(function (k, i) {
+                jobsList[i] = {title: data[i].title, desc: data[i].desc, experience: data[i].experience};
+            });
+            console.log(jobsList);
+           // UpdateData(userData);
+        }
+
+
+        return (
+            <Grid container direction={"column"}>
+      <Grid item container>
         {/* Search bar */}
-        <Grid item md={12} >
-                <TextField sx={{width:"96%", m:1,p:1, 
-                borderRadius:4, backgroundColor:"white", border:0}} size="small" border={0}
-                placeholder="Search by Title, company or keyword..."
-                variant="standard"
-                    InputProps={
-                        {
-                            endAdornment: (
-                                <InputAdornment>
-                                    <Button variant="contained" sx={{width:100, borderRadius:4}}
-                                    startIcon={<SearchIcon />}>
-                                        Find
-                                    </Button>
-                                    
-                                </InputAdornment>
-                            ),
-                            disableUnderline: true
-                        }
-                    }/>
-            </Grid>
+        <SearchBar/>
 
         <Grid item container md={12}>
             <Grid item
@@ -160,7 +164,7 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
                 xs={0.5}
                 sm={0.5}
                 md={5}>
-                <Stack direction="colunm">
+                
                     {
                     suggestions.map((item, i) => (
                         <Chip key={i} label={
@@ -173,7 +177,7 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
                                 {ml: 1}
                             }/>
                     ))
-                } </Stack>
+                } 
             </Grid>
             <Grid item
                 sx={
@@ -191,26 +195,28 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
                 </Select>
             </Grid>
         </Grid>
-                <Grid item container md={12} spacing={1} sx={
-                    {mt: 2}
-                }>
-                  {jobsList.map((item, i) => (
+        </Grid>
+        <Grid item container >
+                <Grid item container md={12} spacing={1} sx={{mt: 2}}>
+                  {jobsList ? (jobsList.map((item, i) => (
                     <Grid item key={i}
                         >
                         <CardTemplate title={
                                 item.title
                             }
                             subTitle={
-                                item.subTitle
+                                item.desc
                             }
                             exp={
-                              item.exp
+                              item.experience
                             }
                             click={quickViewToggle}
                             />
                   </Grid>
-                  ))}
+                  ))) : <></>}
                 </Grid>
-              </Grid>
+    </Grid>
+    </Grid>
     );
+    }
 };

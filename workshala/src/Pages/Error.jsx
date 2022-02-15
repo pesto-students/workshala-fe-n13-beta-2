@@ -1,7 +1,7 @@
 import {Avatar, Grid, Typography, Button} from "@mui/material";
 import * as React from "react";
 import error from '../Assets/Images/404.png'
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import { Link } from 'react-router-dom';
 
 export default function Error() {
@@ -72,7 +72,7 @@ export default function Error() {
                     </Typography>
                     <Button 
                     component={Link}
-                    to="/Home"
+                    to="/"
                     sx={
                             {mt: 10}
                         }
