@@ -1,13 +1,5 @@
 import React from "react";
-import companyLogo from "../../Assets/Images/companyLogo.jpg";
-import {
-  Paid,
-  Group,
-  Work,
-  School,
-  Upload,
-  Article,
-} from "@mui/icons-material";
+
 import {
   Avatar,
   Button,
@@ -19,15 +11,16 @@ import {
   Chip,
   Box,
   Stack,
-  CardContent,
-  Card,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { useDispatch } from "react-redux";
+import postJob from "../../redux/actions/postJob";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const FormItems = [
   {
@@ -206,7 +199,27 @@ const LocationRadius = [
     color: "success",
   },
 ];
-export default function PostjobComponent() {
+const PostjobComponent = (props) => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const dispatch = useDispatch();
+
+  const onSubmit = (data) => {
+    const payload = {
+      ...data,
+
+      navigation: navigate,
+    };
+
+    // React.useEffect(() => {
+    dispatch(postJob(payload));
+    // }, []);
+  };
+
   return (
     <Grid container direction="row" spacing={1}>
       <Grid item md={12} sx={{ mt: 2 }} spacing={1}>
@@ -219,86 +232,217 @@ export default function PostjobComponent() {
             borderRadius: 20,
           }}
         >
-          <Paper elevation={0}>
-            <Grid item>
-              <Typography
-                style={{ fontWeight: 650, fontSize: 22 }}
-                sx={{ mt: 1, p: 3 }}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Paper elevation={0}>
+              <Grid item>
+                <Typography
+                  style={{ fontWeight: 650, fontSize: 22 }}
+                  sx={{ mt: 1, p: 3 }}
+                >
+                  Basic Details
+                </Typography>
+              </Grid>
+              {/* <FormInput /> */}
+              <Grid item md={12} xs={12} sm={12}>
+                {FormItems.map((item, i) => (
+                  <Grid item container sx={{ mt: 2 }} md={12}>
+                    <Grid item md={4}>
+                      <TextField
+                        sx={{
+                          width: 240,
+                          marginLeft: 3,
+                        }}
+                        required
+                        id={item.first}
+                        label={item.first}
+                        variant="standard"
+                        {...register(item.first, {
+                          required: true,
+                          maxLength: 30,
+                        })}
+                      />
+                    </Grid>
+                    <Grid item md={4}>
+                      <TextField
+                        sx={{ width: 240 }}
+                        required
+                        id={item.second}
+                        label={item.second}
+                        variant="standard"
+                        {...register(item.second, {
+                          required: true,
+                          maxLength: 30,
+                        })}
+                      />
+                    </Grid>
+                    <Grid item md={4}>
+                      <TextField
+                        sx={{ width: 240, marginLeft: -3 }}
+                        required
+                        id={item.third}
+                        defaultValue={item.third}
+                        variant="standard"
+                        {...register(item.third, {
+                          required: true,
+                          maxLength: 30,
+                        })}
+                      />
+                    </Grid>
+                  </Grid>
+                ))}{" "}
+              </Grid>
+              {/* <JobType /> */}
+              <Grid
+                item
+                md={12}
+                xs={12}
+                sm={12}
+                direction="column"
+                sx={{ mt: 3, ml: 3 }}
               >
-                Basic Details
+                {RadioItems.map((item, i) => (
+                  <Grid
+                    item
+                    container
+                    sx={{ mt: 2 }}
+                    md={12}
+                    direction="column"
+                  >
+                    <Grid item md={4}>
+                      <FormControl>
+                        <FormLabel id={item.first}>{item.first}</FormLabel>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            value={item.second}
+                            control={<Radio />}
+                            label={item.second}
+                          />
+                          <FormControlLabel
+                            value={item.third}
+                            control={<Radio />}
+                            label={item.third}
+                            // {...register(item.third, {
+                            //   required: true,
+                            //   maxLength: 30,
+                            // })}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                ))}{" "}
+              </Grid>
+
+              <Divider sx={{ m: 3 }} />
+
+              <Typography sx={{ mt: 2, ml: 3 }}>
+                Please select assets/documents required from candidates to apply
               </Typography>
-            </Grid>
-            <FormInput />
-
-            <JobType />
-
-            <Divider sx={{ m: 3 }} />
-
-            <Typography sx={{ mt: 2, ml: 3 }}>
-              Please select assets/documents required from candidates to apply
-            </Typography>
-            <Grid
-              item
-              container
-              md={12}
-              direction="row"
-              spacing={1}
-              sx={{ ml: 3 }}
-            >
-              <Grid item sx={{ mt: 2 }} xs={5} sm={5} md={5}>
-                <Stack direction="colunm">
-                  {suggestions.map((item, i) => (
-                    <Chip
-                      key={i}
-                      label={item.label}
-                      color={item.color}
-                      sx={{ ml: 1 }}
-                    />
-                  ))}{" "}
-                </Stack>
-              </Grid>
-            </Grid>
-            <FormInputTwo />
-            <Typography sx={{ mt: 4, ml: 3 }}>
-              Receive Application From
-            </Typography>
-            <Grid item container md={12} direction="row" spacing={1}>
-              <Grid item sx={{ mt: 2, ml: 4 }} xs={5} sm={5} md={5}>
-                <Stack direction="colunm">
-                  {LocationRadius.map((item, i) => (
-                    <Chip
-                      key={i}
-                      label={item.label}
-                      color={item.color}
-                      sx={{ ml: 1 }}
-                    />
-                  ))}{" "}
-                </Stack>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              sx={{ mt: 5 }}
-              md={12}
-              sm={12}
-              md={12}
-              style={{ textAlign: "center" }}
-            >
-              <Button
-                variant="contained"
-                sx={{
-                  width: "100px",
-                  marginLeft: "0 auto",
-                  borderRadius: 4,
-                  display: "flex",
-                }}
+              <Grid
+                item
+                container
+                md={12}
+                direction="row"
+                spacing={1}
+                sx={{ ml: 3 }}
               >
-                Save
-              </Button>
-            </Grid>
-          </Paper>
+                <Grid item sx={{ mt: 2 }} xs={5} sm={5} md={5}>
+                  <Stack direction="colunm">
+                    {suggestions.map((item, i) => (
+                      <Chip
+                        key={i}
+                        label={item.label}
+                        color={item.color}
+                        sx={{ ml: 1 }}
+                      />
+                    ))}{" "}
+                  </Stack>
+                </Grid>
+              </Grid>
+              {/* <FormInputTwo /> */}
+              <Grid item md={12} xs={12} sm={12} sx={{ ml: 1 }}>
+                {FormItemsTwo.map((item, i) => (
+                  <Grid item container sx={{ mt: 4 }} md={12}>
+                    <Grid item md={6}>
+                      <TextField
+                        sx={{
+                          width: 350,
+                          marginLeft: 3,
+                        }}
+                        required
+                        id={item.first}
+                        defaultValue={item.first}
+                        variant="standard"
+                        {...register(item.first, {
+                          required: true,
+                          maxLength: 30,
+                        })}
+                      />
+                    </Grid>
+                    <Grid item md={6}>
+                      <TextField
+                        sx={{ width: 350 }}
+                        required
+                        id={item.second}
+                        defaultValue={item.second}
+                        variant="standard"
+                        {...register(item.second, {
+                          required: true,
+                          maxLength: 30,
+                        })}
+                      />
+                    </Grid>
+                  </Grid>
+                ))}{" "}
+              </Grid>
+              <Typography sx={{ mt: 4, ml: 3 }}>
+                Receive Application From
+              </Typography>
+              <Grid item container md={12} direction="row" spacing={1}>
+                <Grid item sx={{ mt: 2, ml: 4 }} xs={5} sm={5} md={5}>
+                  <Stack direction="colunm">
+                    {LocationRadius.map((item, i) => (
+                      <Chip
+                        key={i}
+                        label={item.label}
+                        color={item.color}
+                        sx={{ ml: 1 }}
+                      />
+                    ))}{" "}
+                  </Stack>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                sx={{ mt: 5 }}
+                md={12}
+                sm={12}
+                md={12}
+                style={{ textAlign: "center" }}
+              >
+                <Button
+                  variant="contained"
+                  type="submit"
+                  sx={{
+                    width: "100px",
+                    marginLeft: "0 auto",
+                    borderRadius: 4,
+                    display: "flex",
+                  }}
+                >
+                  Save
+                </Button>
+              </Grid>
+            </Paper>
+          </form>
         </Box>
       </Grid>
     </Grid>
   );
-}
+};
+
+export default PostjobComponent;

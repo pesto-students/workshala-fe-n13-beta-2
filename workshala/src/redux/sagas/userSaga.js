@@ -230,6 +230,8 @@ function* userSaga() {
   //yield takeEvery('USER_INFO_FAILED', showError, 'userInfo');
 
   //Jobs
+
+  yield takeEvery("POST_JOB_REQUESTED", fetchUserInfo);
 }
 
 export default userSaga;
