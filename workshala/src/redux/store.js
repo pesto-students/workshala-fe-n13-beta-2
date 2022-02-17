@@ -12,7 +12,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 //     whitelist: 'user'
 //   }
 
-//const persistedReducer = persistReducer(persistConfig, rootReducer)
+// const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,7 +21,7 @@ const composeEnhancers = composeWithDevTools({
 });
 
 const store = createStore(
-    //persistedReducer,
+   // persistedReducer,
     rootReducer,
     {},
     composeEnhancers(applyMiddleware(sagaMiddleware))

@@ -66,7 +66,7 @@ export default function VacancyStat() {
     return (
 
         <Paper sx={{borderRadius: 4}}>
-            <Grid container sx={{p:3}}>
+            <Grid container sx={{p:2}}>
                 <Grid item
                     xs={12}
                     sm={12}

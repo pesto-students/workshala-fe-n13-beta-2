@@ -7,45 +7,35 @@ import Error from "./Pages/Error";
 import Statistics from "./Pages/Statistics";
 import Jobs from "./Pages/Jobs";
 import Applications from "./Pages/Applications";
+import RecruiterApplication from "./Pages/RecruiterApp";
+import ActiveJobs from "./Pages/ActiveJobs";
 import ApplyJob from "./Pages/ApplyJob";
 import CompanyDetails from "./Pages/CompanyDetails";
 import EditProfile from "./Pages/EditProfile";
 import Parse from "parse/dist/parse.min.js";
 import Routes from './Routes/Routs'
 
+import PostJob from "./Pages/PostJob";
+
+
 // Your Parse initialization configuration goes here
-Parse.serverURL = "https://workshala.b4a.io";
+//Parse.serverURL = "https://workshala.b4a.io";
+Parse.serverURL = "https://parseapi.back4app.com";
 Parse.initialize(
-  "xxaq9UhFnMAzUPxVF4mjqmZQEouYPPVWoXNyRGaO",
-  "pJnZfZWKjaSc47NgzwYqcmCJePajlRhlun6vVBJV",
-  "mrCkTlPM9DlAw8VVD4xTNISdAxtVaCUt9tC1namP"
+  "BxnHmCjdT1tQTZBT1OIaZuiMSJkcGMVj8oAPfhEf",
+  "Ktz3IYrX9NI0YpqGnfYjNkUVQGuVZUtVa5Ve6DsK"
 );
 
 function App() {
-
   //
   return (
-    /*  <div>
-      <Users/>
-
-    </div>
-  */ 
     
   <BrowserRouter>
       <Routes />
         
     </BrowserRouter>
     
-
-
   );
 }
-
-// const mapStateToProps = (state) => {
-//   console.log("testing mapstate: "+state);
-//   return {
-
-//   }
-// }
 
 export default App;

@@ -74,6 +74,7 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
   };
 
     return (
+        
         <Drawer variant="persistent" anchor="left" open={dashBoardSideNavOpen}
         onClose={dashBoardSideNavToggle}>
             <Grid container
@@ -184,6 +185,7 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                 </Grid>
             </Grid>
         </Drawer>
+        
 
     );
 }

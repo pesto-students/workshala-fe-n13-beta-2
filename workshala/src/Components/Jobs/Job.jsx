@@ -1,13 +1,14 @@
 import * as React from "react";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import IconRa from "../../Assets/Images/react.jpg";
 import {Avatar, Button, CardActions, Grid, Select, MenuItem, 
 TextField, Chip, Stack, Typography, CardContent, InputAdornment, Card, CardActionArea} from "@mui/material";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {isEmpty} from '../../Services/Utils/Generic'
-import getJobsList from '../../redux/actions/jobs'
+import {getJobsList, getJobsListByJobId} from '../../redux/actions/jobs'
 import Loader from '../../Services/Utils/Loader'
+import {UpdateJobData} from '../Jobs/JobDetails'
 
 var jobsList;
 
@@ -19,22 +20,27 @@ export const updateJobList = (data) => {
 }
 
 const suggestions = [
-    {
-        label: "Technician",
-        color: "primary"
-    }, {
-        label: "Mechanic",
-        color: "success"
-    }, {
-        label: "Delivery Boy",
-        color: "success"
-    }, {
-        label: "Builder",
-        color: "success"
-    }
-]
+  {
+    label: "Technician",
+    color: "primary",
+  },
+  {
+    label: "Mechanic",
+    color: "success",
+  },
+  {
+    label: "Delivery Boy",
+    color: "success",
+  },
+  {
+    label: "Builder",
+    color: "success",
+  },
+];
 
 const CardTemplate = (props) => {
+<<<<<<< HEAD
+    const dispatch = useDispatch();
     return (
         <Card sx={{borderRadius: 8, p:2}}>
             <CardActionArea onClick={props.click}>
@@ -66,9 +72,10 @@ const CardTemplate = (props) => {
                 </Grid>
                 <Grid item md={12} align="right" sx={{mt:5}}>
                 <Button size="small" color="primary"
-                    style={{fontSize:9}}
                     component={Link}
-                    to="/CompanyDetails">
+                    to="/CompanyDetails"
+                    style={{fontSize:9}}
+                    onClick={() => { UpdateJobData(props.itemData) }}>
                     View more
                 </Button>
                 </Grid>
@@ -76,6 +83,53 @@ const CardTemplate = (props) => {
             </CardActions>
         </Card>
     );
+=======
+  return (
+    <Card sx={{ borderRadius: 8, p: 2 }}>
+      <CardActionArea onClick={props.click}>
+        <CardContent align="center">
+          <Avatar src={IconRa} />
+          <Typography gutterBottom variant="h6">
+            {props.title}{" "}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {props.subTitle}{" "}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {props.exp}{" "}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Grid container>
+          <Grid item md={12} align={"center"}>
+            <Button
+              size="small"
+              color="primary"
+              variant="contained"
+              style={{ width: 100 }}
+              component={Link}
+              to="/ApplyJob"
+            >
+              Apply
+            </Button>
+          </Grid>
+          <Grid item md={12} align="right" sx={{ mt: 5 }}>
+            <Button
+              size="small"
+              color="primary"
+              style={{ fontSize: 9 }}
+              component={Link}
+              to="/CompanyDetails"
+            >
+              View more
+            </Button>
+          </Grid>
+        </Grid>
+      </CardActions>
+    </Card>
+  );
+>>>>>>> 5d35b6d06b53c67d414edf0a4259e099ee2e1945
 };
 
 const SearchBar = () => {
@@ -130,10 +184,10 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
     } else {
 
         if(jobsInfo != undefined && jobsInfo.status && jobsInfo.jobs != undefined && jobsInfo.jobs.data != undefined 
-            && jobsInfo.jobs.data.results != undefined) {
-            const data = jobsInfo.jobs.data.results;
+            && jobsInfo.jobs.data.result != undefined) {
+            const data = jobsInfo.jobs.data.result;
             data.forEach(function (k, i) {
-                jobsList[i] = {title: data[i].title, desc: data[i].desc, experience: data[i].experience};
+                jobsList[i] = {id: data[i].objectId, title: data[i].title, desc: data[i].desc, experience: data[i].experience, fullData: data[i]};
             });
             console.log(jobsList);
            // UpdateData(userData);
@@ -211,6 +265,7 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
                               item.experience
                             }
                             click={quickViewToggle}
+                            itemData = {item.fullData}
                             />
                   </Grid>
                   ))) : <></>}

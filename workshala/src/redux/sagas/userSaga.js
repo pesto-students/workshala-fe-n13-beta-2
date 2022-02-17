@@ -5,11 +5,11 @@ import { updateJobList } from "../../Components/Jobs/Job";
 import { isRejected } from "@reduxjs/toolkit";
 //import Promise from 'react-promise';
 
-const baseUrl = "https://workshala.b4a.io";
+const baseUrl = "https://parseapi.back4app.com";
 
 const headers = {
-  "X-Parse-Application-Id": "xxaq9UhFnMAzUPxVF4mjqmZQEouYPPVWoXNyRGaO",
-  "X-Parse-REST-API-Key": "k0D3nNGJ0O44nI0iQ5QZVBi7hPinfQ6B6N5Jh1iw",
+  "X-Parse-Application-Id": "BxnHmCjdT1tQTZBT1OIaZuiMSJkcGMVj8oAPfhEf",
+  "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
 };
 
 var navigation = "";
@@ -58,11 +58,11 @@ function getUserInfo(data) {
 }
 
 function getJobsList() {
-  var url = baseUrl + "/classes/JobInfo";
-
+  var url = baseUrl + "/functions/getJobInfoById";
+  const params = {}
   return new Promise(resolve => {
   axios
-    .get(url, { headers: headers })
+    .post(url, params, { headers: headers })
     .then((response) => {
       //updateJobList(response.data.results);
       //navigation('Dashboard');
@@ -75,6 +75,30 @@ function getJobsList() {
     });
   });
 }
+
+// function getJobById(data) {
+//   if (data !== undefined ) {
+//     const jobId = data.payload;
+
+//     const params = { jobId: jobId };
+//     var url = baseUrl + "/functions/getJobInfoById";
+
+//     return new Promise((resolve) => {
+//       axios
+//         .post(url, params, { headers: headers })
+//         .then((response) => {
+//           //updateJobList(response.data.results);
+//           //navigation('Dashboard');
+//           resolve(response);
+//         })
+//         .catch((error) => {
+//           console.log("Error:" + error);
+//           throw error;
+//           //  reject(error);
+//         });
+//     });
+//   }
+// }
 
 function getAppsList() {
   var url = baseUrl + "/classes/ApplicationInfo";
@@ -93,6 +117,34 @@ function getAppsList() {
     //  reject(error);
     });
   });
+}
+
+function getCurrentUser(data) {
+  var url = baseUrl + "/users/me";
+
+  if (data !== undefined && data.data !== undefined) {
+    const sessionToken = data.data.sessionToken;
+
+    const custHeader = {
+      ...headers,
+      'X-Parse-Session-Token' : sessionToken
+    }
+
+    return new Promise(resolve => {
+      axios
+      .get(url, { headers: custHeader })
+      .then((response) => {
+        //updateJobList(response.data.results);
+        //navigation('Dashboard');
+        resolve(response);
+      })
+      .catch((error) => {
+        console.log("Error:"+error);
+        throw error;
+    //  reject(error);
+      });
+    });
+  }
 }
 
 function signUpApi(data) {
@@ -211,6 +263,25 @@ function* fetchApplications (action) {
   }
 }
 
+function* fetchCurrentUser (action) {
+  try {
+    const userData = yield select((state) => state.user.user);
+    const currentUser = yield call(getCurrentUser, userData);
+    yield put({ type: "CURRENT_USER_REQUESTED", currentUser: currentUser });
+  } catch (e) {
+    yield put({ type: "CURRENT_USER_REQUESTED", message: e.message });
+  }
+}
+
+// function* fetchJobById (action) {
+//   try {
+//     const jobData = yield call(getJobById, action);
+//     yield put({ type: "JOBS_LIST_BY_ID_SUCCESS", jobsById: jobData });
+//   } catch (e) {
+//     yield put({ type: "JOBS_LIST_BY_ID_FAILED", message: e.message });
+//   }
+// }
+
 function* fetchUser(parentComp, action) {
   var userData = "";
   if (parentComp === "signIn") {
@@ -265,6 +336,11 @@ function* userSaga() {
 
   //applications
   yield takeEvery('APPLICATIONS_LIST_REQUESTED', fetchApplications);
+
+  //currentUser
+  yield takeEvery('CURRENT_USER_REQUESTED', fetchCurrentUser);
+
+  //yield takeEvery('JOBS_LIST_BY_ID_REQUESTED', fetchJobById);
 }
 
 export default userSaga;
