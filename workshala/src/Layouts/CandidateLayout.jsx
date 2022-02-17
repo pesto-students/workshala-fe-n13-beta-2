@@ -32,6 +32,5 @@ export default function CandidateLayout({ children }) {
                 </Grid>
             </Grid>
         </Grid>
-      
   );
 }
