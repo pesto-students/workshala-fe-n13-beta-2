@@ -47,78 +47,20 @@ const FormItemsTwo = [
   },
 ];
 
-const FormInput = () => {
-  return (
-    <Grid item md={12} xs={12} sm={12}>
-      {FormItems.map((item, i) => (
-        <Grid item container sx={{ mt: 2 }} md={12}>
-          <Grid item md={4}>
-            <TextField
-              sx={{
-                width: 240,
-                marginLeft: 3,
-              }}
-              required
-              id={item.first}
-              defaultValue={item.first}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item md={4}>
-            <TextField
-              sx={{ width: 240 }}
-              required
-              id={item.second}
-              defaultValue={item.second}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item md={4}>
-            <TextField
-              sx={{ width: 240, marginLeft: -3 }}
-              required
-              id={item.third}
-              defaultValue={item.third}
-              variant="standard"
-            />
-          </Grid>
-        </Grid>
-      ))}{" "}
-    </Grid>
-  );
-};
-
-const FormInputTwo = () => {
-  return (
-    <Grid item md={12} xs={12} sm={12} sx={{ ml: 1 }}>
-      {FormItemsTwo.map((item, i) => (
-        <Grid item container sx={{ mt: 4 }} md={12}>
-          <Grid item md={6}>
-            <TextField
-              sx={{
-                width: 350,
-                marginLeft: 3,
-              }}
-              required
-              id={item.first}
-              defaultValue={item.first}
-              variant="standard"
-            />
-          </Grid>
-          <Grid item md={6}>
-            <TextField
-              sx={{ width: 350 }}
-              required
-              id={item.second}
-              defaultValue={item.second}
-              variant="standard"
-            />
-          </Grid>
-        </Grid>
-      ))}{" "}
-    </Grid>
-  );
-};
+const suggestions = [
+  {
+    label: "Two wheeler license",
+    color: "primary",
+  },
+  {
+    label: "Adhar Card",
+    color: "success",
+  },
+  {
+    label: "Smart Phone",
+    color: "success",
+  },
+];
 
 const RadioItems = [
   {
@@ -135,53 +77,6 @@ const RadioItems = [
     first: "Experience Required",
     second: "Fresher",
     third: "Experienced",
-  },
-];
-
-const JobType = () => {
-  return (
-    <Grid item md={12} xs={12} sm={12} direction="column" sx={{ mt: 3, ml: 3 }}>
-      {RadioItems.map((item, i) => (
-        <Grid item container sx={{ mt: 2 }} md={12} direction="column">
-          <Grid item md={4}>
-            <FormControl>
-              <FormLabel id={item.first}>{item.first}</FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
-                <FormControlLabel
-                  value={item.second}
-                  control={<Radio />}
-                  label={item.second}
-                />
-                <FormControlLabel
-                  value={item.third}
-                  control={<Radio />}
-                  label={item.third}
-                />
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-        </Grid>
-      ))}{" "}
-    </Grid>
-  );
-};
-
-const suggestions = [
-  {
-    label: "Two wheeler license",
-    color: "primary",
-  },
-  {
-    label: "Adhar Card",
-    color: "success",
-  },
-  {
-    label: "Smart Phone",
-    color: "success",
   },
 ];
 
@@ -280,7 +175,7 @@ const PostjobComponent = (props) => {
                         sx={{ width: 240, marginLeft: -3 }}
                         required
                         id={item.third}
-                        defaultValue={item.third}
+                        label={item.third}
                         variant="standard"
                         {...register(item.third, {
                           required: true,
@@ -320,15 +215,13 @@ const PostjobComponent = (props) => {
                             value={item.second}
                             control={<Radio />}
                             label={item.second}
+                            // {...register(item.second, { required: true })}
                           />
                           <FormControlLabel
                             value={item.third}
                             control={<Radio />}
                             label={item.third}
-                            // {...register(item.third, {
-                            //   required: true,
-                            //   maxLength: 30,
-                            // })}
+                            // {...register(item.third, { required: true })}
                           />
                         </RadioGroup>
                       </FormControl>
@@ -375,7 +268,7 @@ const PostjobComponent = (props) => {
                         }}
                         required
                         id={item.first}
-                        defaultValue={item.first}
+                        label={item.first}
                         variant="standard"
                         {...register(item.first, {
                           required: true,
@@ -388,7 +281,7 @@ const PostjobComponent = (props) => {
                         sx={{ width: 350 }}
                         required
                         id={item.second}
-                        defaultValue={item.second}
+                        label={item.second}
                         variant="standard"
                         {...register(item.second, {
                           required: true,

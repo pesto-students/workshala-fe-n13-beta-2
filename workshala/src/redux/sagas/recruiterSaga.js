@@ -11,14 +11,16 @@ const headers = {
 var navigation = "";
 
 function* postAJob(data) {
-  //   const userPayload = {
-  //     title: data["jobTitle"],
-  //     desc: data["description"],
-  //     qualification: data["qualification"],
-  //     maxSalary: data["maxSalary"],
-  //     minSalary: data["minSalary"],
-  //     experience: data["Exp required"],
-  //   };
+  const userPayload = {
+    title: data["Job Title"],
+    desc: data["Description"],
+    type: data["Job Type"],
+    maxSalary: data["Max Salary"],
+    minSalary: data["Min Salary"],
+    experience: data["Exp required"],
+    empType: data[true ? "Full Time" : "Part Time"],
+    location: data["Location"],
+  };
 
   const userHeader = {
     ...headers,
@@ -26,9 +28,9 @@ function* postAJob(data) {
   };
 
   return axios
-    .post(baseUrl + "/JobInfo", data, { headers: userHeader })
+    .post(baseUrl + "/classes/JobInfo", userPayload, { headers: userHeader })
     .then((response) => {
-      // navigation = data["navigation"];
+      navigation = data["ActiveJobs"];
       return response;
     })
     .catch((error) => {

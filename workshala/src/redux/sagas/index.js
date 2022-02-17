@@ -3,6 +3,5 @@ import userSaga from "./userSaga";
 import recruiterSaga from "./recruiterSaga";
 
 export default function* rootSaga() {
-  yield all([userSaga()]);
-  yield all([recruiterSaga()]);
+  yield all([userSaga(), recruiterSaga()]);
 }
