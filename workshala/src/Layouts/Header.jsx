@@ -6,8 +6,28 @@ import PersonIcon from "@mui/icons-material/Person";
 import ProfileDropdown from "../Layouts/ProfileDropdown";
 import { Link } from "react-router-dom";
 import { Grid, IconButton, Typography, Button } from "@mui/material";
+import { useSelector } from 'react-redux';
 
 export default function Header({ dashBoardSideNavToggle }) {
+  var profileData = {
+    Name: 'John Doe',
+    Role: 'Candidate'
+};
+
+const user = useSelector(state => state.user.user);
+
+if(user != undefined && user.data != undefined) {
+
+        const userData = user.data;
+
+        profileData = {
+            ...profileData,
+            Name: userData.firstName + " " + userData.lastName,
+            Role: userData.role
+        }
+}
+    
+  
   return (
     <Grid container sx={{ mt: 2, height: "10vh" }}>
       {/* icon */}
@@ -17,10 +37,9 @@ export default function Header({ dashBoardSideNavToggle }) {
         </IconButton>
       </Grid>
 
-      {/* message icon */}
       <Grid item md={11} container justifyContent={"flex-end"} spacing={2}>
         {/* TODO put condition to show only for recruiter */}
-        <Grid item>
+        <Grid item md={2.5}>
           <Button
             component={Link}
             to="/Postjob"
@@ -36,41 +55,32 @@ export default function Header({ dashBoardSideNavToggle }) {
             Post Job
           </Button>
         </Grid>
-        <Grid item>
+        <Grid item md={0.8}>
           <IconButton component={Link} to="/Error" sx={{ mt: 0.5 }}>
             <MessageIcon style={{ fontSize: 34 }} />
           </IconButton>
         </Grid>
 
-            const userData = user.data;
-            console.log("userData-"+userData);
-            profileData = {
-                ...profileData,
-                Name: userData.firstName + " " + userData.lastName,
-                Role: userData.role
-            }
-    }
-
-        <Grid item>
+        <Grid item md={0.8}>
           <IconButton component={Link} to="/Profile">
             <PersonIcon style={{ fontSize: 34 }} />
           </IconButton>
         </Grid>
 
                 {/* notification icon */}
-                <Grid item md={0.8}>
-                    <IconButton component={Link} to="/Error">
-                        <NotificationsActiveIcon style={{fontSize:34}}/>
-                    </IconButton>
-                </Grid>
+        <Grid item md={0.8}>
+            <IconButton component={Link} to="/Error">
+                <NotificationsActiveIcon style={{fontSize:34}}/>
+            </IconButton>
+        </Grid>
             
-                <Grid item md={0.8}>
-                    <IconButton component={Link} to="EditProfile">
-                        <PersonIcon style={{fontSize:34}}/>
-                    </IconButton>
-                </Grid>
+        <Grid item md={0.8}>
+            <IconButton component={Link} to="EditProfile">
+                <PersonIcon style={{fontSize:34}}/>
+            </IconButton>
+        </Grid>
                     
-                <Grid item container direction="column" sx={{mt:0.5}} md={1}>
+        <Grid item container direction="column" sx={{mt:0.5}} md={1.4}>
                     <Grid item>
                         <Typography component="h1" variant="h5" color="black" style={{fontSize:14}}>
                             {profileData.Name}
@@ -82,7 +92,7 @@ export default function Header({ dashBoardSideNavToggle }) {
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid item md={0.1}>
+                <Grid item md={0.8}>
                     {/*<ReorderIcon style={{fontSize:34}}/>*/}
                     <ProfileDropdown/>
                 </Grid>                

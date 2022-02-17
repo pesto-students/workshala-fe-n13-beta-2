@@ -235,7 +235,7 @@ const FormInput = (props) => {
       </Grid>
       <Grid item md={12}>
         <Typography sx={{ ml: 3, mr: 3 }} align="justify">
-          {"props.data.aboutYou"}
+          {props.data.aboutYou}
         </Typography>
       </Grid>
       <Divider sx={{ m: 3 }} />
