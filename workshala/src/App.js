@@ -17,11 +17,10 @@ import Parse from "parse/dist/parse.min.js";
 import PostJob from "./Pages/PostJob";
 
 // Your Parse initialization configuration goes here
-Parse.serverURL = "https://workshala.b4a.io";
+Parse.serverURL = "https://parseapi.back4app.com";
 Parse.initialize(
-  "xxaq9UhFnMAzUPxVF4mjqmZQEouYPPVWoXNyRGaO",
-  "pJnZfZWKjaSc47NgzwYqcmCJePajlRhlun6vVBJV",
-  "mrCkTlPM9DlAw8VVD4xTNISdAxtVaCUt9tC1namP"
+  "BxnHmCjdT1tQTZBT1OIaZuiMSJkcGMVj8oAPfhEf",
+  "Ktz3IYrX9NI0YpqGnfYjNkUVQGuVZUtVa5Ve6DsK"
 );
 
 function App() {
