@@ -22,7 +22,19 @@ import {
 import SignInModal from "./SignInModal";
 import {useForm} from 'react-hook-form';
 
-const theme = createTheme();
+const theme = createTheme({
+  overrides: {
+      MuiPaper: {
+          root: {
+              textTransform: "uppercase"
+          }
+      },
+      MuiBreadcrumbs: {
+          root: {
+              textTransform: "uppercase"
+          }
+      }
+  }});
 
 const style = {
   mx: 40,
@@ -61,8 +73,8 @@ const SignUpForm = (props) => {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5" color="blue">
-            SignUp
+          <Typography component="h1" variant="h5" color="blue" style={{textTransform:'capitalize'}}>
+            {props.role} SignUp
           </Typography>
           <Typography component="h2" variant="h6">
             Please fill in the below form to create an account

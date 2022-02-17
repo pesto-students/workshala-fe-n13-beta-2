@@ -6,13 +6,13 @@ import rootSaga from "./sagas/index";
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-// const persistConfig = {
-//     key: 'root',
-//     storage,
-//     whitelist: 'user'
-//   }
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: 'user'
+  }
 
-//const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,17 +21,17 @@ const composeEnhancers = composeWithDevTools({
 });
 
 const store = createStore(
-    //persistedReducer,
-    rootReducer,
+    persistedReducer,
+   // rootReducer,
     {},
     composeEnhancers(applyMiddleware(sagaMiddleware))
 );
-//let persistor = persistStore(store)
+let persistor = persistStore(store)
 
 sagaMiddleware.run(rootSaga);
 
-//export { store, persistor };
+export { store, persistor };
   
 
 
-export default store;
+//export default store;

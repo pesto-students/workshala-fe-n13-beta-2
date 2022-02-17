@@ -1,15 +1,12 @@
 import { call, put, takeEvery, select } from "redux-saga/effects";
 import axios from "axios";
 import { setProfileData } from "../../Components/Profile/ProfileInfo";
-import { updateJobList } from "../../Components/Jobs/Job";
-import { isRejected } from "@reduxjs/toolkit";
-//import Promise from 'react-promise';
 
-const baseUrl = "https://workshala.b4a.io";
+const baseUrl = "https://parseapi.back4app.com";
 
 const headers = {
-  "X-Parse-Application-Id": "xxaq9UhFnMAzUPxVF4mjqmZQEouYPPVWoXNyRGaO",
-  "X-Parse-REST-API-Key": "k0D3nNGJ0O44nI0iQ5QZVBi7hPinfQ6B6N5Jh1iw",
+  "X-Parse-Application-Id": "BxnHmCjdT1tQTZBT1OIaZuiMSJkcGMVj8oAPfhEf",
+  "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
 };
 
 var navigation = "";
@@ -57,42 +54,56 @@ function getUserInfo(data) {
   }
 }
 
-function getJobsList() {
-  var url = baseUrl + "/classes/JobInfo";
+// function getJobById(data) {
+//   if (data !== undefined ) {
+//     const jobId = data.payload;
 
-  return new Promise(resolve => {
-  axios
-    .get(url, { headers: headers })
-    .then((response) => {
-      //updateJobList(response.data.results);
-      //navigation('Dashboard');
-      resolve(response);
-    })
-    .catch((error) => {
-      console.log("Error:"+error);
-      throw error;
+//     const params = { jobId: jobId };
+//     var url = baseUrl + "/functions/getJobInfoById";
+
+//     return new Promise((resolve) => {
+//       axios
+//         .post(url, params, { headers: headers })
+//         .then((response) => {
+//           //updateJobList(response.data.results);
+//           //navigation('Dashboard');
+//           resolve(response);
+//         })
+//         .catch((error) => {
+//           console.log("Error:" + error);
+//           throw error;
+//           //  reject(error);
+//         });
+//     });
+//   }
+// }
+
+function getCurrentUser(data) {
+  var url = baseUrl + "/users/me";
+
+  if (data !== undefined && data.data !== undefined) {
+    const sessionToken = data.data.sessionToken;
+
+    const custHeader = {
+      ...headers,
+      'X-Parse-Session-Token' : sessionToken
+    }
+
+    return new Promise(resolve => {
+      axios
+      .get(url, { headers: custHeader })
+      .then((response) => {
+        //updateJobList(response.data.results);
+        //navigation('Dashboard');
+        resolve(response);
+      })
+      .catch((error) => {
+        console.log("Error:"+error);
+        throw error;
     //  reject(error);
+      });
     });
-  });
-}
-
-function getAppsList() {
-  var url = baseUrl + "/classes/ApplicationInfo";
-
-  return new Promise(resolve => {
-  axios
-    .get(url, { headers: headers })
-    .then((response) => {
-      //updateJobList(response.data.results);
-      //navigation('Dashboard');
-      resolve(response);
-    })
-    .catch((error) => {
-      console.log("Error:"+error);
-      throw error;
-    //  reject(error);
-    });
-  });
+  }
 }
 
 function signUpApi(data) {
@@ -202,14 +213,24 @@ function* showError(parentComp, action) {
   }
 }
 
-function* fetchApplications (action) {
+function* fetchCurrentUser (action) {
   try {
-    const applications = yield call(getAppsList, action);
-    yield put({ type: "APPLICATIONS_LIST_SUCCESS", applications: applications });
+    const userData = yield select((state) => state.user.user);
+    const currentUser = yield call(getCurrentUser, userData);
+    yield put({ type: "CURRENT_USER_REQUESTED", currentUser: currentUser });
   } catch (e) {
-    yield put({ type: "APPLICATIONS_LIST_FAILED", message: e.message });
+    yield put({ type: "CURRENT_USER_REQUESTED", message: e.message });
   }
 }
+
+// function* fetchJobById (action) {
+//   try {
+//     const jobData = yield call(getJobById, action);
+//     yield put({ type: "JOBS_LIST_BY_ID_SUCCESS", jobsById: jobData });
+//   } catch (e) {
+//     yield put({ type: "JOBS_LIST_BY_ID_FAILED", message: e.message });
+//   }
+// }
 
 function* fetchUser(parentComp, action) {
   var userData = "";
@@ -232,17 +253,7 @@ function* fetchUser(parentComp, action) {
   }
 }
 
-function* fetchJobsList(action) {
-  try {
-    const jobs = yield call(getJobsList, action);
-    yield put({ type: "JOBS_LIST_SUCCESS", jobs: jobs });
-  } catch (e) {
-    yield put({ type: "JOBS_LIST_FAILED", message: e.message });
-  }
-}
-
 function* userSaga() {
-  yield takeEvery("JOBS_LIST_REQUESTED", fetchJobsList);
   //SIGN-UP
   yield takeEvery("USER_SIGNUP_REQUESTED", signUpUser); // make entry in user - POST (reducer-signup) ->USER_SIGNUP_SUCCESS
   yield takeEvery("USER_SIGNUP_SUCCESS", fetchUser, "signUp"); // get userId from sigup, GET (users/UserId) -> USER_SUCCESS
@@ -263,8 +274,10 @@ function* userSaga() {
   //yield takeEvery('USER_INFO_REQUESTED', fetchUser);
   //yield takeEvery('USER_INFO_FAILED', showError, 'userInfo');
 
-  //applications
-  yield takeEvery('APPLICATIONS_LIST_REQUESTED', fetchApplications);
+  //currentUser
+  yield takeEvery('CURRENT_USER_REQUESTED', fetchCurrentUser);
+
+  //yield takeEvery('JOBS_LIST_BY_ID_REQUESTED', fetchJobById);
 }
 
 export default userSaga;

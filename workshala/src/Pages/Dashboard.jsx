@@ -12,26 +12,28 @@ export default function Dashboard() {
             <div>
                 <Grid container spacing={1}>
                     <Grid item
-                        xs={12}
-                        sm={12}
-                        md={12} height={"10%"}>
-                        <TopContent/>
-                    </Grid>
-                    <Grid item
                         xs={3}
                         sm={3}
-                        md={3} width="20%" height={"90%"}>
+                        md={3} width="20%">
                         <ProfileInfo/>
-                        <RecentActivity/>
+                        {/* <RecentActivity/> */}
                     </Grid>
-                    <Grid item
-                        xs={9}
-                        sm={9}
-                        md={9}
-                        width="80%"
-                        height={"90%"}>
-                        {/*<RightContent/>*/}
-                        <VacancyStat/>
+                    <Grid item container md={9} spacing={1}>
+                        <Grid item
+                            xs={12}
+                            sm={12}
+                            md={12} >
+                            <TopContent/>
+                        </Grid>
+                    
+                        <Grid item
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            >
+                            {/*<RightContent/>*/}
+                            <VacancyStat/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </div>
