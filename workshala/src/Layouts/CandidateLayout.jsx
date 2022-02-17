@@ -9,8 +9,10 @@ export default function CandidateLayout({ children }) {
   const dashBoardSideNavToggle = () => {
     setDashBoardSideNavOpen(!dashBoardSideNavOpen);
   };
+  const dashBoardSideNavClose = () => {
+    setDashBoardSideNavOpen(false);
+  };
 
-<<<<<<< HEAD
     return (
         <Grid container direction="row" style={{backgroundColor:"#EDEAEA"}}
             sx={{ backgroundColor: "#EDEAEA", height:"100vh" }}>
@@ -29,42 +31,7 @@ export default function CandidateLayout({ children }) {
                     {children} 
                 </Grid>
             </Grid>
-=======
-  const dashBoardSideNavClose = () => {
-    setDashBoardSideNavOpen(false);
-  };
-
-  return (
-    <Grid
-      container
-      direction="row"
-      sx={{
-        backgroundColor: "#EDEAEA",
-        height: "100vh",
-      }}
-    >
-      <Grid item width="20%">
-        <SideBar
-          dashBoardSideNavOpen={dashBoardSideNavOpen}
-          dashBoardSideNavToggle={dashBoardSideNavToggle}
-          dashBoardSideNavClose={dashBoardSideNavClose}
-        />
-      </Grid>
-      <Grid
-        item
-        container
-        direction="row"
-        width={dashBoardSideNavOpen ? "80%" : "100%"}
-      >
-        <Grid item xs={12} sm={12} md={12}>
-          <Header dashBoardSideNavToggle={dashBoardSideNavToggle} />
         </Grid>
-
-        <Grid item xs={12} sm={12} md={12} sx={{ m: 2 }}>
-          {children}
->>>>>>> 5d35b6d06b53c67d414edf0a4259e099ee2e1945
-        </Grid>
-      </Grid>
-    </Grid>
+      
   );
 }

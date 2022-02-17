@@ -5,7 +5,7 @@ import { Button, Grid, Avatar, Chip, Stack, Typography,
   TablePagination, TableRow, TableHead, TableContainer, 
   TableCell, TableBody, Table, Paper} from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
-import getApplications from '../../redux/actions/applications'
+import {getApplications} from '../../redux/actions/applications'
 import Loader from '../../Services/Utils/Loader'
 
 const suggestions = [

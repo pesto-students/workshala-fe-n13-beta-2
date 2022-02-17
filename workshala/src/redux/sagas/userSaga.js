@@ -1,9 +1,6 @@
 import { call, put, takeEvery, select } from "redux-saga/effects";
 import axios from "axios";
 import { setProfileData } from "../../Components/Profile/ProfileInfo";
-import { updateJobList } from "../../Components/Jobs/Job";
-import { isRejected } from "@reduxjs/toolkit";
-//import Promise from 'react-promise';
 
 const baseUrl = "https://parseapi.back4app.com";
 
@@ -57,25 +54,6 @@ function getUserInfo(data) {
   }
 }
 
-function getJobsList() {
-  var url = baseUrl + "/functions/getJobInfoById";
-  const params = {}
-  return new Promise(resolve => {
-  axios
-    .post(url, params, { headers: headers })
-    .then((response) => {
-      //updateJobList(response.data.results);
-      //navigation('Dashboard');
-      resolve(response);
-    })
-    .catch((error) => {
-      console.log("Error:"+error);
-      throw error;
-    //  reject(error);
-    });
-  });
-}
-
 // function getJobById(data) {
 //   if (data !== undefined ) {
 //     const jobId = data.payload;
@@ -99,25 +77,6 @@ function getJobsList() {
 //     });
 //   }
 // }
-
-function getAppsList() {
-  var url = baseUrl + "/classes/ApplicationInfo";
-
-  return new Promise(resolve => {
-  axios
-    .get(url, { headers: headers })
-    .then((response) => {
-      //updateJobList(response.data.results);
-      //navigation('Dashboard');
-      resolve(response);
-    })
-    .catch((error) => {
-      console.log("Error:"+error);
-      throw error;
-    //  reject(error);
-    });
-  });
-}
 
 function getCurrentUser(data) {
   var url = baseUrl + "/users/me";
@@ -254,15 +213,6 @@ function* showError(parentComp, action) {
   }
 }
 
-function* fetchApplications (action) {
-  try {
-    const applications = yield call(getAppsList, action);
-    yield put({ type: "APPLICATIONS_LIST_SUCCESS", applications: applications });
-  } catch (e) {
-    yield put({ type: "APPLICATIONS_LIST_FAILED", message: e.message });
-  }
-}
-
 function* fetchCurrentUser (action) {
   try {
     const userData = yield select((state) => state.user.user);
@@ -303,17 +253,7 @@ function* fetchUser(parentComp, action) {
   }
 }
 
-function* fetchJobsList(action) {
-  try {
-    const jobs = yield call(getJobsList, action);
-    yield put({ type: "JOBS_LIST_SUCCESS", jobs: jobs });
-  } catch (e) {
-    yield put({ type: "JOBS_LIST_FAILED", message: e.message });
-  }
-}
-
 function* userSaga() {
-  yield takeEvery("JOBS_LIST_REQUESTED", fetchJobsList);
   //SIGN-UP
   yield takeEvery("USER_SIGNUP_REQUESTED", signUpUser); // make entry in user - POST (reducer-signup) ->USER_SIGNUP_SUCCESS
   yield takeEvery("USER_SIGNUP_SUCCESS", fetchUser, "signUp"); // get userId from sigup, GET (users/UserId) -> USER_SUCCESS
@@ -333,9 +273,6 @@ function* userSaga() {
   //User Info
   //yield takeEvery('USER_INFO_REQUESTED', fetchUser);
   //yield takeEvery('USER_INFO_FAILED', showError, 'userInfo');
-
-  //applications
-  yield takeEvery('APPLICATIONS_LIST_REQUESTED', fetchApplications);
 
   //currentUser
   yield takeEvery('CURRENT_USER_REQUESTED', fetchCurrentUser);

@@ -48,6 +48,7 @@ const PublicRoutes = () => {
     <Routes>
       <Route exact path="/" element={<Home />} />
       
+      <Route exact path="/ApplyJob" element={<ApplyJob />} />     //TODO remove this 
       <Route exact path="/Dashboard" element={<Dashboard />} />     //TODO remove this 
       <Route path="/Jobs" element={<Jobs />} />                     //TODO remove this 
       <Route path="/Applications" element={<Applications />} />                     //TODO remove this 

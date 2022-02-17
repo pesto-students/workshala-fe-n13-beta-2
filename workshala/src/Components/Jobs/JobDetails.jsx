@@ -14,6 +14,7 @@ import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {isEmpty} from '../../Services/Utils/Generic'
+import {UpdateApplyjobData} from '../../Components/Applications/ApplicationForm'
 
 const itemData = [
   {
@@ -42,10 +43,10 @@ var JobDetailsData = [];
 var JobDetailsData1 = [];
 
 const JobData = [
-  {icon:<SchoolIcon/>, title:"Work Level", value:"Senior"},
-  {icon:<WorkIcon/>, title:"Min. Experience", value:"3 Years"},
-  {icon:<AccountBoxRoundedIcon/>, title:"Employee Type", value:"Part-Time"},
-  {icon:<PaidRoundedIcon/>, title:"Salary", value:"$900 /Month"}
+  {icon:<SchoolIcon/>, title:"Work Level"},
+  {icon:<WorkIcon/>, title:"Min. Experience"},
+  {icon:<AccountBoxRoundedIcon/>, title:"Employee Type"},
+  {icon:<PaidRoundedIcon/>, title:"Salary"}
 ]
 
 export const UpdateJobData = (data) => {
@@ -59,7 +60,7 @@ export const UpdateJobData = (data) => {
 
   console.log(JobDetailsData);
 
-  JobDetailsData1 = {Title: data.title, Overview: data.desc};
+  JobDetailsData1 = {Title: data.title, Overview: data.desc, fullData: data};
 }
 
 export default function JobDetails(props) {
@@ -101,6 +102,9 @@ if(!isEmpty(JobDetailsData1) && !jobsData) {
             component={Link}
             to="/ApplyJob"
             sx={{ borderRadius: 8, width:"150px", height:"40px", bgcolor:"#253FC6"}}
+            onClick={() => {
+              UpdateApplyjobData(JobDetailsData1.fullData)
+            }}
           >
             Apply
           </Button>
