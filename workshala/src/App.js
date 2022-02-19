@@ -13,13 +13,14 @@ import ApplyJob from "./Pages/ApplyJob";
 import CompanyDetails from "./Pages/CompanyDetails";
 import EditProfile from "./Pages/EditProfile";
 import Parse from "parse/dist/parse.min.js";
-import Routes from './Routes/Routs'
+import Routes from "./Routes/Routs";
 
 import PostJob from "./Pages/PostJob";
 
-
 // Your Parse initialization configuration goes here
+
 //Parse.serverURL = "https://workshala.b4a.io";
+
 Parse.serverURL = "https://parseapi.back4app.com";
 Parse.initialize(
   "BxnHmCjdT1tQTZBT1OIaZuiMSJkcGMVj8oAPfhEf",
@@ -29,12 +30,9 @@ Parse.initialize(
 function App() {
   //
   return (
-    
-  <BrowserRouter>
+    <BrowserRouter>
       <Routes />
-        
     </BrowserRouter>
-    
   );
 }
 
