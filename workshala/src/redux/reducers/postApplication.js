@@ -1,27 +1,27 @@
 import {type} from './types';
 
 const initialState = {
-    jobs : [],
+    application : [],
     loading: true,
     error: null,
     status: false
 }
 
-export default function jobs(state= initialState, action) {
+export default function postApplication(state= initialState, action) {
     switch (action.type) {
-        case type.JOBS_LIST_REQUESTED:
+        case type.POST_APPLICATION_REQUESTED:
             return {
                 ...state,
                 loading: true
             }
-        case type.JOBS_LIST_SUCCESS:
+        case type.POST_APPLICATION_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                jobs: action.jobs,
+                application: action.application,
                 status: true
             }
-        case type.JOBS_LIST_FAILED:
+        case type.POST_APPLICATION_FAILED:
             return {
                 ...state,
                 loading: false,

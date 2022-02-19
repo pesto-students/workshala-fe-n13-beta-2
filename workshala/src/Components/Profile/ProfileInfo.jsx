@@ -43,16 +43,16 @@ export default function ProfileInfo(props) {
             && userInfo.data.result != undefined) {
 
             const userData = userInfo.data.result[0];
-            console.log("userData-"+userData);
+
             profileData = {
                 ...profileData,
                 Name: userData.firstName + " " + userData.lastName,
-                Email: userData.email,
-                Image: userData.profileImg.url,
-                Profile: userData.profile,
-                Followers: userData.followers,
-                Following: userData.following,
-                Mobile: userData.mobile
+                Email: (userData.email) ? userData.email : 'Not Available',
+                //Image: userData.profileImg.url,
+                Profile: (userData.profile) ? userData.profile : "Not Available",
+                Followers: (userData.followers) ? userData.followers : '0',
+                Following: (userData.following) ? userData.following : '0',
+                Mobile: (userData.mobile) ? userData.mobile : 'Not Available'
             }
     }
     

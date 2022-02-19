@@ -5,6 +5,8 @@ import userInfo from "./userInfo";
 import user from "./user";
 import jobs from "./jobs";
 import postJob from "./postJob";
+import applications from "./applications";
+import currentUser from "./currentUser";
 
 const rootReducer = combineReducers({
   userInfo: userInfo,
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
   signIn: signIn,
   user: user,
   jobs: jobs,
+  applications: applications,
+  currentUser: currentUser,
   postJob: postJob,
 });
 

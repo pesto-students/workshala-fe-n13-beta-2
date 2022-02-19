@@ -14,7 +14,6 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import StackedBarChartOutlinedIcon from '@mui/icons-material/StackedBarChartOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
 import SegmentIcon from '@mui/icons-material/Segment';
-import getJobsList from '../redux/actions/jobs'
 
 const useStyles = makeStyles({
     root: {
@@ -28,35 +27,35 @@ const SideMenuItems = [
         title: 'Dashboard',
         icon: <HomeOutlinedIcon color="secondary"/>,
         to: '/Dashboard',
-        click: getJobsList
+        click: ''
     },
     {
         title: 'Jobs',
         icon: <BusinessCenterOutlinedIcon color="secondary"/>,
         to: '/Jobs',
-        click: getJobsList
+        click: ''
     },
     {
         title: 'Applications',
         icon: <AppsOutlinedIcon color="secondary"/>,
         to: '/Applications',
-        click: getJobsList
+        click: ''
     },
     {
         title: 'Message',
         icon: <MessageOutlinedIcon color="secondary"/>,
         to: '/Message',
-        click: getJobsList
+        click: ''
     }, {
         title: 'Statistics',
         icon: <StackedBarChartOutlinedIcon color="secondary"/>,
         to: '/Statistics',
-        click: getJobsList
+        click: ''
     }, {
         title: 'News',
         icon: <NewspaperOutlinedIcon color="secondary"/>,
         to: '/News',
-        click: getJobsList
+        click: ''
     }
 ]
 
@@ -64,6 +63,7 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
     const classes = useStyles();
     const [selectedIndex] = React.useState(1);
     const [open, setOpen] = React.useState(true);
+    
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -74,6 +74,7 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
   };
 
     return (
+        
         <Drawer variant="persistent" anchor="left" open={dashBoardSideNavOpen}
         onClose={dashBoardSideNavToggle}>
             <Grid container
@@ -163,7 +164,6 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                                 key={
                                     item.title
                                 }
-                                onClick={item.click}
                                 classes={
                                     {root: useStyles.listItem}
                                 }
@@ -185,6 +185,7 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                 </Grid>
             </Grid>
         </Drawer>
+        
 
     );
 }

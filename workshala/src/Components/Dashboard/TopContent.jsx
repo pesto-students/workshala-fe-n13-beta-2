@@ -21,22 +21,23 @@ const tileItems = [
         logo: <AppsOutlinedIcon style={{ fontSize: 40 }}/>,
         title: 'Applications Sent',
         content: '51'
-    }, {
-        logo: <ContactPageIcon style={{ fontSize: 40 }}/>,
-        title: 'Profile Viewed',
-        content: '48,340'
-    }, {
-        logo: <EmailIcon style={{ fontSize: 40 }}/>,
-        title: 'Unread Message',
-        content: '47'
-    }
+    }, 
+    // {
+    //     logo: <ContactPageIcon style={{ fontSize: 40 }}/>,
+    //     title: 'Profile Viewed',
+    //     content: '48,340'
+    // }, {
+    //     logo: <EmailIcon style={{ fontSize: 40 }}/>,
+    //     title: 'Unread Message',
+    //     content: '47'
+    // }
 ]
 
 const CardTemplate = (props) => {
     return (
         <Card style={{backgroundColor: "#88B3F4"}} sx={
             {
-                mt: 1,
+                
                 border: 0,
                 
                 
@@ -90,7 +91,7 @@ export default function TopContent() {
             justifyContent={"center"}>
             {
             tileItems.map((item, i) => (
-                <Grid item key={i} maxWidth={"25%"}>
+                <Grid item key={i} style={{width:"50%"}}>
                     <CardTemplate logo={
                             item.logo
                         }
