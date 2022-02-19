@@ -1,10 +1,8 @@
 import * as React from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import IconRa from "../../Assets/Images/react.jpg";
+
 import {
-  Avatar,
   Button,
-  CardActions,
   Grid,
   Select,
   MenuItem,
@@ -12,10 +10,7 @@ import {
   Chip,
   Stack,
   Typography,
-  CardContent,
   InputAdornment,
-  Card,
-  CardActionArea,
   TablePagination,
   TableRow,
   TableHead,
@@ -23,11 +18,14 @@ import {
   TableCell,
   TableBody,
   Table,
+  Skeleton,
   Paper,
 } from "@mui/material";
-import email from "../../Assets/Images/email.png";
-import Phone_icon from "../../Assets/Images/Phone_icon.png";
+import dateFormat from "dateformat";
+import Links from "@mui/material/Link";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getJobsList, getJobsListByJobId } from "../../redux/actions/jobs";
 
 const suggestions = [
   {
@@ -208,39 +206,22 @@ const rows = [
   ),
 ];
 
-const DownloadResumeCell = (props) => {
-  var statusColor = "blue";
-
-  return (
-    <Button
-      variant="outlined"
-      style={{
-        width: "100px",
-        height: "10%",
-        borderRadius: 10,
-        color: statusColor,
-      }}
-    >
-      Download
-    </Button>
-  );
-};
-
 const ColoredDetailsCell = (props) => {
   var statusColor = "blue";
 
   return (
-    <Button
+    <Links
+      href="#"
+      underline="hover"
       variant="outlined"
       style={{
         width: "100%",
         height: "10%",
-        borderRadius: 10,
         color: statusColor,
       }}
     >
       Details
-    </Button>
+    </Links>
   );
 };
 
@@ -279,11 +260,7 @@ const ColoredStatusCell = (props) => {
     </Button>
   );
 };
-export default function ActiveJob({
-  quickViewToggle,
-  quickViewClose,
-  quickViewOpen,
-}) {
+export default function ActiveJob() {
   //   const [sort, setValue] = React.useState("");
 
   //   const handleChange = (event) => {
@@ -302,156 +279,196 @@ export default function ActiveJob({
     setPage(0);
   };
 
-  return (
-    <Grid container>
-      {/* Search bar */}
-      <Grid item md={12}>
-        <TextField
-          sx={{
-            width: "96%",
-            m: 1,
-            p: 1,
-            borderRadius: 4,
-            backgroundColor: "white",
-            border: 0,
-          }}
-          size="small"
-          border={0}
-          placeholder="Search by Title, company or keyword..."
-          variant="standard"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment>
-                <Button
-                  variant="contained"
-                  sx={{ width: 100, borderRadius: 4 }}
-                  startIcon={<SearchIcon />}
-                >
-                  Find
-                </Button>
-              </InputAdornment>
-            ),
-            disableUnderline: true,
-          }}
-        />
-      </Grid>
+  const dispatch = useDispatch();
 
-      <Grid item container md={12}>
-        <Grid
-          item
-          md={1.5}
-          sx={{
-            ml: 2,
-            mt: 3,
-          }}
-        >
-          <Typography>Suggestions</Typography>
-        </Grid>
-        <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5}>
-          <Stack direction="colunm">
-            {suggestions.map((item, i) => (
-              <Chip
-                key={i}
-                label={item.label}
-                color={item.color}
-                sx={{ ml: 1 }}
-              />
-            ))}{" "}
-          </Stack>
-        </Grid>
-        <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5} align="right">
-          <Select
-            sx={{ height: 35, width: 120, borderRadius: 4 }}
-            // value={sort}
-            displayEmpty
-            // onChange={handleChange}
-          >
-            <MenuItem value="">Newest</MenuItem>
-            <MenuItem value="Oldest">Oldest</MenuItem>
-          </Select>
-        </Grid>
-      </Grid>
-      <Grid item container md={12} spacing={1} sx={{ mt: 2 }}>
-        <Grid
-          item
-          md={12}
-          alignItems="center"
-          justifyContent="center"
-          sx={{ mt: 1 }}
-        >
-          <Paper
+  const jobsInfo = useSelector((state) => state.jobs);
+
+  React.useEffect(() => {
+    dispatch(getJobsList());
+  }, []);
+
+  var jobsList = [];
+
+  if (jobsInfo.loading) {
+    return <Skeleton />;
+  } else {
+    if (
+      jobsInfo != undefined &&
+      jobsInfo.status &&
+      jobsInfo.jobs != undefined &&
+      jobsInfo.jobs.data != undefined &&
+      jobsInfo.jobs.data.result != undefined
+    ) {
+      const data = jobsInfo.jobs.data.result;
+      data.forEach(function (k, i) {
+        jobsList[i] = {
+          id: data[i].ObjectId,
+          date: dateFormat(data[i].createdAt, "mmmm dS, yyyy"),
+          title: "test",
+          type: data[i].type,
+          position: data[i].position,
+          status: data[i].status,
+          detail: "",
+        };
+      });
+      console.log(jobsList);
+      // UpdateData(userData);
+    }
+
+    return (
+      <Grid container>
+        {/* Search bar */}
+        <Grid item md={12}>
+          <TextField
             sx={{
+              width: "96%",
               m: 1,
-              borderRadius: 4,
               p: 1,
+              borderRadius: 4,
+              backgroundColor: "white",
+              border: 0,
+            }}
+            size="small"
+            border={0}
+            placeholder="Search by Title, company or keyword..."
+            variant="standard"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <Button
+                    variant="contained"
+                    sx={{ width: 100, borderRadius: 4 }}
+                    startIcon={<SearchIcon />}
+                  >
+                    Find
+                  </Button>
+                </InputAdornment>
+              ),
+              disableUnderline: true,
+            }}
+          />
+        </Grid>
+
+        <Grid item container md={12}>
+          <Grid
+            item
+            md={1.5}
+            sx={{
+              ml: 2,
+              mt: 3,
             }}
           >
-            <TableContainer sx={{ maxHeight: 500 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth, fontWeight: 550 }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row.code}
+            <Typography>Suggestions</Typography>
+          </Grid>
+          <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5}>
+            <Stack direction="colunm">
+              {suggestions.map((item, i) => (
+                <Chip
+                  key={i}
+                  label={item.label}
+                  color={item.color}
+                  sx={{ ml: 1 }}
+                />
+              ))}{" "}
+            </Stack>
+          </Grid>
+          <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5} align="right">
+            <Select
+              sx={{ height: 35, width: 120, borderRadius: 4 }}
+              // value={sort}
+              displayEmpty
+              // onChange={handleChange}
+            >
+              <MenuItem value="">Newest</MenuItem>
+              <MenuItem value="Oldest">Oldest</MenuItem>
+            </Select>
+          </Grid>
+        </Grid>
+        <Grid item container md={12} spacing={1} sx={{ mt: 2 }}>
+          <Grid
+            item
+            md={12}
+            alignItems="center"
+            justifyContent="center"
+            sx={{ mt: 1 }}
+          >
+            <Paper
+              sx={{
+                m: 1,
+                borderRadius: 4,
+                p: 1,
+              }}
+            >
+              <TableContainer sx={{ maxHeight: 500 }}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{ minWidth: column.minWidth, fontWeight: 550 }}
                         >
-                          {columns.map((column, i) => {
-                            const value = row[column.id];
-                            return i === 5 ? (
-                              <TableCell>
-                                <ColoredStatusCell value={value} />
-                              </TableCell>
-                            ) : i === 6 ? (
-                              <TableCell>
-                                <ColoredDetailsCell
-                                  component={Link}
-                                  to="/ActiveJob"
-                                  value={value}
-                                />
-                              </TableCell>
-                            ) : (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 100]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </Paper>
+                          {column.label}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {jobsList
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row) => {
+                        return (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={row.code}
+                          >
+                            {columns.map((column, i) => {
+                              const value = row[column.id];
+                              return i === 5 ? (
+                                <TableCell>
+                                  <ColoredStatusCell value={value} />
+                                </TableCell>
+                              ) : i === 6 ? (
+                                <TableCell>
+                                  <ColoredDetailsCell
+                                    component={Link}
+                                    to="/ActiveJob"
+                                    value={value}
+                                  />
+                                </TableCell>
+                              ) : (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === "number"
+                                    ? column.format(value)
+                                    : value}
+                                </TableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
 }
