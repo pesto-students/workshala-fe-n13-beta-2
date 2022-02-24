@@ -8,9 +8,7 @@ const headers = {
   "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
 };
 
-var navigation = "";
-
-function* postAJob(data) {
+function postAJob(data) {
   const userPayload = {
     title: data["Job Title"],
     desc: data["Description"],
@@ -30,7 +28,6 @@ function* postAJob(data) {
   return axios
     .post(baseUrl + "/classes/JobInfo", userPayload, { headers: userHeader })
     .then((response) => {
-      navigation = data["ActiveJobs"];
       return response;
     })
     .catch((error) => {

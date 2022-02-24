@@ -149,12 +149,8 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                         SideMenuItems.map((item, i) => (
                             <ListItem key={i} button
                                 component={Link}
-
                                 to={
                                     item.to
-                                }
-                                key={
-                                    item.title
                                 }
                                 classes={
                                     {root: useStyles.listItem}

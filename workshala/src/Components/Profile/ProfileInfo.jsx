@@ -15,7 +15,7 @@ import {
 export default function ProfileInfo(props) {
     let profileData = {};
 
-    if(props.data != undefined) {
+    if(props.data !== undefined) {
         profileData = ({
             Name: props.data.firstName + " " + props.data.lastName,
             Email: (props.data.email) ? props.data.email : 'Not Available',

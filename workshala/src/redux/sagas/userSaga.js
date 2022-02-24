@@ -162,9 +162,7 @@ function* searchCandidates(action) {
 }
 
 function* updateUserInfo(action) {
-  // Get user data
-  const user = yield select((state) => state.user.user);
-
+  
   const {payload, navigation} = action.payload;
   
   const imgData = payload.imgData;

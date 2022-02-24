@@ -426,30 +426,6 @@ const ResumeTile = () => {
   );
 }
 
-var data = [];
-const UpdateData = (userData) => {
-  //const {reset} = useFormContext();
-
-  data = {
-    firstName: userData.firstName,
-    lastName: userData.lastName,
-    bio: userData.bio,
-    email: userData.email,
-    mobile: userData.mobile,
-    address: userData.address,
-    city: userData.city,
-    state: userData.state,
-    pin: userData.pin,
-    country: userData.country,
-    SkillItems: userData.skills,
-    ExperienceData: userData.experience
-  }
-
-  SkillItems = userData.skills;
-  ExperienceData= userData.experience
-  return data;
-}
-
 let resumeData = [];
 const handleResumeUpload = (event) => {
     

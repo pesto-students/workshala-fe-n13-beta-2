@@ -15,7 +15,7 @@ import Dashboard from '../Pages/Dashboard';
 import Error from '../Pages/Error';
 import Profile from '../Pages/Profile';
 import EditProfile from '../Pages/EditProfile';
-import {useNavigate, Navigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 export default function CandidateRoutes({auth}) {
     

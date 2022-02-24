@@ -34,7 +34,6 @@ export const UpdateCompanyViewData = (data) => {
                     Mobile: data.companyRef.mobile,
                     Email: data.companyRef.email,
                     AboutCompany: data.companyRef.about,
-                    AboutCompany: "About Company",
                     Description: data.companyRef.about
                   }
     console.log(data);

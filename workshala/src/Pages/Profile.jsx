@@ -16,12 +16,12 @@ export default function Profile() {
     dispatch(fetchProfile());
   }, [])
 
-  if(userInfo != undefined && userInfo.loading ) {
+  if(userInfo !== undefined && userInfo.loading ) {
     return (<Loader/>);                   // TODO: use skeleton
   } else {
-    if(userInfo != undefined && userInfo.userInfo != undefined && 
-      userInfo.userInfo.status && userInfo.userInfo.data != undefined 
-                && userInfo.userInfo.data.result != undefined) {
+    if(userInfo !== undefined && userInfo.userInfo !== undefined && 
+      userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
+                && userInfo.userInfo.data.result !== undefined) {
           const userData = userInfo.userInfo.data.result[0];
   
         return (
