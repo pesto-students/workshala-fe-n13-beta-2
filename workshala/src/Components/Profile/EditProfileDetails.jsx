@@ -542,7 +542,7 @@ export default function ProfileDetails(props) {
       //}
     }, [])
 
-    var userData = [];
+    let userData = [];
   if(userInfo.loading) {
       return (
               <Loader/>
@@ -552,28 +552,7 @@ export default function ProfileDetails(props) {
     if(userInfo !== undefined && userInfo.userInfo !== undefined && userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
       && userInfo.userInfo.data.result !== undefined) {
       userData = userInfo.userInfo.data.result[0];
-      
-      const data = UpdateData(userData);
-      
-     
-
-      //setDefaultData(userData);
-      
-
-      // for time being remove skills
-       // delete userData['skills']
-     // setValue(userData);
-      //reset(userData);
-
-    //   for (const [key, value] of userData.entries()) {
-    //     setValue(key, value)//, {
-    //         //shouldValidate: true,
-    //         //shouldDirty: true
-    //    // }
-    //     //)
-    // }
-
-}
+    }
   return (
     <FormProvider {...methods} >
     <form onSubmit={methods.handleSubmit(onSubmit)}>

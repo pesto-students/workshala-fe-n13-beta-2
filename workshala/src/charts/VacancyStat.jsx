@@ -1,4 +1,5 @@
 import React from 'react';
+import Chart from 'chart.js/auto';
 import {Grid, Typography, Paper} from "@mui/material";
 
 import {Line} from "react-chartjs-2";
