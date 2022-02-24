@@ -1,8 +1,5 @@
 import * as React from "react";
 import SegmentIcon from "@mui/icons-material/Segment";
-import MessageIcon from "@mui/icons-material/Message";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import PersonIcon from "@mui/icons-material/Person";
 import ProfileDropdown from "../Layouts/ProfileDropdown";
 import { Link } from "react-router-dom";
 import { Grid, IconButton, Typography, Button, Paper } from "@mui/material";

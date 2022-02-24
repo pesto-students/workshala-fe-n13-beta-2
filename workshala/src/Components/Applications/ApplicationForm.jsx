@@ -20,7 +20,6 @@ import {
   CardContent,
   Card,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { isEmpty } from "../../Services/Utils/Generic";
 import { useSelector} from "react-redux";
 import {useForm} from 'react-hook-form';
@@ -160,7 +159,7 @@ const FormItems = [
 ];
 
 const FormInput = (props) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit} = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -345,8 +344,8 @@ export default function ApplicationForm() {
   const userInfo = useSelector(state => state.userInfo.userInfo);
   var userData = {};
 
-  if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
-            && userInfo.data.result != undefined) {
+  if(userInfo !== undefined && userInfo.status && userInfo.data !== undefined 
+            && userInfo.data.result !== undefined) {
       const temp = userInfo.data.result[0];
       userData = {FirstName: temp.firstName, LastName: temp.lastName, Mobile: temp.mobile, BirthDate: temp.dob,
                   Email: temp.email, aboutYou: temp.bio};

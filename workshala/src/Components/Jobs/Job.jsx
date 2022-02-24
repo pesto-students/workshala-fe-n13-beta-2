@@ -39,7 +39,7 @@ const suggestions = [
 ];
 
 const CardTemplate = (props) => {
-    const dispatch = useDispatch();
+    
     return (
         <Card sx={{borderRadius: 8, p:2}}>
             <CardActionArea onClick={props.click}>

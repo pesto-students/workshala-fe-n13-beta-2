@@ -2,9 +2,6 @@ import * as React from "react";
 import whatsapp from '../../Assets/Images/whatsapp.png';
 import Phone_icon from '../../Assets/Images/Phone_icon.png';
 import email from '../../Assets/Images/email.png';
-import dev from '../../Assets/Images/dev.png'
-import { useState } from "react";
-import { useEffect } from "react";
 
 import {
     Grid,
@@ -14,9 +11,6 @@ import {
     Card,
     Avatar
 } from "@mui/material";
-import { isEmpty } from "../../Services/Utils/Generic";
-
-
 
 export default function ProfileInfo(props) {
     let profileData = {};

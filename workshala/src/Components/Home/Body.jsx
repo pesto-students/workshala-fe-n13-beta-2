@@ -33,12 +33,7 @@ import {
   const FindJobs = (props) => {
     const dispatch = useDispatch();
     const [selectedTab, setSelectedTab] = useState(0);
-    const { register, handleSubmit, formState: { errors }, reset} = useForm();
-
-    const [title, setTitle] = useState('')
-    const [category, setCategory] = useState('')
-    const [location, setLocation] = useState('')
-
+    const { register, handleSubmit, reset} = useForm();
     const searchJob = useSelector(state => state.searchJobs);
     const searchCandidate = useSelector(state => state.searchCandidates);
 
@@ -54,8 +49,8 @@ import {
       let res = [];
       data.forEach(function (k, i) {
           let temp = data[i].skills; 
-          if(temp != undefined && RecruiterFilterData != undefined && RecruiterFilterData.skills != undefined
-              && RecruiterFilterData.min_experience != undefined && RecruiterFilterData.max_experience != undefined) {
+          if(temp !== undefined && RecruiterFilterData !== undefined && RecruiterFilterData.skills !== undefined
+              && RecruiterFilterData.min_experience !== undefined && RecruiterFilterData.max_experience !== undefined) {
             temp.forEach(function (l, m) {
 
               if(
@@ -75,11 +70,9 @@ import {
     } 
 
     const onRecruiterSubmit = data => {
-      //removeEmptyFields(data);
         var payload = '';
         RecruiterFilterData = data;   // Saving it now to use it for filter later
-        const jobsList = [
-        ];
+        
         /* Fetch all the records on basis of location specified
          * and filter in front on basis of other specified fields
          */
@@ -94,13 +87,13 @@ import {
     }
 
     React.useEffect(() => {
-      if(!searchCandidate.loading && searchCandidate.searchCandidates != undefined
-        && searchCandidate.searchCandidates.data != undefined) {
+      if(!searchCandidate.loading && searchCandidate.searchCandidates !== undefined
+        && searchCandidate.searchCandidates.data !== undefined) {
 
           // Filter By skills and experience
           const filteredData = filterBySkillNExperience(searchCandidate.searchCandidates.data.results);
 
-          {props.click(filteredData)}
+          props.click(filteredData)
       }  
     }, [searchCandidate])
     
@@ -108,9 +101,6 @@ import {
     const onCandidateSubmit = data => {
 
       removeEmptyFields(data);
-
-      const jobsList = [
-      ];
 
       //{props.click(jobsList)}
 
@@ -120,16 +110,11 @@ import {
   }
 
   React.useEffect(() => {
-    if(!searchJob.loading && searchJob.searchJobs != undefined
-      && searchJob.searchJobs.data != undefined) {
-        {props.click(searchJob.searchJobs.data.results)}
+    if(!searchJob.loading && searchJob.searchJobs !== undefined
+      && searchJob.searchJobs.data !== undefined) {
+        props.click(searchJob.searchJobs.data.results)
     } 
   }, [searchJob])
-    //   const classes = useStyles();
-    //   const [value, setValue] = React.useState(0);
-    const titleChange = (event) => {
-      setTitle(event.target.value)
-    }
     
        const handleChange = (event, newValue) => {
           setSelectedTab(newValue);
@@ -209,39 +194,6 @@ import {
       );
     };
 
-const SearchTabs = (props) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
-  const onSubmit = data => {
-
-  }
-
-  return(
-    <form onSubmit={handleSubmit(onSubmit)}>
-    <Grid container sx={{ backgroundColor:'white', borderRadius:2, p:1}} spacing={1}>
-    <Grid item xs={3} sm={3} md={3}>
-      <TextField id="title" label="Title" variant="outlined" {...register("Title")}/>
-    </Grid>
-    <Grid item xs={3} sm={3} md={3}>
-      <TextField id="category" label="Category" variant="outlined" {...register("Category")}/>
-    </Grid>
-    <Grid item xs={3} sm={3} md={3}>
-      <TextField id="Location" label="Location" variant="outlined" {...register("Location")}/>
-    </Grid>
-    <Grid item xs={3} sm={3} md={3}>
-      <Button
-        type="submit"
-        variant="contained"
-        size="large"
-        sx={{  height: 50, width: 150 }}
-      >
-        Search
-      </Button>
-    </Grid>
-  </Grid>
-  </form>
-  );
-}
 export default function Body ({setSearchData}) {
     return (
       <Grid container>

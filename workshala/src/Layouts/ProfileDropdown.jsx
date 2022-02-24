@@ -9,9 +9,10 @@ import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
-import {useNavigate} from "react-router-dom";
+import {useNavigate,Navigate} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import {logOut} from '../redux/actions/user'
+import { purgeStoredState } from 'redux-persist'
 
 import { Link } from 'react-router-dom';
 
@@ -34,9 +35,12 @@ export default function ProfileDropdown() {
 
   const HandleLogout = (event) => {
     const dispatch = useDispatch();
+    navigate("/");    
+    purgeStoredState.purge();
     dispatch(logOut());     // set store state to initial state
-    navigate('/');    
+    
     window.localStorage.clear();
+    
      
   }
 

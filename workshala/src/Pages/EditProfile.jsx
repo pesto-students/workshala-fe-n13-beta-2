@@ -1,21 +1,8 @@
 import React from "react";
 import CandidateLayout from "../Layouts/CandidateLayout";
 import EditProfileDetails from "../Components/Profile/EditProfileDetails";
-import ProfileInfo from "../Components/Profile/ProfileInfo";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import LeftTile from "../Components/Jobs/CompanyDetailsTile";
-
-import {
-  Button,
-  Grid,
-  Divider,
-  Switch,
-  Typography,
-  TextField,
-  Paper,
-} from "@mui/material";
+import { Grid } from "@mui/material";
 
 export default function EditProfile() {
   return (

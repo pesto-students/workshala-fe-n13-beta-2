@@ -33,7 +33,7 @@ export default function RoutesMain() {
     }
     const token = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).data;
     console.log(token);
-    if (token != undefined && !isEmpty(token.sessionToken)) {
+    if (token !== undefined && !isEmpty(token.sessionToken)) {
       dispatch(getCurrentUser(token), []);             //userme
       return <Loader/>;
       

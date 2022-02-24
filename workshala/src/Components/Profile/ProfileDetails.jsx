@@ -104,7 +104,7 @@ const TileRow = (props) => {
     );
 }
 
-const TileRowType_2 = (props) => {
+const SkillsRow = (props) => {
     return (
       <Grid container sx={{ml:3, mr:3}} spacing={2}>
         <Grid item md={5}>
@@ -134,7 +134,7 @@ const TileRowType_2 = (props) => {
     );
 }
 
-const TileRowType_3 = (props) => {
+const ExpRow = (props) => {
   return (
     <Grid container sx={{ml:3, mr:3}} spacing={2}>
       <Grid item md={3.5}>
@@ -200,7 +200,7 @@ const SkillsForm = (props) => {
       
       <Grid item container>
         {props.data.map((item, i) => (
-          <TileRowType_2 key={i} skill={""+item.skill} experience={""+item.experience}/>
+          <SkillsRow key={i} skill={""+item.skill} experience={""+item.experience}/>
         ))}
       </Grid>
     </Paper>
@@ -214,7 +214,7 @@ const ExperienceTile = (props) => {
       
       <Grid item container>
         {props.data.map((item, i) => (
-          <TileRowType_3 key={i} lastCompany={item.lastCompany} 
+          <ExpRow key={i} lastCompany={item.lastCompany} 
                                  startDate={item.startDate}
                                  endDate={item.endDate}/>
         ))}
@@ -256,7 +256,7 @@ const ResumeTile = (props) => {
 }
 
 export default function ProfileDetails(props) {
-    if(props.data != undefined) {
+    if(props.data !== undefined) {
       const userData = props.data;
 
       const AboutMeData = {

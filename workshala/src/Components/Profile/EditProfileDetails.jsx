@@ -1,47 +1,29 @@
 import * as React from "react";
-import $ from 'jquery';
 import { useSelector, useDispatch} from "react-redux";
 import { Link } from "react-router-dom";
-import {useForm, FormProvider, useFormContext, useFieldArray} from 'react-hook-form';
+import {useForm, FormProvider, useFormContext} from 'react-hook-form';
 import dev from '../../Assets/Images/dev.png';
 import deleteIcon from '../../Assets/Images/delete.jpeg'
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import {updateUserInfo} from '../../redux/actions/user'
-import Parse from "parse/dist/parse.min.js";
 import {useNavigate} from "react-router-dom";
-import { isEmpty } from "../../Services/Utils/Generic";
 import Loader from '../../Services/Utils/Loader'
 import {fetchProfile} from '../../redux/actions/user'
 
 import {
   Grid,
   Typography,
-  CardContent,
-  Input,
-  Card,
   Paper,
   TextField,
   Button,
   IconButton,
   Avatar,
-  CardActionArea,
-  CardActions
 } from "@mui/material";
 import {
   Upload,
-  DeleteForeverOutlined,
-  AddCircleOutlineSharp
 } from "@mui/icons-material";
 import {TextHeading2} from '../../Components/Common/Common'
 import { useState } from "react";
-import { useEffect } from "react";
-
-/* 
- * Data used in Body
- */
-var AboutMeData = []
-
-var ContactData= []
 
 var SkillItems = []
 
@@ -55,8 +37,6 @@ const TileHeading = (props) => {
           {props.heading}
         </Typography>
       </Grid>
-      
-    
   );
 }
 let imgData = [];
@@ -190,50 +170,8 @@ const AboutMeTile = () => {
   );
 }
 
-const TileRow = (props) => {
-    return (
-      <Grid item container spacing={4} sx={{p:1}}>
-        <Grid item md={6}>
-          <Typography
-            variant="h6"
-            fontSize={18}
-            textAlign={"end"}
-            style={{ fontFamily: "Fira Sans", fontWeight: 550}}>
-            {props.left}
-          </Typography>
-        </Grid>
-        <Grid item md={6} >
-            {/* {props.editable ?
-                <EditableText title={props.left} text={props.right} size={18} textAlign={"start"}/>
-                : */}
-                <Typography
-            variant="h6"
-            fontSize={18}
-            textAlign={"start"}
-            style={{ fontFamily: "Fira Sans", fontWeight: 550}}>
-            {props.right}
-          </Typography>
-        </Grid>
-     {/*   <Grid item md={6}>
-          <TextField
-            margin="normal"
-            required
-            disabled
-            style = {{width: 100}}
-            id={props.right}
-            label={props.right}
-            name={props.right}
-            autoComplete={props.right}
-            variant="standard"
-          />
-    </Grid>*/}
-    </Grid>
-    );
-}
-
 var skillsFlag = 0;
 const SkillsTileRow = (props) => {
-    const {register} = useFormContext();
 
     const handleSkillsDelete = (e) => {
       const index = e.currentTarget.id
@@ -282,7 +220,6 @@ const SkillsTileRow = (props) => {
 
 var expFlag = 0;
 const ExpTileRow = (props) => {
-  const {register} = useFormContext();
   
   const handleExpDelete = (e) => {
     const index = e.currentTarget.id
@@ -342,12 +279,7 @@ const ExpTileRow = (props) => {
 
 const SkillsForm = () => {
   const [skillValue, setSkillValue] = useState(false);
-  const [textInput, setTextInput] = useState('');
-
-    const handleTextInputChange = event => {
-        setTextInput(event.target.value);
-    };
-
+  
   const handleAddSkills = () => {
 
       SkillItems = [
@@ -547,14 +479,7 @@ export default function ProfileDetails(props) {
   
   const methods = useForm();
   
-  const { register, handleSubmit, watch, control, setValue, reset, formState: { errors, isDirty}} = methods;
-
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-    {
-      control,
-      name: "test"
-    }
-  );
+  const { reset} = methods;
 
     const onSubmit = data => {
       console.log(data);
@@ -591,8 +516,8 @@ export default function ProfileDetails(props) {
     }
 
     React.useEffect(() => {  
-      if(userInfo != undefined && userInfo.userInfo != undefined && userInfo.userInfo.status && userInfo.userInfo.data != undefined 
-        && userInfo.userInfo.data.result != undefined) {
+      if(userInfo !== undefined && userInfo.userInfo !== undefined && userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
+        && userInfo.userInfo.data.result !== undefined) {
         const defaultData = userInfo.userInfo.data.result[0];
 
         //remove the unwanted columns from retrreived data
@@ -610,8 +535,8 @@ export default function ProfileDetails(props) {
           dispatch(fetchProfile());                //TODO: Don't call if there's no change in state
           
        //   this will populate data only if userInfo is there, on refresh the userinfo need to be fetched again
-          if(userInfo != undefined && userInfo.userInfo != undefined && userInfo.userInfo.status && userInfo.userInfo.data != undefined 
-            && userInfo.userInfo.data.result != undefined) {
+          if(userInfo !== undefined && userInfo.userInfo !== undefined && userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
+            && userInfo.userInfo.data.result !== undefined) {
             reset(userInfo.userInfo.data.result[0]);    // reset reports infinite render if used outside useEffect
           }
       //}
@@ -624,8 +549,8 @@ export default function ProfileDetails(props) {
           );
   } else {
     
-    if(userInfo != undefined && userInfo.userInfo != undefined && userInfo.userInfo.status && userInfo.userInfo.data != undefined 
-      && userInfo.userInfo.data.result != undefined) {
+    if(userInfo !== undefined && userInfo.userInfo !== undefined && userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
+      && userInfo.userInfo.data.result !== undefined) {
       userData = userInfo.userInfo.data.result[0];
       
       const data = UpdateData(userData);

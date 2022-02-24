@@ -1,6 +1,5 @@
 import React from "react";
 import CandidateLayout from "../Layouts/CandidateLayout";
-import LeftTile from "../Components/Jobs/CompanyDetailsTile";
 import JobDetails from "../Components/Jobs/JobDetails";
 import QuickView from "../Components/Jobs/CompanyQuickView";
 import {

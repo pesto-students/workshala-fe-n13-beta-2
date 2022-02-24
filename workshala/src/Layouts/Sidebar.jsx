@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Link} from 'react-router-dom';
-import {Typography, Box, Grid, Drawer, Paper} from "@mui/material";
+import {Typography, Box, Grid, Drawer} from "@mui/material";
 import {makeStyles} from '@mui/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,7 +13,6 @@ import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import StackedBarChartOutlinedIcon from '@mui/icons-material/StackedBarChartOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
-import SegmentIcon from '@mui/icons-material/Segment';
 
 const useStyles = makeStyles({
     root: {
@@ -62,16 +61,6 @@ const SideMenuItems = [
 export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, dashBoardSideNavClose}) {
     const classes = useStyles();
     const [selectedIndex] = React.useState(1);
-    const [open, setOpen] = React.useState(true);
-    
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
     return (
         

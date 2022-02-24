@@ -47,16 +47,8 @@ const style = {
   p: 4
 };
 
-const handleSignInFailure = () => {
-  return (
-    <Typography component="h1" variant="h5">
-      SignIn failed...!!! Please check the Username or password.
-    </Typography>
-  );
-}
-
 const SignIn = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
