@@ -1,6 +1,6 @@
 import { call, put, takeEvery, select } from "redux-saga/effects";
 import axios from "axios";
-import { setProfileData } from "../../Components/Profile/ProfileInfo";
+import { isEmpty } from "../../Services/Utils/Generic";
 
 const baseUrl = "https://parseapi.back4app.com";
 
@@ -9,26 +9,83 @@ const headers = {
   "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
 };
 
-var navigation = "";
+function uploadFile(data) {
+  if(data != undefined) {
+    const fileName = data.name;
+    const fileData = data.file;
+    const dataType = data.dataType
 
-function getUser(data) {
-  if (data !== undefined && data.data !== undefined) {
-    const userId = data.data.objectId;
-
-    var url = baseUrl + "/users/" + userId;
-    //var url = baseUrl + "/functions/getCandidateProfile";
-    //const params = {userId: userId}
-
+    var url = baseUrl + "/parse/files/" + fileName;
+    
+    const custHeader = {
+      ...headers,
+      'Content-Type': dataType
+      //'Content-Type': 'multipart/form-data'
+    }
+    
     return axios
-      .get(url, { headers: headers })
+      .post(url, fileData, { headers: custHeader })
       .then((response) => {
-        //setProfileData(response.data);
-        //navigation('Dashboard');
         return response;
       })
       .catch((error) => {
         throw error;
       });
+  };   
+}
+
+function getUserId (data) {
+    if(data != undefined) {
+      
+      var userId = data.userId;
+      
+      var url = baseUrl + "/functions/getUserInfoObjectId";
+     
+      const params = {
+          userId: userId,
+      };
+
+      return axios
+          .post(url, params, { headers: headers })
+          .then((response) => { return response})
+    };
+}  
+
+function updateUserInfoApi(data) {
+  if(data != undefined && data.data != undefined && data.data.result && data.originalData != undefined) {
+    const baseData = data.data.result[0];
+    const objectId = baseData.objectId;
+    const origData = data.originalData;
+      
+    const payload = {
+                ...origData,
+               ...(!isEmpty(data.imgData)) && {"profileImg": {
+                  "name": data.imgData.data.name,
+                  "url": data.imgData.data.url,
+                  "__type": "File"
+                }},
+                ...(!isEmpty(data.resumeData)) && {"resume" : {
+                  "name": data.resumeData.data.name,
+                  "url": data.resumeData.data.url,
+                  "__type": "File"
+                }}
+    }
+
+    const url = baseUrl + "/classes/UserInfo/" + objectId;
+
+    const custHeader = {
+        ...headers,
+        'Content-Type': 'application/json'
+    }
+
+    return axios
+            .put(url, payload, { headers: custHeader })
+            .then((response) => {
+              return response;
+            })
+            .catch((error) => {
+              throw error;
+            });
   }
 }
 
@@ -37,15 +94,12 @@ function getUserInfo(data) {
     const userId = data.data.objectId;
     const role = data.data.role;
 
-    //var url = baseUrl + '/classes/UserInfo';
     var url = baseUrl + "/functions/getProfile";
     const params = { userId: userId, role: role };
 
     return axios
       .post(url, params, { headers: headers })
       .then((response) => {
-        setProfileData(response.data.result[0]);
-        navigation("Dashboard");
         return response;
       })
       .catch((error) => {
@@ -54,101 +108,35 @@ function getUserInfo(data) {
   }
 }
 
-// function getJobById(data) {
-//   if (data !== undefined ) {
-//     const jobId = data.payload;
+function searchCandidatesApi(data) {
+  var url = baseUrl + "/classes/UserInfo";
+  //const temp = {"arrayKey": "mechanic"};
+  //url += JSON.stringify(temp);
+  if (!isEmpty(data)) url += "?where=" + JSON.stringify(data);
 
-//     const params = { jobId: jobId };
-//     var url = baseUrl + "/functions/getJobInfoById";
-
-//     return new Promise((resolve) => {
-//       axios
-//         .post(url, params, { headers: headers })
-//         .then((response) => {
-//           //updateJobList(response.data.results);
-//           //navigation('Dashboard');
-//           resolve(response);
-//         })
-//         .catch((error) => {
-//           console.log("Error:" + error);
-//           throw error;
-//           //  reject(error);
-//         });
-//     });
-//   }
-// }
-
-function getCurrentUser(data) {
-  var url = baseUrl + "/users/me";
-
-  if (data !== undefined && data.data !== undefined) {
-    const sessionToken = data.data.sessionToken;
-
-    const custHeader = {
-      ...headers,
-      'X-Parse-Session-Token' : sessionToken
-    }
-
-    return new Promise(resolve => {
-      axios
-      .get(url, { headers: custHeader })
+  return new Promise((resolve) => {
+    axios
+      .get(url, { headers: headers })
       .then((response) => {
-        //updateJobList(response.data.results);
-        //navigation('Dashboard');
         resolve(response);
       })
       .catch((error) => {
-        console.log("Error:"+error);
+        console.log("Error:" + error);
         throw error;
-    //  reject(error);
       });
-    });
+  });
+}
+
+function* fetchUpdatedUserInfo(action) {
+  const userData = yield select((state) => state.user.user);
+
+  try {
+    const users = yield call(getUserInfo, userData);
+    yield put({ type: "UPDATED_PROFILE_SUCCESS", userInfo: users });
+  } catch (e) {
+    yield put({ type: "UPDATED_PROFILE_FAILED", message: e.message });
   }
 }
-
-function signUpApi(data) {
-  const userPayload = {
-    username: data["email"],
-    email: data["email"],
-    role: data["role"],
-    password: data["password"],
-    firstName: data["firstName"],
-    lastName: data["lastName"],
-  };
-
-  const userHeader = {
-    ...headers,
-    "X-Parse-Revocable-Session": "1",
-    "Content-Type": "application/json",
-  };
-
-  return axios
-    .post(baseUrl + "/users", userPayload, { headers: userHeader })
-    .then((response) => {
-      navigation = data["navigation"];
-      return response;
-    })
-    .catch((error) => {
-      throw error;
-    });
-}
-/*
-function* fetchUser(action) {
-    var userData = '';
-    if(parentComp === 'signIn') {
-        userData = yield select((state) => state.signIn.signIn);
-    } else {
-        userData = yield select((state) => state.signUp.signUp);
-    }
-    console.log("experimenting: "+userData);
-
-     try {
-         const user = yield call(getUser, action.payload);
-         yield put({type: 'USER_REQUESTED', user: user});
-     } catch(e) {
-         yield put({ type: 'USER_FAILED', message: e.message});
-     }
-}*/
 
 function* fetchUserInfo(action) {
   const userData = yield select((state) => state.user.user);
@@ -161,123 +149,65 @@ function* fetchUserInfo(action) {
   }
 }
 
-function signInApi(data) {
-  const config = {
-    headers: headers,
-    params: { username: data["username"], password: data["password"] },
-  };
-
-  return axios
-    .get(baseUrl + "/login", config)
-    .then((response) => {
-      navigation = data["navigation"];
-      return response;
-    })
-    .catch((error) => {
-      throw error;
+function* searchCandidates(action) {
+  try {
+    const searchCandidates = yield call(searchCandidatesApi, action.payload);
+    yield put({
+      type: "SEARCH_CANDIDATES_SUCCESS",
+      searchCandidates: searchCandidates,
     });
-}
-
-function* signUpUser(action) {
-  try {
-    const signUp = yield call(signUpApi, action.payload);
-    yield put({ type: "USER_SIGNUP_SUCCESS", signUp: signUp });
   } catch (e) {
-    yield put({ type: "USER_SIGNUP_FAILED", message: e.message });
+    yield put({ type: "SEARCH_CANDIDATES_FAILED", message: e.message });
   }
 }
 
-function* signInUser(action) {
+function* updateUserInfo(action) {
+  // Get user data
+  const user = yield select((state) => state.user.user);
+
+  const {payload, navigation} = action.payload;
+  
+  const imgData = payload.imgData;
+  const resumeData = payload.resumeData;
+ 
+  let imgResp = [];
+  let resumeResp = [];
   try {
-    const user = yield call(signInApi, action.payload);
-    yield put({ type: "USER_SUCCESS", user: user });
-  } catch (e) {
-    yield put({ type: "USER_FAILED", message: e.message });
-  }
-}
-
-function* showError(parentComp, action) {
-  // TODO: Pages need to be created
-  switch (parentComp) {
-    case "signIn":
-      console.log("SignIn error");
-      break;
-
-    case "signUp":
-      console.log("SignUp error");
-      break;
-
-    default:
-      console.log("usersage: showError: error");
-      break;
-  }
-}
-
-function* fetchCurrentUser (action) {
-  try {
-    const userData = yield select((state) => state.user.user);
-    const currentUser = yield call(getCurrentUser, userData);
-    yield put({ type: "CURRENT_USER_REQUESTED", currentUser: currentUser });
-  } catch (e) {
-    yield put({ type: "CURRENT_USER_REQUESTED", message: e.message });
-  }
-}
-
-// function* fetchJobById (action) {
-//   try {
-//     const jobData = yield call(getJobById, action);
-//     yield put({ type: "JOBS_LIST_BY_ID_SUCCESS", jobsById: jobData });
-//   } catch (e) {
-//     yield put({ type: "JOBS_LIST_BY_ID_FAILED", message: e.message });
-//   }
-// }
-
-function* fetchUser(parentComp, action) {
-  var userData = "";
-  if (parentComp === "signIn") {
-    userData = yield select((state) => state.signIn.signIn);
-  } else {
-    userData = yield select((state) => state.signUp.signUp);
-  }
-  console.log("experimenting: " + userData);
-
-  if (userData == undefined) {
-    yield put({ type: "USER_FAILED", message: "userData is null" });
-  } else {
-    try {
-      const user = yield call(getUser, userData);
-      yield put({ type: "USER_SUCCESS", user: user });
-    } catch (e) {
-      yield put({ type: "USER_FAILED", message: e.message });
+    //If no image to uploaded, then skip uploading 
+    if(!isEmpty(imgData))     {              
+      imgResp = yield call(uploadFile, imgData);                      // 1. Upload image if available
     }
+
+    //If no image to uploaded, then skip uploading 
+    if(!isEmpty(resumeData))     {              
+      resumeResp = yield call(uploadFile, resumeData);                // 2. Upload resume if available
+    }
+
+    const userInfo = yield call(getUserId, payload.data);             // 3. get userId from objectId
+
+    const {data} = userInfo;
+    const arg = {
+        data: data,
+        originalData: payload.data,
+        imgData: imgResp,
+        resumeData: resumeResp
+    }
+
+    const updateUserInfo = yield call(updateUserInfoApi, arg);        // 4. Attach to object
+                    
+    navigation("/candidate/profile");                                           // 5. Navigate to profile
+    yield put({ type: "UPDATE_USER_SUCCESS", userInfo: updateUserInfo });
+  } catch (e) {
+    yield put({ type: "UPDATE_USER_FAILED", message: e.message });
   }
 }
 
 function* userSaga() {
-  //SIGN-UP
-  yield takeEvery("USER_SIGNUP_REQUESTED", signUpUser); // make entry in user - POST (reducer-signup) ->USER_SIGNUP_SUCCESS
-  yield takeEvery("USER_SIGNUP_SUCCESS", fetchUser, "signUp"); // get userId from sigup, GET (users/UserId) -> USER_SUCCESS
-  // yield takeEvery('USER_SIGNUP_SUCCESS',   showDashBoard, 'signUp');
-  //yield takeEvery('USER_SIGNUP_FAILED', showError, 'signUp');
-
-  //SIGN-IN
-  yield takeEvery("USER_SIGNIN_REQUESTED", signInUser); // login, reducer-signIn, -> USER_SUCCESS
-  //yield takeEvery('USER_SIGNIN_SUCCESS',   showDashBoard, 'signIn');
-  //yield takeEvery('USER_SIGNIN_FAILED',   showError, 'signIn');
-
-  //User
-  // yield takeEvery('USER_REQUESTED', fetchUserInfo);
   yield takeEvery("USER_SUCCESS", fetchUserInfo); // get role and userid from user, feed to profile and navigate to dashboard -> USER_INFO_SUCCESS
-  //yield takeEvery('USER_FAILED', fetchUserInfo);
-
-  //User Info
-  //yield takeEvery('USER_INFO_REQUESTED', fetchUser);
-  //yield takeEvery('USER_INFO_FAILED', showError, 'userInfo');
-
-  //currentUser
-  yield takeEvery('CURRENT_USER_REQUESTED', fetchCurrentUser);
-
-  //yield takeEvery('JOBS_LIST_BY_ID_REQUESTED', fetchJobById);
+  yield takeEvery("UPDATED_PROFILE_REQUESTED", fetchUpdatedUserInfo);
+  yield takeEvery("UPDATE_USER_SUCCESS", fetchUpdatedUserInfo);
+  yield takeEvery("SEARCH_CANDIDATES_REQUESTED", searchCandidates);
+  yield takeEvery("UPDATE_USER_INFO", updateUserInfo);
 }
 
 export default userSaga;

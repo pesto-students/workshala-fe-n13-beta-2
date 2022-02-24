@@ -8,12 +8,17 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import {useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import {logOut} from '../redux/actions/user'
 
 import { Link } from 'react-router-dom';
 
 export default function ProfileDropdown() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -26,6 +31,16 @@ export default function ProfileDropdown() {
 
     setOpen(false);
   };
+
+  const HandleLogout = (event) => {
+    const dispatch = useDispatch();
+    dispatch(logOut());     // set store state to initial state
+    navigate('/');    
+    window.localStorage.clear();
+     
+  }
+
+  
 
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {
@@ -84,10 +99,10 @@ export default function ProfileDropdown() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem component={Link} to="Profile">Profile</MenuItem>
+                    <MenuItem component={Link} to="/candidate/profile">Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem component={Link}
-                    to="Home">Logout</MenuItem>
+                    <MenuItem onClick={HandleLogout} component={Link}
+                                  to="/">Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

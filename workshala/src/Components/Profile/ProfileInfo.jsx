@@ -1,9 +1,10 @@
 import * as React from "react";
-import user2 from '../../Assets/Images/user2.jpeg'
-import whatsapp from '../../Assets/Images/whatsapp.png'
+import whatsapp from '../../Assets/Images/whatsapp.png';
 import Phone_icon from '../../Assets/Images/Phone_icon.png';
 import email from '../../Assets/Images/email.png';
-import getUser from '../../redux/actions/user'
+import dev from '../../Assets/Images/dev.png'
+import { useState } from "react";
+import { useEffect } from "react";
 
 import {
     Grid,
@@ -13,58 +14,33 @@ import {
     Card,
     Avatar
 } from "@mui/material";
-import { useSelector} from "react-redux";
+import { isEmpty } from "../../Services/Utils/Generic";
 
-// Default data
-var profileData = {
-    Image: user2,
-    Name: "John Doe",
-    Profile: "Mechanic",
-    Followers: 5962,
-    Following: 228,
-    Mobile: "+1-398-976-876",
-    Whatsapp: "+1-398-976-876",
-    Email: "Doe@gmail.com"
-}
 
-export function setProfileData(userData) {
-    profileData = {
-        ...profileData,
-        Name: userData.firstName + " " + userData.lastName,
-        Email: userData.email
-    }
-}
 
 export default function ProfileInfo(props) {
-  
-    const userInfo = useSelector(state => state.userInfo.userInfo);
+    let profileData = {};
 
-    if(userInfo != undefined && userInfo.status && userInfo.data != undefined 
-            && userInfo.data.result != undefined) {
-
-            const userData = userInfo.data.result[0];
-
-            profileData = {
-                ...profileData,
-                Name: userData.firstName + " " + userData.lastName,
-                Email: (userData.email) ? userData.email : 'Not Available',
-                //Image: userData.profileImg.url,
-                Profile: (userData.profile) ? userData.profile : "Not Available",
-                Followers: (userData.followers) ? userData.followers : '0',
-                Following: (userData.following) ? userData.following : '0',
-                Mobile: (userData.mobile) ? userData.mobile : 'Not Available'
-            }
-    }
+    if(props.data != undefined) {
+        profileData = ({
+            Name: props.data.firstName + " " + props.data.lastName,
+            Email: (props.data.email) ? props.data.email : 'Not Available',
+            Profile: (props.data.profile) ? props.data.profile : "Not Available",
+            Followers: (props.data.followers) ? props.data.followers : '0',
+            Following: (props.data.following) ? props.data.following : '0',
+            Mobile: (props.data.mobile) ? props.data.mobile : 'Not Available',
+            Whatsapp: (props.data.mobile) ? props.data.mobile : 'Not Available',
+            Image: (props.data.profileImg) ? props.data.profileImg.url: 'Not Available'
+        });
+    } 
     
     return (
         <Card sx={
             {borderRadius: 4}
         }>
             <CardMedia height="45%" component="img"
-                image={
-                    profileData.Image
-                }
-                alt="User profile"/>
+                image={ profileData.Image }
+                alt="User Profile Image"/>
             <CardContent>
                 <Typography variant="h5"
                     fontSize={18}
@@ -248,5 +224,5 @@ export default function ProfileInfo(props) {
                 </Grid>
             </CardContent>
         </Card>
-    );
+    ); 
 }

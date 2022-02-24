@@ -62,7 +62,7 @@ const SignIn = () => {
 
   const onSubmit = data => {
     const payload = {
-      ...data,
+      data: data,
       'navigation': navigate
     }
     dispatch(signIn(payload));
@@ -166,16 +166,29 @@ export default function SignInModal(props) {
   }
   return (
     <div>
-        <Box sx={{ mt: 1, float: "right" }}>
-                
+        
+                {(props.comp === "link") ?
+                <Box sx={{ mt: 1, float: "right" }}>
                 <Link variant="body2"
                       component="button"
                         onClick={() => {
                         console.info("I'm a SignIn button.");
                             handleOpen()
-                        }}>Already a user? Sign In
-                    </Link>
-              </Box>
+                        }}>
+                          {/* Already a user? Sign In */}
+                          {props.title}
+                    </Link> 
+                </Box>
+                    :
+                    <Button size="small" color="primary" variant="contained" style={{width:100}} 
+                    sx={{ borderRadius: 8}}
+                    onClick={() => {
+                      console.info("I'm a SignIn button.");
+                          handleOpen()
+                      }}>
+                        {props.title}
+                    </Button>}
+              
 
         
         <Modal

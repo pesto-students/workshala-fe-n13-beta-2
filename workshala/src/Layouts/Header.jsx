@@ -5,31 +5,55 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import PersonIcon from "@mui/icons-material/Person";
 import ProfileDropdown from "../Layouts/ProfileDropdown";
 import { Link } from "react-router-dom";
-import { Grid, IconButton, Typography, Button } from "@mui/material";
+import { Grid, IconButton, Typography, Button, Paper } from "@mui/material";
 import { useSelector } from 'react-redux';
+import { isEmpty } from "../Services/Utils/Generic";
+import Loader from '../Services/Utils/Loader'
+import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import {fetchProfile} from '../redux/actions/user'
 
 export default function Header({ dashBoardSideNavToggle }) {
-  var profileData = {
-    Name: 'John Doe',
-    Role: 'Candidate'
-};
 
-const user = useSelector(state => state.user.user);
+  const [data, setData] = useState(null);  
+  const user = useSelector(state => state.user);
+  const userInfo = useSelector(state => state.userInfo);
 
-if(user != undefined && user.data != undefined) {
+  const dispatch = useDispatch();
 
-        const userData = user.data;
+  React.useEffect(() => {   
+  
+    if(user !== undefined && user.user !== undefined && user.user.data !== undefined) {
 
-        profileData = {
-            ...profileData,
-            Name: userData.firstName + " " + userData.lastName,
-            Role: userData.role
-        }
-}
+      const userData = user.user.data;
+
+      setData ( {
+        Role: userData.role
+      });
+
+      if(isEmpty(userInfo.userInfo)) {
+        dispatch(fetchProfile());
+      }
+    }  
+  }, []); 
+
     
+  var profileData = [];
+  
+  if(data && userInfo !== undefined && userInfo.userInfo !== undefined 
+    && userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
+              && userInfo.userInfo.data.result !== undefined) {
+    
+    const userData = userInfo.userInfo.data.result[0];
+    
+    profileData = {
+                      ...data,
+                      Name: userData.firstName + " " + userData.lastName
+                  }
   
   return (
-    <Grid container sx={{ mt: 2, height: "10vh" }}>
+    <Paper elevation={1} sx={{backgroundColor: "#EDEAEA"}} >
+    <Grid container sx={{ mt: 2, height: "7vh" }}>
       {/* icon */}
       <Grid item xs={0.3} sm={0.3} md={1}>
         <IconButton onClick={dashBoardSideNavToggle}>
@@ -38,11 +62,11 @@ if(user != undefined && user.data != undefined) {
       </Grid>
 
       <Grid item md={11} container justifyContent={"flex-end"} spacing={2}>
-        {/* TODO put condition to show only for recruiter */}
+        {profileData.Role === "candidate" ? <></> : 
         <Grid item md={2.5}>
           <Button
             component={Link}
-            to="/Postjob"
+            to="/postjob"
             variant="contained"
             sx={{
               width: "120px",
@@ -54,34 +78,34 @@ if(user != undefined && user.data != undefined) {
           >
             Post Job
           </Button>
-        </Grid>
-        <Grid item md={0.8}>
-          <IconButton component={Link} to="/Error" sx={{ mt: 0.5 }}>
+        </Grid>}
+        {/* <Grid item md={0.8}>
+          <IconButton component={Link} to="/error" sx={{ mt: 0.5 }}>
             <MessageIcon style={{ fontSize: 34 }} />
           </IconButton>
         </Grid>
 
         <Grid item md={0.8}>
-          <IconButton component={Link} to="/Profile">
+          <IconButton component={Link} to="/profile">
             <PersonIcon style={{ fontSize: 34 }} />
           </IconButton>
         </Grid>
 
-                {/* notification icon */}
+        {/* notification icon 
         <Grid item md={0.8}>
-            <IconButton component={Link} to="/Error">
+            <IconButton component={Link} to="/error">
                 <NotificationsActiveIcon style={{fontSize:34}}/>
             </IconButton>
-        </Grid>
+        </Grid> 
             
         <Grid item md={0.8}>
-            <IconButton component={Link} to="EditProfile">
+            <IconButton component={Link} to="/profile">
                 <PersonIcon style={{fontSize:34}}/>
             </IconButton>
-        </Grid>
+        </Grid>*/}
                     
         <Grid item container direction="column" sx={{mt:0.5}} md={1.4}>
-                    <Grid item>
+          <Grid item>
                         <Typography component="h1" variant="h5" color="black" style={{fontSize:14}}>
                             {profileData.Name}
                         </Typography>
@@ -98,5 +122,9 @@ if(user != undefined && user.data != undefined) {
                 </Grid>                
             </Grid>
         </Grid>
+        </Paper>
     );
+  } else {
+    return (<Loader/>);                   // TODO: use skeleton
+  }
 }

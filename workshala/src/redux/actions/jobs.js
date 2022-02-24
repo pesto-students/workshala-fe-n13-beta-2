@@ -13,3 +13,10 @@ export function getJobsListByJobId(data)  {
     payload: data
   };
 }
+
+export function searchJobs(data)  {
+  return {
+    type: type.SEARCH_JOBS_REQUESTED,
+    payload: data
+  };
+}

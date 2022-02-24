@@ -1,4 +1,4 @@
-import { call, put, takeEvery, select } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
 
 const baseUrl = "https://parseapi.back4app.com";
@@ -8,7 +8,7 @@ const headers = {
   "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
 };
 
-var navigation = "";
+let navigation = "";
 
 function getAppsList() {
     var url = baseUrl + "/classes/ApplicationInfo";

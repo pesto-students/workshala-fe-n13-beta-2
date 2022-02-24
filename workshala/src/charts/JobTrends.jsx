@@ -63,11 +63,6 @@ export default function JobTrends(props) {
     return (
     <Paper sx={
         {
-            mt: 1,
-            mx: 2.5,
-            border: 0,
-            width: props.wide,
-            height: props.high,
             borderRadius: 4,
             p:3
         }

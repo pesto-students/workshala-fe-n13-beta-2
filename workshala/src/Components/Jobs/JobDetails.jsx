@@ -100,7 +100,7 @@ if(!isEmpty(JobDetailsData1) && !jobsData) {
             size="large"
             align="center"
             component={Link}
-            to="/ApplyJob"
+            to="/applyJob"
             sx={{ borderRadius: 8, width:"150px", height:"40px", bgcolor:"#253FC6"}}
             onClick={() => {
               UpdateApplyjobData(JobDetailsData1.fullData)

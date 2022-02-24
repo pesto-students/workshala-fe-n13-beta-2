@@ -422,7 +422,7 @@ export default function ActiveJob({
                               <TableCell>
                                 <ColoredDetailsCell
                                   component={Link}
-                                  to="/ActiveJob"
+                                  to="/activeJob"
                                   value={value}
                                 />
                               </TableCell>

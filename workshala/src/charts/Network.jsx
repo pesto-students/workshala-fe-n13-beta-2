@@ -25,22 +25,13 @@ export default function Network(props) {
     return (
       
 <Paper sx={
-    {
-        mt: 1,
-        width: props.wide,
-        height: props.high,
-        borderRadius: 4
-
-    }
-}>
+        {
+            borderRadius: 4,
+            p:3
+        }
+    }> 
     <Grid container>
         <Grid item
-            sx={
-                {
-                    marginTop: 3,
-                    marginLeft: 3
-                }
-            }
             xs={12}
             sm={12}
             md={12}>
@@ -55,13 +46,7 @@ export default function Network(props) {
             xs={12}
             sm={12}
             md={12}
-            sx={
-                {
-                    marginLeft: 5,
-                    marginTop: 2,
-                    marginBottom: 2
-                }
-        }>
+            >
             <Doughnut
             
           data={state}
@@ -69,7 +54,7 @@ export default function Network(props) {
             {
                 maxWidth: 450,
                 maxHeight: 250,
-                margin:1
+                margin:2
             }
         }
           options={{

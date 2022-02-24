@@ -1,12 +1,13 @@
 import * as React from "react";
 import email from '../../Assets/Images/email.png';
 import Phone_icon from '../../Assets/Images/Phone_icon.png';
-import { Button, Grid, Avatar, Chip, Stack, Typography, 
+import { Button, Grid, Avatar, Chip, Typography, 
   TablePagination, TableRow, TableHead, TableContainer, 
   TableCell, TableBody, Table, Paper} from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
 import {getApplications} from '../../redux/actions/applications'
 import Loader from '../../Services/Utils/Loader'
+import {makeStyles} from '@mui/styles';
 
 const suggestions = [
   {
@@ -204,6 +205,17 @@ export default function Application() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+  const useStyles = makeStyles({
+
+    root: {
+        "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "blue",
+        },
+    }
+});
+const classes = useStyles();
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -229,9 +241,9 @@ export default function Application() {
             );
     } else {
 
-        if(applications != undefined && applications.status && applications.applications != undefined &&
-          applications.applications.data != undefined 
-            && applications.applications.data.results != undefined) {
+        if(applications !== undefined && applications.status && applications.applications !== undefined &&
+          applications.applications.data !== undefined 
+            && applications.applications.data.results !== undefined) {
             const data = applications.applications.data.results;
             data.forEach(function (k, i) {
               //appsList[i] = {title: data[i].title, desc: data[i].desc, experience: data[i].experience};
@@ -249,6 +261,7 @@ export default function Application() {
            // UpdateData(userData);
         }
 
+        
   return (
     <Grid container>
       <Grid item container md={12}>
@@ -294,10 +307,10 @@ export default function Application() {
             p:1
           }}
         >
-          <TableContainer sx={{maxHeight:500}}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
+          <TableContainer sx={{maxHeight:500}} style={{borderRadius: 8}}>
+            <Table stickyHeader aria-label="sticky table" >
+              <TableHead >
+                <TableRow className={classes.root} >
                   {columns.map((column, i) => (
                     <TableCell key={i}
                       align={column.align}

@@ -1,22 +1,7 @@
 import * as React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import Home from "./Pages/Home";
-import Dashboard from "./Pages/Dashboard";
-import Error from "./Pages/Error";
-//import Profile from "./Pages/Profile";
-import Statistics from "./Pages/Statistics";
-import Jobs from "./Pages/Jobs";
-import Applications from "./Pages/Applications";
-import RecruiterApplication from "./Pages/RecruiterApp";
-import ActiveJobs from "./Pages/ActiveJobs";
-import ApplyJob from "./Pages/ApplyJob";
-import CompanyDetails from "./Pages/CompanyDetails";
-import EditProfile from "./Pages/EditProfile";
+import { BrowserRouter } from "react-router-dom";
 import Parse from "parse/dist/parse.min.js";
-import Routes from './Routes/Routs'
-
-import PostJob from "./Pages/PostJob";
-
+import RoutesMain from './Routes/RoutesMain'
 
 // Your Parse initialization configuration goes here
 //Parse.serverURL = "https://workshala.b4a.io";
@@ -27,12 +12,10 @@ Parse.initialize(
 );
 
 function App() {
-  //
   return (
     
-  <BrowserRouter>
-      <Routes />
-        
+    <BrowserRouter>
+      <RoutesMain />
     </BrowserRouter>
     
   );

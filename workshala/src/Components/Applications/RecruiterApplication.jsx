@@ -402,7 +402,7 @@ export default function RecruiterApplication({
                               <TableCell>
                                 <ColoredStatusCell
                                   component={Link}
-                                  to="/ActiveJob"
+                                  to="/activeJob"
                                   value={value}
                                 />
                               </TableCell>

@@ -14,9 +14,7 @@ import {
   IconButton,
   Box,
   Button,
-  Checkbox,
-  Paper,
-  FormControlLabel,
+  Paper
 } from "@mui/material";
 
 import SignInModal from "./SignInModal";
@@ -50,7 +48,7 @@ const style = {
 
 const SignUpForm = (props) => {
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit} = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = data => {
@@ -158,7 +156,7 @@ const SignUpForm = (props) => {
             >
               Sign Up
             </Button>
-            <SignInModal />
+            <SignInModal title="Already a user? Sign In" comp="link"/>
           
           </form>
         </Box>

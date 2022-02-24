@@ -88,7 +88,7 @@ export default function Footer() {
     return (
         <Grid container
             alignItems={"center"}
-            justifyContent={"center"}>
+            justifyContent={"center"} spacing={1}>  
 
             {
             footerItems.map((item, i) => (
