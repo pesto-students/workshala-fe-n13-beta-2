@@ -1,7 +1,8 @@
 import * as React from "react";
 import logo from "../../Assets/Images/logo.png";
 import RoleSelectionModal from "./RoleSelectionModel";
-import SignInModal from "../Auth/SignInModal"
+import SignInModal from "../Auth/SignInModal";
+import { Link } from "react-router-dom";
 import {
     Grid,
     Divider,
@@ -11,8 +12,7 @@ import {
     AppBar,
     Toolbar,
     Typography,
-    Box,
-    Button
+    Box
   } from "@mui/material";
 
 export default function Header() {
@@ -50,16 +50,14 @@ export default function Header() {
             <Box flexGrow={1} />
             <Tabs value={value} textColor="inherit">
               <Tab label="Home" to="/" value="one"/>
-              <Tab label="About" to="/" value="two"/>
-              <Tab label="Blog" to="/" value="three"/>
-              <Tab label="Contact" to="/" value="four"/>
+              <Tab label="About" component={Link} to="/aboutUs" value="two"/>
+              <Tab label="Blog" component={Link} to="/blog" value="three"/>
+              <Tab label="Contact" component={Link} to="/contactUs" value="four"/>
             </Tabs>
           </Grid>
 
-          <Grid item xs={2} sm={2} md={2}>
-            <Button variant="contained" sx={{ borderRadius: 8, my: 3 }}>
-              Post a Job
-            </Button>
+          <Grid item xs={2} sm={2} md={2} sx={{p:3}}>
+            <SignInModal title="Post a Job" comp="button"/>
           </Grid>
           <Grid item xs={0.5} sm={0.5} md={0.5}>
             <Divider
@@ -74,7 +72,7 @@ export default function Header() {
           </Grid>
 
           <Grid item xs={0.8} sm={0.8} md={0.8}>
-            <SignInModal page="home"/>
+            <SignInModal page="home" title="Already a user? Sign In" comp="link"/>
           </Grid>
         </Grid>
       </Toolbar>

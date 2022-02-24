@@ -2,11 +2,10 @@ import * as React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import IconRa from "../../Assets/Images/react.jpg";
 import {Avatar, Button, CardActions, Grid, Select, MenuItem, 
-TextField, Chip, Stack, Typography, CardContent, InputAdornment, Card, CardActionArea} from "@mui/material";
+TextField, Chip, Typography, CardContent, InputAdornment, Card, CardActionArea} from "@mui/material";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {isEmpty} from '../../Services/Utils/Generic'
-import {getJobsList, getJobsListByJobId} from '../../redux/actions/jobs'
+import {getJobsList} from '../../redux/actions/jobs'
 import Loader from '../../Services/Utils/Loader'
 import {UpdateJobData} from '../Jobs/JobDetails'
 import {UpdateCompanyViewData} from '../Jobs/CompanyQuickView'
@@ -66,14 +65,14 @@ const CardTemplate = (props) => {
                 <Button size="small" color="primary" variant="contained"
                     style={{width:100}}
                     component={Link}
-                    to="/ApplyJob">
+                    to="/applyJob">
                     Apply
                 </Button>
                 </Grid>
                 <Grid item md={12} align="right" sx={{mt:5}}>
                 <Button size="small" color="primary"
                     component={Link}
-                    to="/CompanyDetails"
+                    to="/companyDetails"
                     style={{fontSize:9}}
                     onClick={() => { 
                                         UpdateJobData(props.itemData);
@@ -113,6 +112,33 @@ const SearchBar = () => {
     );
 }
 
+export const JobTiles = (props) => {
+    return (
+        <Grid item container >
+                <Grid item container md={12} spacing={1} sx={{mt: 2}}>
+                  {props.data ? (props.data.map((item, i) => (
+                    <Grid item key={i}
+                        >
+                        <CardTemplate title={
+                                item.title
+                            }
+                            subTitle={
+                                item.desc
+                            }
+                            exp={
+                              item.experience
+                            }
+                            // click={quickViewToggle}
+                            itemData = {item.fullData}
+                            />
+                  </Grid>
+                  ))) : <></>}
+                </Grid>
+    </Grid>
+
+    );
+}
+
 export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
     const [sort, setValue] = React.useState('');
 
@@ -139,8 +165,8 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
             );
     } else {
 
-        if(jobsInfo != undefined && jobsInfo.status && jobsInfo.jobs != undefined && jobsInfo.jobs.data != undefined 
-            && jobsInfo.jobs.data.result != undefined) {
+        if(jobsInfo !== undefined && jobsInfo.status && jobsInfo.jobs !== undefined && jobsInfo.jobs.data !== undefined 
+            && jobsInfo.jobs.data.result !== undefined) {
             const data = jobsInfo.jobs.data.result;
             data.forEach(function (k, i) {
                 jobsList[i] = {id: data[i].objectId, title: data[i].title, desc: data[i].desc, experience: data[i].experience, fullData: data[i]};
@@ -206,27 +232,8 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
             </Grid>
         </Grid>
         </Grid>
-        <Grid item container >
-                <Grid item container md={12} spacing={1} sx={{mt: 2}}>
-                  {jobsList ? (jobsList.map((item, i) => (
-                    <Grid item key={i}
-                        >
-                        <CardTemplate title={
-                                item.title
-                            }
-                            subTitle={
-                                item.desc
-                            }
-                            exp={
-                              item.experience
-                            }
-                            click={quickViewToggle}
-                            itemData = {item.fullData}
-                            />
-                  </Grid>
-                  ))) : <></>}
-                </Grid>
-    </Grid>
+        <JobTiles data={jobsList}/>
+        
     </Grid>
     );
     }

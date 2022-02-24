@@ -65,29 +65,20 @@ const options = {
 export default function VacancyStat() {
     return (
 
-        <Paper sx={{borderRadius: 4}}>
-            <Grid container sx={{p:2}}>
-                <Grid item
-                    xs={12}
-                    sm={12}
-                    md={12}>
-                    <Typography variant="h5"
-                        fontSize={18}
-                        style={
-                            {fontWeight: 600}
-                    }>
-                        {"Vacancy Stats"} </Typography>
+        <Paper sx={{ borderRadius: 4, p:3 }}> 
+            <Grid container >
+                <Grid item xs={12} sm={12} md={12}>
+                    <Typography variant="h5" fontSize={18}
+                                style={{fontWeight: 600}}>
+                        {"Vacancy Stats"} 
+                    </Typography>
                 </Grid>
-                <Grid item
-                    xs={12}
-                    sm={12}
-                    md={12}>
-                    <Line data={data}
-                        legend={legend}
-                        options={options}/>
+                <Grid item xs={12} sm={12} md={12}>
+                    <Line   data={data}
+                            legend={legend}
+                            options={options}/>
                 </Grid>
             </Grid>
-
         </Paper>
     );
 }

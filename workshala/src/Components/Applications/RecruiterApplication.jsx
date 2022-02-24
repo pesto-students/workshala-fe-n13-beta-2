@@ -415,6 +415,7 @@ export default function RecruiterApplication() {
                           align={column.align}
                           style={{ minWidth: column.minWidth, fontWeight: 550 }}
                         >
+<<<<<<< HEAD
                           {column.label}
                         </TableCell>
                       ))}
@@ -473,6 +474,46 @@ export default function RecruiterApplication() {
               />
             </Paper>
           </Grid>
+=======
+                          {columns.map((column, i) => {
+                            const value = row[column.id];
+                            return i === 5 ? (
+                              <TableCell>
+                                <DownloadResumeCell value={value} />
+                              </TableCell>
+                            ) : i === 6 ? (
+                              <TableCell>
+                                <ColoredStatusCell
+                                  component={Link}
+                                  to="/activeJob"
+                                  value={value}
+                                />
+                              </TableCell>
+                            ) : (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+>>>>>>> sur_feature_8
         </Grid>
       </Grid>
     );

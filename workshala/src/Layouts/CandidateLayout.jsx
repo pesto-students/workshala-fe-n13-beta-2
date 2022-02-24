@@ -2,6 +2,8 @@ import * as React from "react";
 import Header from "./Header";
 import SideBar from "./Sidebar";
 import { Grid } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import GlobalStyles from "@mui/material/GlobalStyles";
 
 export default function CandidateLayout({ children }) {
   const [dashBoardSideNavOpen, setDashBoardSideNavOpen] = React.useState(true);
@@ -13,9 +15,22 @@ export default function CandidateLayout({ children }) {
     setDashBoardSideNavOpen(false);
   };
 
+  const theme = createTheme({
+    palette: {
+      background: {
+        default: "#ff00ff"
+      }
+    }
+  });
+
     return (
-        <Grid container direction="row" style={{backgroundColor:"#EDEAEA"}}
-            sx={{ backgroundColor: "#EDEAEA", height:"100vh" }}>
+      <ThemeProvider theme={theme}>
+      <GlobalStyles
+        styles={{
+          body: { backgroundColor: "#EDEAEA" }
+        }}
+      />
+        <Grid container >
             <Grid item width="20%">
                 <SideBar 
                         dashBoardSideNavOpen={dashBoardSideNavOpen}
@@ -32,5 +47,6 @@ export default function CandidateLayout({ children }) {
                 </Grid>
             </Grid>
         </Grid>
+        </ThemeProvider>
   );
 }

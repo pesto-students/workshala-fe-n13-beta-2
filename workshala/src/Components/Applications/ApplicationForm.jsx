@@ -165,11 +165,7 @@ const FormInput = (props) => {
   const navigate = useNavigate();
 
   const onSubmit = data => {
-    const paylo = {
-      ...data,
-      'navigation': navigate
-    }
-
+    
     const payload = {
         type: JobApplnData.type,
         jobRef: JobApplnData.jobRef,

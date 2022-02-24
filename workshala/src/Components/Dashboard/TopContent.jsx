@@ -1,8 +1,6 @@
 import * as React from "react";
 import WorkIcon from '@mui/icons-material/Work';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-import ContactPageIcon from '@mui/icons-material/ContactPage';
-import EmailIcon from '@mui/icons-material/Email';
 
 import {
     Grid,

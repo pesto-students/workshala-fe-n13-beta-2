@@ -27,6 +27,10 @@ export default function user(state= initialState, action) {
                 loading: false,
                 error: action.message
             }
+        case type.USER_LOG_OUT:
+            return {
+                initialState
+            }
         default:
             return state;
     }

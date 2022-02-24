@@ -110,7 +110,7 @@ import {
                   />
                 </Grid>
               </Grid>
-                <SignInModal/>
+                <SignInModal title="Already a user? Sign In" comp="link"/>
             </ThemeProvider>
           </Box>
         </Modal>

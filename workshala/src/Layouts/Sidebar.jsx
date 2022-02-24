@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Link} from 'react-router-dom';
-import {Typography, Box, Grid, Drawer, IconButton} from "@mui/material";
+import {Typography, Box, Grid, Drawer, Paper} from "@mui/material";
 import {makeStyles} from '@mui/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -26,35 +26,35 @@ const SideMenuItems = [
     {
         title: 'Dashboard',
         icon: <HomeOutlinedIcon color="secondary"/>,
-        to: '/Dashboard',
+        to: '/candidate/dashboard',
         click: ''
     },
     {
         title: 'Jobs',
         icon: <BusinessCenterOutlinedIcon color="secondary"/>,
-        to: '/Jobs',
+        to: '/candidate/jobs',
         click: ''
     },
     {
         title: 'Applications',
         icon: <AppsOutlinedIcon color="secondary"/>,
-        to: '/Applications',
+        to: '/candidate/applications',
         click: ''
     },
     {
         title: 'Message',
         icon: <MessageOutlinedIcon color="secondary"/>,
-        to: '/Message',
+        to: '/candidate/message',
         click: ''
     }, {
         title: 'Statistics',
         icon: <StackedBarChartOutlinedIcon color="secondary"/>,
-        to: '/Statistics',
+        to: '/candidate/statistics',
         click: ''
     }, {
         title: 'News',
         icon: <NewspaperOutlinedIcon color="secondary"/>,
-        to: '/News',
+        to: '/candidate/news',
         click: ''
     }
 ]
@@ -76,11 +76,14 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
     return (
         
         <Drawer variant="persistent" anchor="left" open={dashBoardSideNavOpen}
-        onClose={dashBoardSideNavToggle}>
+        onClose={dashBoardSideNavToggle} PaperProps={{ elevation: 10 }}>
+            
             <Grid container
                 sx={
                     {
                         width: 270,
+                        //border:1,
+                        boxShadow:1,
                         height: '100%',
                         backgroundColor: "#EDEAEA"
                     }
@@ -184,6 +187,7 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                     } </List>
                 </Grid>
             </Grid>
+            
         </Drawer>
         
 
