@@ -6,3 +6,10 @@ export function getRecruiterApplications(data) {
     payload: data,
   };
 }
+
+export function getActiveJobsListByRecruiterId(data) {
+  return {
+    type: type.JOBS_LIST_BY_RECRUITER_ID_REQUESTED,
+    payload: data,
+  };
+}

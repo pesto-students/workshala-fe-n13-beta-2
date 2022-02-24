@@ -16,6 +16,7 @@ import getCurrentUser from "../redux/actions/currentUser";
 import PostJob from "../Pages/PostJob";
 import ActiveJobs from "../Pages/ActiveJobs";
 import RecruiterApp from "../Pages/RecruiterApp";
+import RecruiterProfile from "../Pages/RecruiterProfile";
 
 const CandidateRoutes = ({ auth }) => {
   return (
@@ -32,8 +33,9 @@ const CandidateRoutes = ({ auth }) => {
       <Route path="/Jobs" element={<Jobs />} />
       <Route path="/Applications" element={<Applications />} />
       <Route path="/CompanyDetails" element={<CompanyDetails />} />
-      <Route path="/EditProfile" element={<EditProfile />} />
-
+      {/* <Route path="/EditProfile" element={<EditProfile />} />
+      <Route path="/ActiveJobs" element={<ActiveJobs />} /> */}
+      <Route path="/PostJob" element={<PostJob />} />
       <Route path="/*" element={<Error />} />
     </Routes>
   );
@@ -52,6 +54,7 @@ const RecruiterRoutes = ({ auth }) => {
       <Route path="/PostJob" element={<PostJob />} />
       <Route path="/ActiveJobs" element={<ActiveJobs />} />
       <Route path="/RecruiterApp" element={<RecruiterApp />} />
+      <Route path="/RecruiterProfile" element={<RecruiterProfile />} />
       <Route path="/*" element={<Error />} />
     </Routes>
   );
@@ -60,7 +63,7 @@ const RecruiterRoutes = ({ auth }) => {
 const PublicRoutes = () => {
   return (
     <Routes>
-      <Route exact path="/" element={<ActiveJobs />} />
+      <Route exact path="/" element={<Home />} />
       <Route exact path="/ApplyJob" element={<ApplyJob />} /> //TODO remove this
       <Route exact path="/Dashboard" element={<Dashboard />} /> //TODO remove
       this
