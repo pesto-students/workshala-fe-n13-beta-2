@@ -1,11 +1,11 @@
 import * as React from "react";
 
 import { Route, Routes} from "react-router-dom";
-import ContactUs from '../Pages/ContactUs';
-import AboutUs from '../Pages/AboutUs';
-import Blog from '../Pages/Blog';
-import Home from '../Pages/Home';
-import Error from '../Pages/Error';
+import ContactUs from '../Pages/Common/ContactUs';
+import AboutUs from '../Pages/Common/AboutUs';
+import Blog from '../Pages/Common/Blog';
+import Home from '../Pages/Common/Home';
+import Error from '../Pages/Common/Error';
 
 export default function PublicRoutes({auth}) {
 

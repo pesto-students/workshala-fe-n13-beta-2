@@ -6,7 +6,7 @@ import Home from "../Pages/Home";
 import Dashboard from "../Pages/Dashboard";
 import Error from "../Pages/Error";
 import Loader from "../Services/Utils/Loader";
-import Statistics from "../Pages/Statistics";
+import Statistics from "../Pages/Candidate/Statistics";
 import ApplyJob from "../Pages/ApplyJob";
 import Jobs from "../Pages/Jobs";
 import Applications from "../Pages/Applications";

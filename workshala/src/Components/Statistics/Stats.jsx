@@ -5,9 +5,9 @@ import {
     CardContent,
     Card
 } from "@mui/material";
-import VacancyStat from "../../charts/VacancyStat";
-import JobTrends from "../../charts/JobTrends";
-import Network from "../../charts/Network";
+import VacancyStat from "../../charts/Candidate/VacancyStat";
+import JobTrends from "../../charts/Candidate/JobTrends";
+import Network from "../../charts/Candidate/Network";
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';

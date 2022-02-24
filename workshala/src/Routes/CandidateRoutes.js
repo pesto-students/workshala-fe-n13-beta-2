@@ -2,19 +2,19 @@ import * as React from "react";
 
 import { Route, Routes} from "react-router-dom";
 import {isEmpty} from '../Services/Utils/Generic';
-import Statistics from '../Pages/Statistics';
-import ApplyJob from '../Pages/ApplyJob';
-import Jobs from '../Pages/Jobs';
-import Applications from '../Pages/Applications';
-import CompanyDetails from '../Pages/CompanyDetails';
-import ContactUs from '../Pages/ContactUs';
-import AboutUs from '../Pages/AboutUs';
-import Blog from '../Pages/Blog';
-import Home from '../Pages/Home';
-import Dashboard from '../Pages/Dashboard';
-import Error from '../Pages/Error';
-import Profile from '../Pages/Profile';
-import EditProfile from '../Pages/EditProfile';
+import Statistics from '../Pages/Candidate/Statistics';
+import ApplyJob from '../Pages/Candidate/ApplyJob';
+import Jobs from '../Pages/Candidate/Jobs';
+import Applications from '../Pages/Candidate/Applications';
+import CompanyDetails from '../Pages/Candidate/CompanyDetails';
+import ContactUs from '../Pages/Common/ContactUs';
+import AboutUs from '../Pages/Common/AboutUs';
+import Blog from '../Pages/Common/Blog';
+import Home from '../Pages/Common/Home';
+import Dashboard from '../Pages/Candidate/Dashboard';
+import Error from '../Pages/Common/Error';
+import Profile from '../Pages/Candidate/Profile';
+import EditProfile from '../Pages/Candidate/EditProfile';
 import {Navigate} from "react-router-dom";
 
 export default function CandidateRoutes({auth}) {
