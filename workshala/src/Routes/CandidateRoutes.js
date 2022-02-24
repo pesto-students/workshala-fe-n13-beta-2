@@ -16,14 +16,8 @@ import Error from '../Pages/Error';
 import Profile from '../Pages/Profile';
 import EditProfile from '../Pages/EditProfile';
 import {useNavigate, Navigate} from "react-router-dom";
-import {NavigateTo} from './RoutesMain'
-
 
 export default function CandidateRoutes({auth}) {
-    const navigate = useNavigate();
-    // if(!isEmpty(auth.user)) {
-    //     NavigateTo("/candidate/dashboard");
-    // }
     
     return (
         <Routes>

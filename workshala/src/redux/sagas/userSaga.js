@@ -10,7 +10,7 @@ const headers = {
 };
 
 function uploadFile(data) {
-  if(data != undefined) {
+  if(data !== undefined) {
     const fileName = data.name;
     const fileData = data.file;
     const dataType = data.dataType
@@ -35,7 +35,7 @@ function uploadFile(data) {
 }
 
 function getUserId (data) {
-    if(data != undefined) {
+    if(data !== undefined) {
       
       var userId = data.userId;
       
@@ -52,7 +52,7 @@ function getUserId (data) {
 }  
 
 function updateUserInfoApi(data) {
-  if(data != undefined && data.data != undefined && data.data.result && data.originalData != undefined) {
+  if(data !== undefined && data.data !== undefined && data.data.result && data.originalData !== undefined) {
     const baseData = data.data.result[0];
     const objectId = baseData.objectId;
     const origData = data.originalData;

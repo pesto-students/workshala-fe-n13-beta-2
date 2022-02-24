@@ -12,7 +12,6 @@ import WorkIcon from '@mui/icons-material/Work';
 import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import {isEmpty} from '../../Services/Utils/Generic'
 import {UpdateApplyjobData} from '../../Components/Applications/ApplicationForm'
 
@@ -64,9 +63,8 @@ export const UpdateJobData = (data) => {
 }
 
 export default function JobDetails(props) {
-  const [jobsData, setJobsData] = React.useState(false);
-
-if(!isEmpty(JobDetailsData1) && !jobsData) {
+  
+if(!isEmpty(JobDetailsData1)) {
   return (
     
     <Card

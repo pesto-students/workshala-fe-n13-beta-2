@@ -8,9 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
-import {useNavigate,Navigate} from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import {useNavigate} from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import {logOut} from '../redux/actions/user'
 import { purgeStoredState } from 'redux-persist'
 

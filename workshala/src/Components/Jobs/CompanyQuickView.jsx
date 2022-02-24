@@ -7,7 +7,6 @@ import IconRa from "../../Assets/Images/react.jpg";
 import star from "../../Assets/Images/star.png";
 import { VscAdd } from "react-icons/vsc";
 import locationIcon from "../../Assets/Images/location_icon.png";
-import { Link } from 'react-router-dom';
 import { isEmpty } from "../../Services/Utils/Generic";
 
 var profileData = {

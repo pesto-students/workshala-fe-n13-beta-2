@@ -11,19 +11,18 @@ import Loader from '../Services/Utils/Loader'
 
 export default function Dashboard() {
     const userInfo = useSelector(state => state.userInfo);
-    var userData = [];
     const dispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(fetchProfile());
     }, []);
 
-    if(userInfo != undefined && userInfo.loading ) {
+    if(userInfo !== undefined && userInfo.loading ) {
         return (<Loader/>);                   // TODO: use skeleton
     } else {
-        var userData = [];
-        if(userInfo != undefined && userInfo.userInfo != undefined && userInfo.userInfo.status && userInfo.userInfo.data != undefined 
-                && userInfo.userInfo.data.result != undefined) {
+        let userData = [];
+        if(userInfo !== undefined && userInfo.userInfo !== undefined && userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
+                && userInfo.userInfo.data.result !== undefined) {
                 userData = userInfo.userInfo.data.result[0];
         }
     return (
