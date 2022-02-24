@@ -20,7 +20,8 @@ import FormLabel from "@mui/material/FormLabel";
 import { useDispatch } from "react-redux";
 import postJob from "../../redux/actions/postJob";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { isEmpty } from "../../Services/Utils/Generic";
 
 const FormItems = [
   {
@@ -80,26 +81,19 @@ const RadioItems = [
   },
 ];
 
-const LocationRadius = [
-  {
-    label: "Within 10km",
-    color: "primary",
-  },
-  {
-    label: "Within 25km",
-    color: "success",
-  },
-  {
-    label: "Entire City",
-    color: "success",
-  },
-];
+var jobDetails = [];
+export const UpdateJobDetails = (data) => {
+  console.log(data);
+
+  jobDetails = { Title: data.title };
+};
 const PostjobComponent = (props) => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
   const dispatch = useDispatch();
 
@@ -150,6 +144,7 @@ const PostjobComponent = (props) => {
                         required
                         id={item.first}
                         label={item.first}
+                        // value={!isEmpty(jobDetails) ? jobDetails.title : ""}
                         variant="standard"
                         {...register(item.first, {
                           required: true,
@@ -206,24 +201,32 @@ const PostjobComponent = (props) => {
                     <Grid item md={4}>
                       <FormControl>
                         <FormLabel id={item.first}>{item.first}</FormLabel>
-                        <RadioGroup
-                          row
-                          aria-labelledby="demo-row-radio-buttons-group-label"
-                          name="row-radio-buttons-group"
-                        >
-                          <FormControlLabel
-                            value={item.second}
-                            control={<Radio />}
-                            label={item.second}
-                            // {...register(item.second, { required: true })}
-                          />
-                          <FormControlLabel
-                            value={item.third}
-                            control={<Radio />}
-                            label={item.third}
-                            // {...register(item.third, { required: true })}
-                          />
-                        </RadioGroup>
+                        <Controller
+                          name={item.first}
+                          render={({ field }) => (
+                            <RadioGroup
+                              row
+                              name="row-radio-buttons-group"
+                              aria-label="jobType"
+                              {...field}
+                            >
+                              <FormControlLabel
+                                value={item.second}
+                                control={<Radio />}
+                                label={item.second}
+                                // {...register(item.second, { required: true })}
+                              />
+                              <FormControlLabel
+                                value={item.third}
+                                control={<Radio />}
+                                label={item.third}
+                                // {...register(item.third, { required: true })}
+                              />
+                            </RadioGroup>
+                          )}
+                          name="RadioGroup"
+                          control={control}
+                        />
                       </FormControl>
                     </Grid>
                   </Grid>
@@ -292,23 +295,7 @@ const PostjobComponent = (props) => {
                   </Grid>
                 ))}{" "}
               </Grid>
-              <Typography sx={{ mt: 4, ml: 3 }}>
-                Receive Application From
-              </Typography>
-              <Grid item container md={12} direction="row" spacing={1}>
-                <Grid item sx={{ mt: 2, ml: 4 }} xs={5} sm={5} md={5}>
-                  <Stack direction="colunm">
-                    {LocationRadius.map((item, i) => (
-                      <Chip
-                        key={i}
-                        label={item.label}
-                        color={item.color}
-                        sx={{ ml: 1 }}
-                      />
-                    ))}{" "}
-                  </Stack>
-                </Grid>
-              </Grid>
+
               <Grid
                 container
                 sx={{ mt: 5 }}

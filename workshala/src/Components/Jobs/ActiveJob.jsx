@@ -25,8 +25,9 @@ import dateFormat from "dateformat";
 import Links from "@mui/material/Link";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getJobsList, getJobsListByJobId } from "../../redux/actions/jobs";
-
+import { getActiveJobsListByRecruiterId } from "../../redux/actions/recruiterApp";
+import Loader from "../../Services/Utils/Loader";
+import UpdateJobDetails from "../PostJob/PostJobComponent";
 const suggestions = [
   {
     label: "Technician",
@@ -284,7 +285,7 @@ export default function ActiveJob() {
   const jobsInfo = useSelector((state) => state.jobs);
 
   React.useEffect(() => {
-    dispatch(getJobsList());
+    dispatch(getActiveJobsListByRecruiterId());
   }, []);
 
   var jobsList = [];
@@ -440,6 +441,9 @@ export default function ActiveJob() {
                                     component={Link}
                                     to="/ActiveJob"
                                     value={value}
+                                    onClick={() => {
+                                      UpdateJobDetails(jobsList[value]);
+                                    }}
                                   />
                                 </TableCell>
                               ) : (
