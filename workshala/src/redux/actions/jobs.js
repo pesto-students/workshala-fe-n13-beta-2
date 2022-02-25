@@ -27,3 +27,10 @@ export function fetchRecruiterPostedJobs(data) {
     payload: data,
   };
 }
+
+export function postJob(data) {
+  return {
+    type: type.POST_JOB_REQUESTED,
+    payload: data,
+  };
+}

@@ -46,14 +46,10 @@ function getCurrentUser(data) {
       axios
         .get(url, { headers: custHeader })
         .then((response) => {
-          //updateJobList(response.data.results);
-          //navigation('Dashboard');
           resolve(response);
         })
         .catch((error) => {
-          console.log("Error:" + error);
           throw error;
-          //  reject(error);
         });
     });
   }
@@ -132,7 +128,6 @@ function* fetchUser(parentComp, action) {
     } else {
       userData = yield select((state) => state.signUp.signUp);
     }
-    console.log("experimenting: " + userData);
   
     if (userData === undefined) {
       yield put({ type: "USER_FAILED", message: "userData is null" });

@@ -11,9 +11,7 @@ import {
   MenuItem,
   TextField,
   Chip,
-  Stack,
   Typography,
-  InputAdornment,
   Skeleton,
   TablePagination,
   TableRow,
@@ -216,9 +214,7 @@ const rows = [
 ];
 
 const DownloadResumeCell = (props) => {
-  var statusColor = "blue";
   
-
   return (
     <a href={props.resume} download="resume" target='_blank'>
     <IconButton >
@@ -304,11 +300,11 @@ export default function Application() {
     return <Skeleton />;
   } else {
     if (
-      applications != undefined &&
+      applications !== undefined &&
       applications.status &&
-      applications.applications != undefined &&
-      applications.applications.data != undefined &&
-      applications.applications.data.results != undefined
+      applications.applications !== undefined &&
+      applications.applications.data !== undefined &&
+      applications.applications.data.results !== undefined
     ) {
       const data = applications.applications.data.results;
       data.forEach(function (k, i) {
@@ -331,8 +327,6 @@ export default function Application() {
           status: isEmpty(data[i].status) ? "In-Progress": data[i].status,
         };
       });
-      console.log(appsList);
-      // UpdateData(userData);
     }
 
     return (

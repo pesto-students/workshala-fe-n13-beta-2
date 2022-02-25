@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, select } from "redux-saga/effects";
 import axios from "axios";
 import {getObjectId} from './userSaga'
 
@@ -19,10 +19,25 @@ function getJobsList() {
       resolve(response);
     })
     .catch((error) => {
-      console.log("Error:"+error);
       throw error;
     });
   });
+}
+
+function postAJob(data) {
+  const userHeader = {
+    ...headers,
+    "Content-Type": "application/json",
+  };
+
+  return axios
+    .post(baseUrl + "/classes/JobInfo", data, { headers: userHeader })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      throw error;
+    });
 }
 
 export function searchJobsApi(data) {
@@ -36,7 +51,6 @@ export function searchJobsApi(data) {
       return response;
     })
     .catch((error) => {
-      console.log("Error:"+error);
       throw error;
     });
 }
@@ -61,9 +75,15 @@ function* searchJobs(action) {
 
 function* fetchRecruitersPostedJobs(action) {
   try {
+    const userData = yield select((state) => state.user.user);
+
+    const filterData = {
+      'userId' : userData.data.objectId,
+      'role': userData.data.role
+    }
     // Step-1: Get objectIf of companyInfo using recruiter's Id   INPUT: Recruiter's ID, OUTPUT: CompanyInfo Object Id
     
-    const companyInfo = yield call(getObjectId, action.payload);
+    const companyInfo = yield call(getObjectId, filterData);
     
     let payload = [];
     if(companyInfo !== undefined && companyInfo.data !== undefined && companyInfo.data.result !== undefined) {
@@ -81,10 +101,38 @@ function* fetchRecruitersPostedJobs(action) {
   }
 }
 
+function* postJob(action) {
+  try {
+    const userData = yield select((state) => state.user.user);
+
+    const filterData = {
+      'userId' : userData.data.objectId,
+      'role': userData.data.role
+    }
+    
+    const companyInfo = yield call(getObjectId, filterData);
+    let payload = [];
+    if(companyInfo !== undefined && companyInfo.data !== undefined && companyInfo.data.result !== undefined) {
+      payload = {
+        ...action.payload,
+        'companyId': companyInfo.data.result[0].objectId
+      }
+    }
+    const jobResponse = yield call(postAJob, payload);
+    let navigation = action.payload.navigation;
+    navigation("/"+ action.payload.role + "/Jobs");
+    yield put({ type: "POST_JOB_SUCCESS", postJob: jobResponse });
+  } catch (e) {
+    yield put({ type: "POST_JOB_FAILED", message: e.message });
+  }
+}
+
 function* jobSaga() {
   yield takeEvery("JOBS_LIST_REQUESTED", fetchJobsList);
   yield takeEvery("SEARCH_JOBS_REQUESTED", searchJobs);
   yield takeEvery("RECRUITER_POSTED_JOBS_REQUESTED", fetchRecruitersPostedJobs);
+  yield takeEvery("POST_JOB_REQUESTED", postJob); // make entry in user - POST (reducer-signup) ->USER_SIGNUP_SUCCESS
+  yield takeEvery("POST_JOB_SUCCESS", fetchRecruitersPostedJobs);
   
 }
 

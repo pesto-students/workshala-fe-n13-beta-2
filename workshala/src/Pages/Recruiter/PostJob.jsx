@@ -1,11 +1,13 @@
 import * as React from "react";
 import CandidateLayout from "../../Layouts/CandidateLayout";
-import PostJobComponent from "../../Components/PostJob/PostJobComponent";
+import PostJobComponent from "../../Components/Jobs/Recruiter/PostJobComponent";
+import PostJob from "../../Components/Jobs/Recruiter/PostJob";
 
-export default function PostJob() {
+export default function PostAJob() {
   return (
     <CandidateLayout>
-      <PostJobComponent />
+      {/* <PostJobComponent /> */}
+      <PostJob/>
     </CandidateLayout>
   );
 }

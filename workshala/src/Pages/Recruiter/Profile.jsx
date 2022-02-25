@@ -12,7 +12,6 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    console.log("problem");
     dispatch(fetchProfile());
   }, [])        // eslint-disable-line react-hooks/exhaustive-deps
 

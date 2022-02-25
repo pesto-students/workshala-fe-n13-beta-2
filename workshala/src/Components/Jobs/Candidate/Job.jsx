@@ -16,7 +16,6 @@ export const updateJobList = (data) => {
     data.forEach(function (k, i) {
         jobsList[i] = {title: data[i].title, desc: data[i].desc, experience: data[i].experience};
     });
-    console.log(jobsList);
 }
 
 const suggestions = [
@@ -171,11 +170,7 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
             data.forEach(function (k, i) {
                 jobsList[i] = {id: data[i].objectId, title: data[i].title, desc: data[i].desc, experience: data[i].experience, fullData: data[i]};
             });
-            console.log(jobsList);
-           // UpdateData(userData);
         }
-
-
         return (
             <Grid container direction={"column"}>
       <Grid item container>

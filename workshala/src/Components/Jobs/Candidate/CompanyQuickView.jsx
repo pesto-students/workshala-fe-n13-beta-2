@@ -36,7 +36,6 @@ export const UpdateCompanyViewData = (data) => {
                     AboutCompany: data.companyRef.about,
                     Description: data.companyRef.about
                   }
-    console.log(data);
 }
 
 export default function CompanyQuickView(props) {

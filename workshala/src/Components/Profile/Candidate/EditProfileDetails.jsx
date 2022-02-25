@@ -176,12 +176,10 @@ const SkillsTileRow = (props) => {
 
     const handleSkillsDelete = (e) => {
       const index = e.currentTarget.id
-      console.log(index)
       SkillItems.splice(index, 1);
       skillsFlag = !skillsFlag;                     // TODO- workaround
       props.hook(skillsFlag);
     }
-
 
     return (
       <Grid container sx={{ml:3, mr:3}} spacing={2}>
@@ -224,7 +222,6 @@ const ExpTileRow = (props) => {
   
   const handleExpDelete = (e) => {
     const index = e.currentTarget.id
-    console.log(index)
     ExperienceData.splice(index, 1);
     expFlag = !expFlag;                     // TODO- workaround
     props.hook(expFlag);
@@ -448,7 +445,7 @@ const handleResumeUpload = (event) => {
   }
 }
 
-export default function ProfileDetails(props) {
+export default function EditProfileDetails(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   

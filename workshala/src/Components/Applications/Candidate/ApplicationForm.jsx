@@ -181,8 +181,6 @@ const FormInput = (props) => {
       navigation: navigate
     }
 
-    console.log(payloadWrapper);
-
     dispatch(postApplication(payloadWrapper));
   }
   return (
@@ -350,7 +348,6 @@ export default function ApplicationForm() {
       userData = {FirstName: temp.firstName, LastName: temp.lastName, Mobile: temp.mobile, BirthDate: temp.dob,
                   Email: temp.email, aboutYou: temp.bio};
   }
-  console.log(userData);
 
   if(isEmpty(JobApplnData))
     return(<></>);

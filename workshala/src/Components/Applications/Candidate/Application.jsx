@@ -246,21 +246,10 @@ const classes = useStyles();
             && applications.applications.data.results !== undefined) {
             const data = applications.applications.data.results;
             data.forEach(function (k, i) {
-              //appsList[i] = {title: data[i].title, desc: data[i].desc, experience: data[i].experience};
-  //             { id: "id", label: "ID"},
-  // { id: "date", label: "Date\u00a0Applied"},
-  // { id: "company", label: "Company", format: (value) => value.toLocaleString("en-US")},
-  // { id: "type", label: "Type", format: (value) => value.toLocaleString("en-US")},
-  // { id: "position", label: "Position", format: (value) => value.toFixed(2)},
-  // { id: "contact",  label: "Contact", format: (value) => value.toFixed(2)},
-  // { id: "status", label: "Status",  format: (value) => value.toFixed(2)},
-  appsList[i] = {id: data[i].ObjectId, date: data[i].createdAt, company: "test", type: data[i].type, position: data[i].position,
-            contact: data[i].mobile, status: data[i].status};
+                appsList[i] = {id: data[i].ObjectId, date: data[i].createdAt, company: "test", type: data[i].type, position: data[i].position,
+                contact: data[i].mobile, status: data[i].status};
             });
-            console.log(appsList);
-           // UpdateData(userData);
         }
-
         
   return (
     <Grid container>

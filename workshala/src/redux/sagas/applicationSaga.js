@@ -22,9 +22,7 @@ function getAppsList() {
         resolve(response);
       })
       .catch((error) => {
-        console.log("Error:"+error);
         throw error;
-      //  reject(error);
       });
     });
   }
@@ -100,9 +98,8 @@ function* fetchRecApplicationsList(action) {
       searchJobs.data.results.forEach(function(key, k) { 
         objectArr[k] = key.objectId; 
       });
-      console.log(objectArr);
     }
-    //'where={"score":{"$in":[1,3,5,7,9]}}'
+
     const applicationFilter = {
       'jobRef': {"$in": objectArr}
     }

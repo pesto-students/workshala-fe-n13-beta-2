@@ -5,15 +5,7 @@ import {fetchRecruiterPostedJobs} from '../../../redux/actions/jobs'
 import {
   Button,
   Grid,
-  Select,
-  MenuItem,
   TextField,
-  Chip,
-  Stack,
-  Typography,
-  InputAdornment,
-  FormControl,
-  InputLabel,
   TablePagination,
   TableRow,
   TableHead,
@@ -29,29 +21,8 @@ import Links from "@mui/material/Link";
 import {makeStyles} from '@mui/styles';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getActiveJobsListByRecruiterId } from "../../../redux/actions/recruiterApp";
 import UpdateJobDetails from "./PostJobComponent";
 import { isEmpty } from "../../../Services/Utils/Generic";
-import {searchJobs} from '../../../redux/actions/jobs'
-
-const suggestions = [
-  {
-    label: "Technician",
-    color: "primary",
-  },
-  {
-    label: "Mechanic",
-    color: "success",
-  },
-  {
-    label: "Delivery Boy",
-    color: "success",
-  },
-  {
-    label: "Builder",
-    color: "success",
-  },
-];
 
 const columns = [
   // { id: "id", label: "Job\u00a0ID" },
@@ -278,17 +249,10 @@ const classes = useStyles();
 
   const dispatch = useDispatch();
 
-  //const jobsInfo = useSelector((state) => state.jobs);
   const jobsInfo = useSelector(state => state.jobs);
-  const auth = useSelector((state) => state.user);
-
-  const filterData = {
-        'userId' : auth.user.data.objectId,
-        'role': auth.user.data.role
-  }
 
   React.useEffect(() => {
-    dispatch(fetchRecruiterPostedJobs(filterData));
+    dispatch(fetchRecruiterPostedJobs());
   }, []);             // eslint-disable-line react-hooks/exhaustive-deps
 
   var jobsList = [];
@@ -315,14 +279,12 @@ const classes = useStyles();
           detail: "",
         };
       });
-      console.log(jobsList);
-      // UpdateData(userData);
     }
 
     return (
       <Grid container>
         {/* Search bar */}
-        <Grid item md={12}>
+        <Grid item md={10}>
           <TextField
             sx={{
               width: "96%",
@@ -353,48 +315,29 @@ const classes = useStyles();
           />
         </Grid>
 
-        <Grid item container md={12}>
-          <Grid
-            item
-            md={1.5}
-            sx={{
-              ml: 2,
-              mt: 3,
-            }}
-          >
-            <Typography>Suggestions</Typography>
-          </Grid>
-          <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5}>
-            <Grid item>
-              {suggestions.map((item, i) => (
-                <Chip
-                  key={i}
-                  label={item.label}
-                  color={item.color}
-                  sx={{ ml: 1 }}
-                />
-              ))}{" "}
-            </Grid>
-          </Grid>
-          <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5} align="right">
-              <FormControl >
-                <InputLabel id="Newest-label">Newest</InputLabel>
-                <Select sx={{width:120, borderRadius:8, backgroundColor:"white"}}
-                      labelId="Newest-label"
-                      defaultValue="">
-                    <MenuItem value="">Newest</MenuItem>
-                    <MenuItem value="">Oldest</MenuItem>
-                </Select>
-                </FormControl>
-          </Grid>
+        <Grid item md={2}>
+            <Button
+                component={Link}
+                to="/recruiter/postjob"
+                variant="contained"
+                sx={{
+                      width: "180px",
+                      height: "50px",
+                      marginLeft: "0 auto",
+                      borderRadius: 4,
+                      display: "flex",
+                      mt: 1,
+                    }}
+            >
+              Post a New Job
+            </Button>
         </Grid>
-        <Grid item container md={12} spacing={1} sx={{ mt: 2 }}>
+        <Grid item container md={12} spacing={1}>
           <Grid
             item
             md={12}
             alignItems="center"
             justifyContent="center"
-            sx={{ mt: 1 }}
           >
             <Paper
               sx={{

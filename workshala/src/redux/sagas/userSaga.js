@@ -129,7 +129,6 @@ function searchCandidatesApi(data) {
         resolve(response);
       })
       .catch((error) => {
-        console.log("Error:" + error);
         throw error;
       });
   });

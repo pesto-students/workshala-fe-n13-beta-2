@@ -49,15 +49,11 @@ const JobData = [
 ]
 
 export const UpdateJobData = (data) => {
-  console.log(data);
-
   var tempData = ['workLevel', 'experience', 'empType', 'maxSalary'];
 
   tempData.forEach(function (k, i) {
     JobDetailsData[i] = {icon: JobData[i].icon, title: JobData[i].title, value: data[tempData[i]]};
   });
-
-  console.log(JobDetailsData);
 
   JobDetailsData1 = {Title: data.title, Overview: data.desc, fullData: data};
 }

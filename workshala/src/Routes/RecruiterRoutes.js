@@ -15,14 +15,11 @@ import Profile from '../Pages/Recruiter/Profile';
 import EditProfile from '../Pages/Recruiter/EditProfile';
 import ActiveJobs from '../Pages/Recruiter/ActiveJobs';
 import Applications from '../Pages/Recruiter/Applications';
+import PostJob from '../Pages/Recruiter/PostJob';
 
 import Statistics from '../Pages/Candidate/Statistics';
-import ApplyJob from '../Pages/Candidate/ApplyJob';
-
-import CompanyDetails from '../Pages/Candidate/CompanyDetails';
 
 export default function RecruiterRoutes({auth}) {
-
     return (
       <Routes>
       <Route exact path="/" element={
@@ -32,10 +29,9 @@ export default function RecruiterRoutes({auth}) {
                       }/>    
       <Route exact path="/recruiter/dashboard" element={<Dashboard />} />
       <Route path="/recruiter/statistics" element={<Statistics />} />
-      <Route path="/recruiter/applyJob" element={<ApplyJob />} />
+      <Route path="/recruiter/postJob" element={<PostJob />} />
       <Route path="/recruiter/jobs" element={<ActiveJobs />} />
       <Route path="/recruiter/applications" element={<Applications />} />
-      <Route path="/recruiter/companyDetails" element={<CompanyDetails />} />
       <Route path="/recruiter/profile" element={<Profile />} />
       <Route path="/recruiter/editProfile" element={<EditProfile />} />
       <Route path="/contactUs" element={<ContactUs />} />
