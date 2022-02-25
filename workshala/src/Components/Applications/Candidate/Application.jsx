@@ -231,7 +231,7 @@ const classes = useStyles();
 
   React.useEffect(() => {
     dispatch(getApplications());
-  }, []);
+  }, []);             // eslint-disable-line react-hooks/exhaustive-deps
 
   var appsList = [];
     

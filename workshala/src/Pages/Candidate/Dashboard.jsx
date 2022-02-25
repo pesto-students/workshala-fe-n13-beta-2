@@ -15,7 +15,7 @@ export default function Dashboard() {
 
     React.useEffect(() => {
         dispatch(fetchProfile());
-    }, []);
+    }, []);                     // eslint-disable-line react-hooks/exhaustive-deps
 
     if(userInfo !== undefined && userInfo.loading ) {
         return (<Loader/>);                   // TODO: use skeleton

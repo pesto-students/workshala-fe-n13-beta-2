@@ -14,7 +14,7 @@ export default function Profile() {
   React.useEffect(() => {
     console.log("problem");
     dispatch(fetchProfile());
-  }, [])
+  }, [])        // eslint-disable-line react-hooks/exhaustive-deps
 
   if(userInfo !== undefined && userInfo.loading ) {
     return (<Loader/>);                   // TODO: use skeleton

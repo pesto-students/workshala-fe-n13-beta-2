@@ -132,7 +132,7 @@ function* fetchUser(parentComp, action) {
     }
     console.log("experimenting: " + userData);
   
-    if (userData == undefined) {
+    if (userData === undefined) {
       yield put({ type: "USER_FAILED", message: "userData is null" });
     } else {
       try {

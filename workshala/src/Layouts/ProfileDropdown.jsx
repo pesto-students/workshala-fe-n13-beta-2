@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {useNavigate, Navigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import {logOut} from '../redux/actions/user'
 import { purgeStoredState } from 'redux-persist'

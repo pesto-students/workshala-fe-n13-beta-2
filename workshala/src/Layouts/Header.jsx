@@ -32,7 +32,7 @@ export default function Header({ dashBoardSideNavToggle }) {
         dispatch(fetchProfile());
       }
     }  
-  }, []); 
+  }, []);       // eslint-disable-line react-hooks/exhaustive-deps
 
     
   var profileData = [];

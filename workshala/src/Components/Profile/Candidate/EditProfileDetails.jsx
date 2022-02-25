@@ -504,7 +504,7 @@ export default function ProfileDetails(props) {
         reset(defaultData);    // reset reports infinite render if used outside useEffect
       }
       //setValue({firstName: "first"})
-    }, [userInfo]);
+    }, [userInfo]);         // eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(() => {                             
      // if(isEmpty(userInfo)) {
@@ -516,19 +516,15 @@ export default function ProfileDetails(props) {
             reset(userInfo.userInfo.data.result[0]);    // reset reports infinite render if used outside useEffect
           }
       //}
-    }, [])
+    }, [])        // eslint-disable-line react-hooks/exhaustive-deps
 
-    let userData = [];
   if(userInfo.loading) {
       return (
               <Loader/>
           );
   } else {
     
-    if(userInfo !== undefined && userInfo.userInfo !== undefined && userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
-      && userInfo.userInfo.data.result !== undefined) {
-      userData = userInfo.userInfo.data.result[0];
-    }
+    
   return (
     <FormProvider {...methods} >
     <form onSubmit={methods.handleSubmit(onSubmit)}>
