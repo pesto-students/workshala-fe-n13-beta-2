@@ -1,7 +1,6 @@
 import React from "react";
 
 import {
-  Avatar,
   Button,
   Divider,
   Grid,
@@ -18,10 +17,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { useDispatch } from "react-redux";
-import postJob from "../../redux/actions/postJob";
+import postJob from "../../../redux/actions/postJob";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import { isEmpty } from "../../Services/Utils/Generic";
 
 const FormItems = [
   {
@@ -80,8 +78,7 @@ const RadioItems = [
     third: "Experienced",
   },
 ];
-
-var jobDetails = [];
+let jobDetails = [];
 export const UpdateJobDetails = (data) => {
   console.log(data);
 
@@ -92,7 +89,6 @@ const PostjobComponent = (props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     control,
   } = useForm();
   const dispatch = useDispatch();
@@ -203,7 +199,7 @@ const PostjobComponent = (props) => {
                         <FormLabel id={item.first}>{item.first}</FormLabel>
                         <Controller
                           name={item.first}
-                          render={({ field }) => (
+                          render={( field ) => (
                             <RadioGroup
                               row
                               name="row-radio-buttons-group"
@@ -224,8 +220,7 @@ const PostjobComponent = (props) => {
                               />
                             </RadioGroup>
                           )}
-                          name="RadioGroup"
-                          control={control}
+                         control={control}
                         />
                       </FormControl>
                     </Grid>

@@ -1,19 +1,9 @@
 import React from "react";
 import CandidateLayout from "../../Layouts/CandidateLayout";
-import ActiveJob from "../../Components/Jobs/ActiveJob";
-import QuickView from "../../Components/Jobs/CompanyQuickView";
+import ActiveJob from "../../Components/Jobs/Recruiter/ActiveJob";
 import { Grid } from "@mui/material";
 
 export default function ActiveJobs() {
-  const [quickViewOpen, setQuickViewOpen] = React.useState(false);
-
-  const quickViewToggle = () => {
-    setQuickViewOpen(!quickViewOpen);
-  };
-
-  const quickViewClose = () => {
-    setQuickViewOpen(false);
-  };
 
   return (
     <CandidateLayout>

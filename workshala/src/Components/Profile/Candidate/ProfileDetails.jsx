@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Grid, Typography, Paper, TextField, Button } from "@mui/material";
 import { Download } from "@mui/icons-material";
 import Loader from "../../../Services/Utils/Loader";
+import { GetRole } from "../../../Services/Utils/Generic";
 
 const TileHeading = (props) => {
   return (
@@ -18,6 +19,7 @@ const TileHeading = (props) => {
   );
 };
 const AboutMeTile = (props) => {
+  const role = GetRole();
   return (
     <Paper sx={{ borderRadius: 4, p: 2 }}>
       <Grid container>
@@ -26,26 +28,30 @@ const AboutMeTile = (props) => {
             <TileHeading heading={props.data.user} size={25} />
           </Grid>
           <Grid item md={7.5} sx={{ textAlign: "end", mt: 3, marginRight: 1 }}>
-            <Button variant="outlined" component={Link} to="/editProfile">
+            <Button
+              variant="outlined"
+              component={Link}
+              to={"/" + role + "/editProfile"}
+            >
               Edit Profile
             </Button>
           </Grid>
         </Grid>
-        <Grid item container sx={{ p: 2 }} md={12}>
-          <Grid item md={12}>
-            <Typography
-              variant="h6"
-              fontSize={16}
-              style={{ fontWeight: 600, fontFamily: "Fira Sans" }}
-            >
-              About Me
-            </Typography>
-          </Grid>
-          <Grid item md={12}>
-            <Typography variant="h6" fontSize={15} align="justify">
-              {props.data.AboutMeText}
-            </Typography>
-          </Grid>
+      </Grid>
+      <Grid item container sx={{ p: 2 }} md={12}>
+        <Grid item md={12}>
+          <Typography
+            variant="h6"
+            fontSize={16}
+            style={{ fontWeight: 600, fontFamily: "Fira Sans" }}
+          >
+            About Me
+          </Typography>
+        </Grid>
+        <Grid item md={12}>
+          <Typography variant="h6" fontSize={15} align="justify">
+            {props.data.AboutMeText}
+          </Typography>
         </Grid>
       </Grid>
     </Paper>
@@ -182,7 +188,9 @@ const TileTemplate = (props) => {
 };
 
 const SkillsForm = (props) => {
-  return (
+  return props.data === undefined ? (
+    <Loader />
+  ) : (
     <Paper sx={{ borderRadius: 4, p: 2 }}>
       <TileHeading heading="Skills" size={18} />
 
@@ -200,7 +208,9 @@ const SkillsForm = (props) => {
 };
 
 const ExperienceTile = (props) => {
-  return (
+  return props.data === undefined ? (
+    <Loader />
+  ) : (
     <Paper sx={{ borderRadius: 4, p: 2 }}>
       <TileHeading heading="Experience" size={18} />
 
@@ -297,12 +307,8 @@ export default function ProfileDetails(props) {
         </Grid>
 
         <Grid item md={12}>
-          <ExperienceTile data={userData.experience} />
-        </Grid>
-
-        <Grid item md={12}>
           <ResumeTile
-            data={userData.resume.url}
+            data={userData.resume ? userData.resume.url : null}
             uploadedOn={userData.updatedAt}
           />
         </Grid>

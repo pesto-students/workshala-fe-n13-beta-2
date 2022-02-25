@@ -9,6 +9,7 @@ import {updateUserInfo} from '../../../redux/actions/user'
 import {useNavigate} from "react-router-dom";
 import Loader from '../../../Services/Utils/Loader'
 import {fetchProfile} from '../../../redux/actions/user'
+import { GetRole } from "../../../Services/Utils/Generic";
 
 import {
   Grid,
@@ -456,35 +457,16 @@ export default function ProfileDetails(props) {
   const methods = useForm();
   
   const { reset} = methods;
-
+  const role = GetRole();
     const onSubmit = data => {
-      console.log(data);
-
-      // var reader = new FileReader();
-      // reader.onloadend = async function () {
-      // const base64Response = await fetch(reader.result);
-      // const blob = await base64Response.blob();
-
-      //const temp = handleImageUpload(data['profileImg']);
-
-      const payl = {
-        data: data,
-        imgData: imgData,
-        resumeData: resumeData
-      }
-      //handleResumeUpload();
-
       // remove old skills
       delete data['skills']
-      // create new skills json
-      // let libraries = data.filter(l => {
-      //   return l.name.toLowerCase().match( "skill-" );
-      // });
-      //console.log(skills);
-
-
+      
       const payload = {
-        payload: payl,
+        data: data,
+        imgData: imgData,
+        resumeData: resumeData,
+        role: role,
         navigation: navigate
       }
 

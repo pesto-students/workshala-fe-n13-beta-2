@@ -13,6 +13,7 @@ import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import StackedBarChartOutlinedIcon from '@mui/icons-material/StackedBarChartOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
+import {GetRole} from "../Services/Utils/Generic"
 
 const useStyles = makeStyles({
     root: {
@@ -25,35 +26,35 @@ const SideMenuItems = [
     {
         title: 'Dashboard',
         icon: <HomeOutlinedIcon color="secondary"/>,
-        to: '/candidate/dashboard',
+        to: '/dashboard',
         click: ''
     },
     {
         title: 'Jobs',
         icon: <BusinessCenterOutlinedIcon color="secondary"/>,
-        to: '/candidate/jobs',
+        to: '/jobs',
         click: ''
     },
     {
         title: 'Applications',
         icon: <AppsOutlinedIcon color="secondary"/>,
-        to: '/candidate/applications',
+        to: '/applications',
         click: ''
     },
     {
         title: 'Message',
         icon: <MessageOutlinedIcon color="secondary"/>,
-        to: '/candidate/message',
+        to: '/message',
         click: ''
     }, {
         title: 'Statistics',
         icon: <StackedBarChartOutlinedIcon color="secondary"/>,
-        to: '/candidate/statistics',
+        to: '/statistics',
         click: ''
     }, {
         title: 'News',
         icon: <NewspaperOutlinedIcon color="secondary"/>,
-        to: '/candidate/news',
+        to: '/news',
         click: ''
     }
 ]
@@ -62,6 +63,7 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
     const classes = useStyles();
     const [selectedIndex] = React.useState(1);
 
+    const role = GetRole();
     return (
         
         <Drawer variant="persistent" anchor="left" open={dashBoardSideNavOpen}
@@ -71,7 +73,6 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                 sx={
                     {
                         width: 270,
-                        //border:1,
                         boxShadow:1,
                         height: '100%',
                         backgroundColor: "#EDEAEA"
@@ -83,12 +84,10 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                     sm={12}
                     md={12}>
                     <Grid container
-                        sx={
-                            {
+                        sx={{
                                 mx: 4,
                                 mt: 2
-                            }
-                    }>
+                            }}>
                         <Grid item
                             xs={3}
                             sm={3}
@@ -98,7 +97,6 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                                     {
                                         height: 70,
                                         width: 70,
-
                                         mt: 2,
                                         marginRight: 0
                                     }
@@ -111,47 +109,36 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                             sm={9}
                             md={6}>
                             <Typography component="h1" variant="h5" color="Black"
-                                sx={
-                                    {
+                                sx={{
                                         mt: 4,
                                         mx: 1,
                                         marginRight: 0
-                                    }
-                            }>
+                                    }}>
                                 Workshala
                             </Typography>
                         </Grid>
-                        
                     </Grid>
                 </Grid>
                 <Grid item
                     xs={3}
                     sm={3}
                     md={3}
-                    sx={
-                        {
+                    sx={{
                             mt: 3,
                             mx: 2
-                        }
-                    }
-                    className={
-                        classes.root
-                }>
+                        }}
+                    className={ classes.root }>
                     <List component="nav" aria-label="main menu list"
 
-                        sx={
-                            {
+                        sx={{
                                 p: 3,
                                 mt: 5
-                            }
-                    }>
+                            }}>
                         {
                         SideMenuItems.map((item, i) => (
                             <ListItem key={i} button
                                 component={Link}
-                                to={
-                                    item.to
-                                }
+                                to={ "/" +role + item.to }
                                 classes={
                                     {root: useStyles.listItem}
                                 }
@@ -172,9 +159,6 @@ export default function SideBar({dashBoardSideNavOpen, dashBoardSideNavToggle, d
                     } </List>
                 </Grid>
             </Grid>
-            
         </Drawer>
-        
-
     );
 }

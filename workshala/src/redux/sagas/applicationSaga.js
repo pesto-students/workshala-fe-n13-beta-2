@@ -1,5 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
+import {searchJobsApi} from './jobSaga'
+import {getObjectId} from './userSaga'
 
 const baseUrl = "https://parseapi.back4app.com";
 
@@ -26,6 +28,23 @@ function getAppsList() {
       });
     });
   }
+
+  
+function getApplicationsApi(data) {
+  var url = baseUrl + "/classes/ApplicationInfo?where=";
+
+  url += JSON.stringify(data); 
+
+  return axios
+    .get(url, { headers: headers })
+    .then((response) => {
+        return response;
+    })
+    .catch((error) => {
+      throw error;
+  });
+}
+
 
 function postApplicationApi(data) {
     var url = baseUrl + "/functions/postApplication";
@@ -60,11 +79,47 @@ function* postApplication(action) {
   }
 }
 
+function* fetchRecApplicationsList(action) {
+  try {
+
+    // step-1: Get ObjectId of companyInfo from recruiter's ID
+    const companyInfo = yield call(getObjectId, action.payload);
+
+    let payload = [];
+    if(companyInfo !== undefined && companyInfo.data !== undefined && companyInfo.data.result !== undefined) {
+       payload = {
+      'companyId': companyInfo.data.result[0].objectId
+      }
+    }
+    // step-2: Get Object-Id's of all the Jobs posted by Recruiter      - Input: Recruiter's Id, Output: Array of Objects from JobInfo
+    const searchJobs = yield call(searchJobsApi, payload);
+
+    let objectArr = [];
+    // Step-3: Get ObjectsIds from above call
+    if(searchJobs !== undefined && searchJobs.data !== undefined ) {
+      searchJobs.data.results.forEach(function(key, k) { 
+        objectArr[k] = key.objectId; 
+      });
+      console.log(objectArr);
+    }
+    //'where={"score":{"$in":[1,3,5,7,9]}}'
+    const applicationFilter = {
+      'jobRef': {"$in": objectArr}
+    }
+    // Step-4: Fetch the Applications on basis of Objects list          - Input: Array of Objects, Output: Applications filter by active Jobs
+
+    const applications = yield call(getApplicationsApi, applicationFilter);
+    yield put({ type: "FETCH_APPLICATIONS_SUCCESS", applications: applications });
+  } catch (e) {
+    yield put({ type: "FETCH_APPLICATIONS_FAILED", message: e.message });
+  }
+}
+
 function* applicationSaga() {
   //applications
-  yield takeEvery('APPLICATIONS_LIST_REQUESTED', fetchApplications);
-
+  yield takeEvery('APPLICATIONS_LIST_REQUESTED', fetchApplications)
   yield takeEvery('POST_APPLICATION_REQUESTED', postApplication);
+  yield takeEvery("FETCH_APPLICATIONS_REQUESTED", fetchRecApplicationsList);      // Applications list by recruiter
 }
 
 export default applicationSaga;

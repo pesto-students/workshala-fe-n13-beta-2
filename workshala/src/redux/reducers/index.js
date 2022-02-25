@@ -8,7 +8,7 @@ import applications from './applications'
 import currentUser from './currentUser'
 import searchJobs from './searchJobs'
 import searchCandidates from './searchCandidates'
-import postJob from "./postJob";
+//import postJob from "./postJob";
 
 const rootReducer = combineReducers({
     userInfo: userInfo,
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     jobs: jobs,
     applications: applications,
     currentUser: currentUser,
-    postJob: postJob,
+    //postJob: postJob,
     searchJobs: searchJobs,
     searchCandidates: searchCandidates
 });
