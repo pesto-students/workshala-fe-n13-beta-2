@@ -20,3 +20,10 @@ export function searchJobs(data)  {
     payload: data
   };
 }
+
+export function fetchRecruiterPostedJobs(data) {
+  return {
+    type: type.RECRUITER_POSTED_JOBS_REQUESTED,
+    payload: data,
+  };
+}

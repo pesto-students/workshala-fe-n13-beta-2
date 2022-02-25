@@ -34,7 +34,7 @@ function uploadFile(data) {
   };   
 }
 
-function getObjectId (data) {
+export function getObjectId (data) {
     if(data !== undefined) {
       
       const userId = data.userId;

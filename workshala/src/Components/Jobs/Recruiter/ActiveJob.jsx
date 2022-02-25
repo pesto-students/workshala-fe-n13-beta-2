@@ -1,5 +1,6 @@
 import * as React from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import {fetchRecruiterPostedJobs} from '../../../redux/actions/jobs'
 
 import {
   Button,
@@ -11,6 +12,8 @@ import {
   Stack,
   Typography,
   InputAdornment,
+  FormControl,
+  InputLabel,
   TablePagination,
   TableRow,
   TableHead,
@@ -23,11 +26,14 @@ import {
 } from "@mui/material";
 import dateFormat from "dateformat";
 import Links from "@mui/material/Link";
+import {makeStyles} from '@mui/styles';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getActiveJobsListByRecruiterId } from "../../../redux/actions/recruiterApp";
-import Loader from "../../../Services/Utils/Loader";
-import UpdateJobDetails from "../../PostJob/PostJobComponent";
+import UpdateJobDetails from "./PostJobComponent";
+import { isEmpty } from "../../../Services/Utils/Generic";
+import {searchJobs} from '../../../redux/actions/jobs'
+
 const suggestions = [
   {
     label: "Technician",
@@ -48,21 +54,14 @@ const suggestions = [
 ];
 
 const columns = [
-  { id: "id", label: "Job\u00a0ID" },
-  { id: "date", label: "Created\u00a0At" },
-  {
-    id: "title",
-    label: "Job\u00a0Title",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "type",
-    label: "Type",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  { id: "position", label: "Position", format: (value) => value.toFixed(2) },
+  // { id: "id", label: "Job\u00a0ID" },
+  
+  { id: "title", label: "Job\u00a0Title", format: (value) => value.toLocaleString("en-US") },
+  { id: "position", label: "Position", format: (value) => value.toFixed(2)},
+  { id: "type", label: "Type", format: (value) => value.toLocaleString("en-US") },
+  { id: "postedOn", label: "Posted\u00a0On" },
   { id: "status", label: "Status", format: (value) => value.toFixed(2) },
-  { id: "detail", label: "Details", format: (value) => value.toFixed(2) },
+  { id: "detail", label: "Detail", format: (value) => value.toFixed(2) },
 ];
 
 function createData(id, date, title, type, position, status, detail) {
@@ -229,19 +228,10 @@ const ColoredDetailsCell = (props) => {
 const ColoredStatusCell = (props) => {
   var statusColor = "blue";
   switch (props.value) {
-    case "Pending":
-      statusColor = "blue";
-      break;
-    case "On-Hold":
-      statusColor = "orange";
-      break;
-    case "In-Progress":
-      statusColor = "blueviolet";
-      break;
-    case "Hired":
+    case "Active":
       statusColor = "green";
       break;
-    case "Rejected":
+    case "InActive":
       statusColor = "red";
       break;
     default:
@@ -262,11 +252,17 @@ const ColoredStatusCell = (props) => {
   );
 };
 export default function ActiveJob() {
-  //   const [sort, setValue] = React.useState("");
 
-  //   const handleChange = (event) => {
-  //     setValue(event.target.value);
-  //   };
+const useStyles = makeStyles({
+
+    root: {
+        "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "blue",
+        },
+    }
+});
+const classes = useStyles();
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -282,11 +278,18 @@ export default function ActiveJob() {
 
   const dispatch = useDispatch();
 
-  const jobsInfo = useSelector((state) => state.jobs);
+  //const jobsInfo = useSelector((state) => state.jobs);
+  const jobsInfo = useSelector(state => state.jobs);
+  const auth = useSelector((state) => state.user);
+
+  const filterData = {
+        'userId' : auth.user.data.objectId,
+        'role': auth.user.data.role
+  }
 
   React.useEffect(() => {
-    dispatch(getActiveJobsListByRecruiterId());
-  }, []);
+    dispatch(fetchRecruiterPostedJobs(filterData));
+  }, []);             // eslint-disable-line react-hooks/exhaustive-deps
 
   var jobsList = [];
 
@@ -294,21 +297,21 @@ export default function ActiveJob() {
     return <Skeleton />;
   } else {
     if (
-      jobsInfo != undefined &&
+      jobsInfo !== undefined &&
       jobsInfo.status &&
-      jobsInfo.jobs != undefined &&
-      jobsInfo.jobs.data != undefined &&
-      jobsInfo.jobs.data.result != undefined
+      jobsInfo.jobs !== undefined &&
+      jobsInfo.jobs.data !== undefined &&
+      jobsInfo.jobs.data.results !== undefined
     ) {
-      const data = jobsInfo.jobs.data.result;
+      const data = jobsInfo.jobs.data.results;
       data.forEach(function (k, i) {
         jobsList[i] = {
-          id: data[i].ObjectId,
-          date: dateFormat(data[i].createdAt, "mmmm dS, yyyy"),
-          title: "test",
-          type: data[i].type,
-          position: data[i].position,
-          status: data[i].status,
+          
+          postedOn: dateFormat(data[i].createdAt, "mmmm dS, yyyy"),
+          title: isEmpty(data[i].title) ? "Technician" : data[i].title,
+          type: isEmpty(data[i].type) ? "Delivery" : data[i].type,
+          position: isEmpty(data[i].position) ? "Executive" : data[i].position,
+          status: isEmpty(data[i].status) ? "In-Progress" : data[i].status,
           detail: "",
         };
       });
@@ -335,7 +338,7 @@ export default function ActiveJob() {
             variant="standard"
             InputProps={{
               endAdornment: (
-                <InputAdornment>
+                
                   <Button
                     variant="contained"
                     sx={{ width: 100, borderRadius: 4 }}
@@ -343,7 +346,7 @@ export default function ActiveJob() {
                   >
                     Find
                   </Button>
-                </InputAdornment>
+                
               ),
               disableUnderline: true,
             }}
@@ -362,7 +365,7 @@ export default function ActiveJob() {
             <Typography>Suggestions</Typography>
           </Grid>
           <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5}>
-            <Stack direction="colunm">
+            <Grid item>
               {suggestions.map((item, i) => (
                 <Chip
                   key={i}
@@ -371,18 +374,18 @@ export default function ActiveJob() {
                   sx={{ ml: 1 }}
                 />
               ))}{" "}
-            </Stack>
+            </Grid>
           </Grid>
           <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5} align="right">
-            <Select
-              sx={{ height: 35, width: 120, borderRadius: 4 }}
-              // value={sort}
-              displayEmpty
-              // onChange={handleChange}
-            >
-              <MenuItem value="">Newest</MenuItem>
-              <MenuItem value="Oldest">Oldest</MenuItem>
-            </Select>
+              <FormControl >
+                <InputLabel id="Newest-label">Newest</InputLabel>
+                <Select sx={{width:120, borderRadius:8, backgroundColor:"white"}}
+                      labelId="Newest-label"
+                      defaultValue="">
+                    <MenuItem value="">Newest</MenuItem>
+                    <MenuItem value="">Oldest</MenuItem>
+                </Select>
+                </FormControl>
           </Grid>
         </Grid>
         <Grid item container md={12} spacing={1} sx={{ mt: 2 }}>
@@ -400,15 +403,15 @@ export default function ActiveJob() {
                 p: 1,
               }}
             >
-              <TableContainer sx={{ maxHeight: 500 }}>
+              <TableContainer sx={{ maxHeight: 500 }} style={{borderRadius: 8}}>
                 <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow>
-                      {columns.map((column) => (
+                  <TableHead >
+                    <TableRow className={classes.root}>
+                      {columns.map((column, i) => (
                         <TableCell
-                          key={column.id}
+                          key={i}
                           align={column.align}
-                          style={{ minWidth: column.minWidth, fontWeight: 550 }}
+                          style={{ minWidth: column.minWidth, fontWeight: 550, textTransform: "uppercase" }}
                         >
                           {column.label}
                         </TableCell>
@@ -421,22 +424,22 @@ export default function ActiveJob() {
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .map((row) => {
+                      .map((row, i) => {
                         return (
                           <TableRow
                             hover
                             role="checkbox"
                             tabIndex={-1}
-                            key={row.code}
+                            key={i}
                           >
                             {columns.map((column, i) => {
                               const value = row[column.id];
-                              return i === 5 ? (
-                                <TableCell>
+                              return i === 4 ? (
+                                <TableCell key={i}>
                                   <ColoredStatusCell value={value} />
                                 </TableCell>
-                              ) : i === 6 ? (
-                                <TableCell>
+                              ) : i === 5 ? (
+                                <TableCell key={i}>
                                   <ColoredDetailsCell
                                     component={Link}
                                     to="/ActiveJob"
@@ -447,7 +450,7 @@ export default function ActiveJob() {
                                   />
                                 </TableCell>
                               ) : (
-                                <TableCell key={column.id} align={column.align}>
+                                <TableCell key={i} align={column.align}>
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : value}
