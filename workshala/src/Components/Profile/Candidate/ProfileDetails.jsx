@@ -11,6 +11,7 @@ import {
   Download
 } from "@mui/icons-material";
 import Loader from '../../../Services/Utils/Loader'
+import { GetRole } from "../../../Services/Utils/Generic";
 
 const TileHeading = (props) => {
   return (
@@ -25,6 +26,7 @@ const TileHeading = (props) => {
   );
 }
 const AboutMeTile = (props) => {
+  const role = GetRole();
   return (
     <Paper sx={{borderRadius: 4, p:2}}>
         <Grid container>
@@ -33,7 +35,7 @@ const AboutMeTile = (props) => {
               <TileHeading heading={props.data.user} size={25}/>
             </Grid>
             <Grid item md={7.5} sx={{textAlign:"end", mt:3, marginRight:1}}>
-              <Button variant="outlined" component={Link} to="/editProfile" >
+              <Button variant="outlined" component={Link} to={"/" + role + "/editProfile"}>
                 Edit Profile
               </Button>
             </Grid>

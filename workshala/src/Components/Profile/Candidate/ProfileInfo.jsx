@@ -2,6 +2,7 @@ import * as React from "react";
 import whatsapp from '../../../Assets/Images/whatsapp.png';
 import Phone_icon from '../../../Assets/Images/Phone_icon.png';
 import email from '../../../Assets/Images/email.png';
+import dev from "../../../Assets/Images/dev.png";
 
 import {
     Grid,
@@ -12,8 +13,19 @@ import {
     Avatar
 } from "@mui/material";
 
+// Default data
+let profileData = {
+    Image: dev,
+    Name: "Jean Tow",
+    Profile: "Recruiter",
+    Followers: 5962,
+    Following: 228,
+    Mobile: "+1-398-976-876",
+    Whatsapp: "+1-398-976-876",
+    Email: "Tow@gmail.com",
+  };
+
 export default function ProfileInfo(props) {
-    let profileData = {};
 
     if(props.data !== undefined) {
         profileData = ({
@@ -24,7 +36,7 @@ export default function ProfileInfo(props) {
             Following: (props.data.following) ? props.data.following : '0',
             Mobile: (props.data.mobile) ? props.data.mobile : 'Not Available',
             Whatsapp: (props.data.mobile) ? props.data.mobile : 'Not Available',
-            Image: (props.data.profileImg) ? props.data.profileImg.url: 'Not Available'
+            Image: (props.data !== undefined && props.data.profileImg !== undefined) ? props.data.profileImg.url: dev
         });
     } 
     

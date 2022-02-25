@@ -9,6 +9,7 @@ import {updateUserInfo} from '../../../redux/actions/user'
 import {useNavigate} from "react-router-dom";
 import Loader from '../../../Services/Utils/Loader'
 import {fetchProfile} from '../../../redux/actions/user'
+import { GetRole } from "../../../Services/Utils/Generic";
 
 import {
   Grid,
@@ -456,7 +457,7 @@ export default function ProfileDetails(props) {
   const methods = useForm();
   
   const { reset} = methods;
-
+  const role = GetRole();
     const onSubmit = data => {
       // remove old skills
       delete data['skills']
@@ -465,6 +466,7 @@ export default function ProfileDetails(props) {
         data: data,
         imgData: imgData,
         resumeData: resumeData,
+        role: role,
         navigation: navigate
       }
 
