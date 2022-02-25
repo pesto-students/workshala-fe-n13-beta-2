@@ -458,33 +458,13 @@ export default function ProfileDetails(props) {
   const { reset} = methods;
 
     const onSubmit = data => {
-      console.log(data);
-
-      // var reader = new FileReader();
-      // reader.onloadend = async function () {
-      // const base64Response = await fetch(reader.result);
-      // const blob = await base64Response.blob();
-
-      //const temp = handleImageUpload(data['profileImg']);
-
-      const payl = {
-        data: data,
-        imgData: imgData,
-        resumeData: resumeData
-      }
-      //handleResumeUpload();
-
       // remove old skills
       delete data['skills']
-      // create new skills json
-      // let libraries = data.filter(l => {
-      //   return l.name.toLowerCase().match( "skill-" );
-      // });
-      //console.log(skills);
-
-
+      
       const payload = {
-        payload: payl,
+        data: data,
+        imgData: imgData,
+        resumeData: resumeData,
         navigation: navigate
       }
 

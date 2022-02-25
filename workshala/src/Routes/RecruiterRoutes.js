@@ -12,9 +12,11 @@ import CompanyDetails from '../Pages/Candidate/CompanyDetails';
 import AboutUs from '../Pages/Common/AboutUs';
 import Blog from '../Pages/Common/Blog';
 import Home from '../Pages/Common/Home';
+
 import Dashboard from '../Pages/Candidate/Dashboard';
 import Profile from '../Pages/Recruiter/Profile';
-import EditProfile from '../Pages/Candidate/EditProfile';
+import EditProfile from '../Pages/Recruiter/EditProfile';
+
 import {Navigate} from "react-router-dom";
 
 export default function RecruiterRoutes({auth}) {
