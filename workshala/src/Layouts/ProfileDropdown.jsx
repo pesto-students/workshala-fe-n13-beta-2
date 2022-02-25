@@ -1,24 +1,23 @@
-import * as React from 'react';
-import IconButton from '@mui/material/Button';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {Navigate} from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import {logOut} from '../redux/actions/user'
-import { purgeStoredState } from 'redux-persist'
+import * as React from "react";
+import IconButton from "@mui/material/Button";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import Stack from "@mui/material/Stack";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOut } from "../redux/actions/user";
+import { purgeStoredState } from "redux-persist";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function ProfileDropdown() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -32,29 +31,27 @@ export default function ProfileDropdown() {
     setOpen(false);
   };
 
-  function HandleLogout () {
+  function HandleLogout() {
     window.localStorage.clear();
     const dispatch = useDispatch();
-    dispatch(logOut());     // set store state to initial state
-    
+    dispatch(logOut()); // set store state to initial state
+
     purgeStoredState(this.props).purge();
-    
-    <Navigate to="/" replace={true} /> 
+
+    // <Navigate to="/" replace={true} />
   }
 
   // const NavigateTo = (path) => {
   //   return (
-  //     //<Navigate to="/" replace={true} /> 
+  //     //<Navigate to="/" replace={true} />
   //     );
   // }
 
-  
-
   function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
-    } else if (event.key === 'Escape') {
+    } else if (event.key === "Escape") {
       setOpen(false);
     }
   }
@@ -71,13 +68,12 @@ export default function ProfileDropdown() {
 
   return (
     <Stack direction="row" spacing={2}>
-      
       <div>
         <IconButton
           ref={anchorRef}
           id="composition-button"
-          aria-controls={open ? 'composition-menu' : undefined}
-          aria-expanded={open ? 'true' : undefined}
+          aria-controls={open ? "composition-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
         >
@@ -96,7 +92,7 @@ export default function ProfileDropdown() {
               {...TransitionProps}
               style={{
                 transformOrigin:
-                  placement === 'bottom-start' ? 'left top' : 'left bottom',
+                  placement === "bottom-start" ? "left top" : "left bottom",
               }}
             >
               <Paper>
@@ -107,9 +103,13 @@ export default function ProfileDropdown() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem component={Link} to="/candidate/profile">Profile</MenuItem>
+                    <MenuItem component={Link} to="/candidate/profile">
+                      Profile
+                    </MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={HandleLogout} component={Link} to="/" >Logout</MenuItem>
+                    <MenuItem onClick={HandleLogout} component={Link} to="/">
+                      Logout
+                    </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
