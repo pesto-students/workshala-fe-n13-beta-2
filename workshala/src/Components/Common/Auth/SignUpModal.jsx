@@ -1,9 +1,9 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import SignUp  from '../../../redux/actions/signUp'
-import {useNavigate} from "react-router-dom";
+import React from "react";
+import { useDispatch } from "react-redux";
+import SignUp from "../../../redux/actions/signUp";
+import { useNavigate } from "react-router-dom";
 
 import {
   Grid,
@@ -14,25 +14,26 @@ import {
   IconButton,
   Box,
   Button,
-  Paper
+  Paper,
 } from "@mui/material";
 
 import SignInModal from "./SignInModal";
-import {useForm} from 'react-hook-form';
+import { useForm } from "react-hook-form";
 
 const theme = createTheme({
   overrides: {
-      MuiPaper: {
-          root: {
-              textTransform: "uppercase"
-          }
+    MuiPaper: {
+      root: {
+        textTransform: "uppercase",
       },
-      MuiBreadcrumbs: {
-          root: {
-              textTransform: "uppercase"
-          }
-      }
-  }});
+    },
+    MuiBreadcrumbs: {
+      root: {
+        textTransform: "uppercase",
+      },
+    },
+  },
+});
 
 const style = {
   mx: 40,
@@ -48,18 +49,22 @@ const style = {
 
 const SignUpForm = (props) => {
   const navigate = useNavigate();
-  const { register, handleSubmit} = useForm();
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
-  const onSubmit = data => {
-    const payload = {
-      ...data,
-      role: props.role,
-      'navigation': navigate
+  const onSubmit = (data) => {
+    if (data.password !== data.confirmPassword) {
+      alert("Passwords don't match");
+    } else {
+      const payload = {
+        ...data,
+        role: props.role,
+        navigation: navigate,
+      };
+
+      dispatch(SignUp(payload));
     }
-    
-    dispatch(SignUp(payload));
-  }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -71,21 +76,25 @@ const SignUpForm = (props) => {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5" color="blue" style={{textTransform:'capitalize'}}>
+          <Typography
+            component="h1"
+            variant="h5"
+            color="blue"
+            style={{ textTransform: "capitalize" }}
+          >
             {props.role} SignUp
           </Typography>
           <Typography component="h2" variant="h6">
             Please fill in the below form to create an account
           </Typography>
-          
-          <form onSubmit={handleSubmit(onSubmit)}>
 
+          <form onSubmit={handleSubmit(onSubmit)}>
             {/*
             TODOD:
             1. Email address validation (use regex)
             2. Password and confirm pass should be same
             */}
-          
+
             <Grid container spacing={1}>
               <Grid item xs>
                 <TextField
@@ -97,7 +106,7 @@ const SignUpForm = (props) => {
                   name="firstName"
                   autoComplete="firstName"
                   autoFocus
-                  {...register('firstName', { required: true, maxLength: 30 })}
+                  {...register("firstName", { required: true, maxLength: 30 })}
                 />
               </Grid>
               <Grid item xs>
@@ -109,7 +118,7 @@ const SignUpForm = (props) => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="lastName"
-                  {...register('lastName', { required: true, maxLength: 30 })}
+                  {...register("lastName", { required: true, maxLength: 30 })}
                 />
               </Grid>
             </Grid>
@@ -121,7 +130,7 @@ const SignUpForm = (props) => {
               label="Email Address"
               name="email"
               autoComplete="email"
-              {...register('email')}
+              {...register("email")}
             />
             <TextField
               margin="normal"
@@ -132,7 +141,7 @@ const SignUpForm = (props) => {
               type="password"
               id="password"
               autoComplete="current-password"
-              {...register('password')}
+              {...register("password")}
             />
             <TextField
               margin="normal"
@@ -143,21 +152,15 @@ const SignUpForm = (props) => {
               type="password"
               id="confirmPassword"
               autoComplete="current-password"
-              
             />
-          {/*  <FormControlLabel
+            {/*  <FormControlLabel
               control={<Checkbox value="TAC" color="primary" />}
               label="I agree to the  Terms of Service and the Code of Conduct"
           />*/}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-            >
+            <Button type="submit" fullWidth variant="contained">
               Sign Up
             </Button>
-            <SignInModal title="Already a user? Sign In" comp="link"/>
-          
+            <SignInModal title="Already a user? Sign In" comp="link" />
           </form>
         </Box>
       </Grid>
@@ -165,9 +168,7 @@ const SignUpForm = (props) => {
   );
 };
 
-
-
- function SignUpModal(props) {
+function SignUpModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -194,7 +195,7 @@ const SignUpForm = (props) => {
           onClose={handleClose}
         >
           <Box sx={style}>
-            <SignUpForm role={props.role}/>
+            <SignUpForm role={props.role} />
           </Box>
         </Modal>
       </div>
@@ -221,7 +222,7 @@ const SignUpForm = (props) => {
         onClose={handleClose}
       >
         <Box sx={style}>
-          <SignUpForm role={props.role}/>
+          <SignUpForm role={props.role} />
         </Box>
       </Modal>
     </div>
