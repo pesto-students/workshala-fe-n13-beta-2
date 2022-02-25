@@ -12,6 +12,7 @@ import {Navigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import {logOut} from '../redux/actions/user'
 import { purgeStoredState } from 'redux-persist'
+import {GetRole} from "../Services/Utils/Generic"
 
 import { Link } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ export default function ProfileDropdown() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   
+  const role = GetRole();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -41,14 +43,6 @@ export default function ProfileDropdown() {
     
     <Navigate to="/" replace={true} /> 
   }
-
-  // const NavigateTo = (path) => {
-  //   return (
-  //     //<Navigate to="/" replace={true} /> 
-  //     );
-  // }
-
-  
 
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {
@@ -107,8 +101,7 @@ export default function ProfileDropdown() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem component={Link} to="/candidate/profile">Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleClose} component={Link} to={"/" + role + "/profile"}>Profile</MenuItem>
                     <MenuItem onClick={HandleLogout} component={Link} to="/" >Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

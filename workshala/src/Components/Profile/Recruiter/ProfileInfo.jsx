@@ -1,9 +1,8 @@
 import * as React from "react";
-import user2 from "../../Assets/Images/user2.jpeg";
-import whatsapp from "../../Assets/Images/whatsapp.png";
-import Phone_icon from "../../Assets/Images/Phone_icon.png";
-import email from "../../Assets/Images/email.png";
-import getUser from "../../redux/actions/user";
+import user2 from "../../../Assets/Images/user2.jpeg";
+import whatsapp from "../../../Assets/Images/whatsapp.png";
+import Phone_icon from "../../../Assets/Images/Phone_icon.png";
+import email from "../../../Assets/Images/email.png";
 
 import {
   Grid,
@@ -39,10 +38,10 @@ export default function RecruiterProfileInfo(props) {
   const userInfo = useSelector((state) => state.userInfo.userInfo);
 
   if (
-    userInfo != undefined &&
+    userInfo !== undefined &&
     userInfo.status &&
-    userInfo.data != undefined &&
-    userInfo.data.result != undefined
+    userInfo.data !== undefined &&
+    userInfo.data.result !== undefined
   ) {
     const userData = userInfo.data.result[0];
 

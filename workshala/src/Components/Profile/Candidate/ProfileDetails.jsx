@@ -195,6 +195,10 @@ const TileTemplate = (props) => {
 
 const SkillsForm = (props) => {
   return (
+    (props.data === undefined) ?
+      <Loader />
+    
+    : 
     <Paper sx={{borderRadius: 4, p:2}}>
       <TileHeading heading="Skills" size={18}/>
       
@@ -204,11 +208,16 @@ const SkillsForm = (props) => {
         ))}
       </Grid>
     </Paper>
+        
   );
 };
 
 const ExperienceTile = (props) => {
   return (
+    (props.data === undefined) ?
+      <Loader />
+    
+    : 
     <Paper sx={{borderRadius: 4, p:2}}>
       <TileHeading heading="Experience" size={18}/>
       
@@ -306,7 +315,7 @@ export default function ProfileDetails(props) {
       </Grid>
 
       <Grid item md={12}>
-          <ResumeTile data={userData.resume.url} uploadedOn={userData.updatedAt}/>
+          <ResumeTile data={userData.resume ? userData.resume.url : null} uploadedOn={userData.updatedAt}/>
       </Grid>
           </Grid>
         );

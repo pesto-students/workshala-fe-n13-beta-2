@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { Grid, Typography, CardContent, Card, Paper } from "@mui/material";
+import { Grid, Typography, Paper } from "@mui/material";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -158,10 +158,10 @@ export default function RecruiterProfileDetail(props) {
   const userInfo = useSelector((state) => state.userInfo.userInfo);
 
   if (
-    userInfo != undefined &&
+    userInfo !== undefined &&
     userInfo.status &&
-    userInfo.data != undefined &&
-    userInfo.data.result != undefined
+    userInfo.data !== undefined &&
+    userInfo.data.result !== undefined
   ) {
     const userData = userInfo.data.result[0];
     UpdateData(userData);

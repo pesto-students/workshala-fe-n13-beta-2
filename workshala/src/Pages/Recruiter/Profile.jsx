@@ -1,9 +1,7 @@
 import React from "react";
 import CandidateLayout from "../../Layouts/CandidateLayout";
-import RecruiterProfileDetail from "../../Components/Profile/Recruiter/RecruiterProfileDetail";
-import RecruiterProfileInfo from "../../Components/RecruiterProfile/RecruiterProfileInfo";
-
-import { useDispatch, useSelector } from "react-redux";
+import RecruiterProfileDetail from "../../Components/Profile/Recruiter/ProfileDetail";
+import RecruiterProfileInfo from "../../Components/Profile/Recruiter/ProfileInfo";
 
 import { Grid } from "@mui/material";
 

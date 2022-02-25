@@ -116,7 +116,9 @@ function* signInUser(action) {
     try {
       const user = yield call(signInApi, action.payload.data);
       navigation = action.payload.navigation;
-      navigation("/candidate/dashboard");
+      const role = user.data.role;
+      const path = "/" + role + "/dashboard"
+      navigation(path);
       yield put({ type: "USER_SUCCESS", user: user });
     } catch (e) {
       yield put({ type: "USER_FAILED", message: e.message });
