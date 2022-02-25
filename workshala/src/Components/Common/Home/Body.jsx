@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState } from "react"
 import {useForm} from 'react-hook-form';
-import {searchJobs} from '../../redux/actions/jobs'
-import searchCandidates from '../../redux/actions/searchCandidates'
+import {searchJobs} from '../../../redux/actions/jobs'
+import searchCandidates from '../../../redux/actions/searchCandidates'
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Grid,

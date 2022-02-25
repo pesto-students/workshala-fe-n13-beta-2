@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import SignUp  from '../../redux/actions/signUp'
+import SignUp  from '../../../redux/actions/signUp'
 import {useNavigate} from "react-router-dom";
 
 import {

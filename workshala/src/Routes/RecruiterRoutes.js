@@ -23,6 +23,7 @@ export default function RecruiterRoutes({auth}) {
           <Route path="/contactUs" element={<ContactUs />} />                     
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/blog" element={<Blog />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="/*" element={<Error/>} />
         </Routes>
       );

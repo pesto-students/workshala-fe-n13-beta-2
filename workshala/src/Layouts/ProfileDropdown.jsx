@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Navigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import {logOut} from '../redux/actions/user'
 import { purgeStoredState } from 'redux-persist'
@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 export default function ProfileDropdown() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const navigate = useNavigate();
+  
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -32,16 +32,21 @@ export default function ProfileDropdown() {
     setOpen(false);
   };
 
-  const HandleLogout = (event) => {
+  function HandleLogout () {
+    window.localStorage.clear();
     const dispatch = useDispatch();
-    navigate("/");    
-    purgeStoredState.purge();
     dispatch(logOut());     // set store state to initial state
     
-    window.localStorage.clear();
+    purgeStoredState(this.props).purge();
     
-     
+    <Navigate to="/" replace={true} /> 
   }
+
+  // const NavigateTo = (path) => {
+  //   return (
+  //     //<Navigate to="/" replace={true} /> 
+  //     );
+  // }
 
   
 
@@ -104,8 +109,7 @@ export default function ProfileDropdown() {
                   >
                     <MenuItem component={Link} to="/candidate/profile">Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={HandleLogout} component={Link}
-                                  to="/">Logout</MenuItem>
+                    <MenuItem onClick={HandleLogout} component={Link} to="/" >Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
