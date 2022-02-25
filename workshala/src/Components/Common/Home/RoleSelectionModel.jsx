@@ -1,6 +1,6 @@
 import * as React from "react";
-import recImg from "../../Assets/Images/recruiter.jpeg";
-import jsImg from "../../Assets/Images/job_seeker.jpeg";
+import recImg from "../../../Assets/Images/recruiter.jpeg";
+import jsImg from "../../../Assets/Images/job_seeker.jpeg";
 import SignUpModal from "../Auth/SignUpModal";
 import SignInModal from "../Auth/SignInModal";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

@@ -16,7 +16,7 @@ import {GetRole} from "../Services/Utils/Generic"
 
 import { Link } from 'react-router-dom';
 
-export default function ProfileDropdown() {
+export default function StatusSelector() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   

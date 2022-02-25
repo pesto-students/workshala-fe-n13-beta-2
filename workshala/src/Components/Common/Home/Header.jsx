@@ -1,5 +1,5 @@
 import * as React from "react";
-import logo from "../../Assets/Images/logo.png";
+import logo from "../../../Assets/Images/logo.png";
 import RoleSelectionModal from "./RoleSelectionModel";
 import SignInModal from "../Auth/SignInModal";
 import { Link } from "react-router-dom";

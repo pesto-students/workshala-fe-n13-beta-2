@@ -152,7 +152,7 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
         
     React.useEffect(() => {
         dispatch(getJobsList());
-    }, [])
+    }, [])                          // eslint-disable-line react-hooks/exhaustive-deps
 
     //if(jobsInfo != undefined && isEmpty(jobsInfo.jobs) && !jobsInfo.status) {
       //  dispatch(getJobsList());

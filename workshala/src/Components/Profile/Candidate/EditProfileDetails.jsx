@@ -9,6 +9,7 @@ import {updateUserInfo} from '../../../redux/actions/user'
 import {useNavigate} from "react-router-dom";
 import Loader from '../../../Services/Utils/Loader'
 import {fetchProfile} from '../../../redux/actions/user'
+import { GetRole } from "../../../Services/Utils/Generic";
 
 import {
   Grid,
@@ -456,35 +457,16 @@ export default function ProfileDetails(props) {
   const methods = useForm();
   
   const { reset} = methods;
-
+  const role = GetRole();
     const onSubmit = data => {
-      console.log(data);
-
-      // var reader = new FileReader();
-      // reader.onloadend = async function () {
-      // const base64Response = await fetch(reader.result);
-      // const blob = await base64Response.blob();
-
-      //const temp = handleImageUpload(data['profileImg']);
-
-      const payl = {
-        data: data,
-        imgData: imgData,
-        resumeData: resumeData
-      }
-      //handleResumeUpload();
-
       // remove old skills
       delete data['skills']
-      // create new skills json
-      // let libraries = data.filter(l => {
-      //   return l.name.toLowerCase().match( "skill-" );
-      // });
-      //console.log(skills);
-
-
+      
       const payload = {
-        payload: payl,
+        data: data,
+        imgData: imgData,
+        resumeData: resumeData,
+        role: role,
         navigation: navigate
       }
 
@@ -504,7 +486,7 @@ export default function ProfileDetails(props) {
         reset(defaultData);    // reset reports infinite render if used outside useEffect
       }
       //setValue({firstName: "first"})
-    }, [userInfo]);
+    }, [userInfo]);         // eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(() => {                             
      // if(isEmpty(userInfo)) {
@@ -516,19 +498,15 @@ export default function ProfileDetails(props) {
             reset(userInfo.userInfo.data.result[0]);    // reset reports infinite render if used outside useEffect
           }
       //}
-    }, [])
+    }, [])        // eslint-disable-line react-hooks/exhaustive-deps
 
-    let userData = [];
   if(userInfo.loading) {
       return (
               <Loader/>
           );
   } else {
     
-    if(userInfo !== undefined && userInfo.userInfo !== undefined && userInfo.userInfo.status && userInfo.userInfo.data !== undefined 
-      && userInfo.userInfo.data.result !== undefined) {
-      userData = userInfo.userInfo.data.result[0];
-    }
+    
   return (
     <FormProvider {...methods} >
     <form onSubmit={methods.handleSubmit(onSubmit)}>

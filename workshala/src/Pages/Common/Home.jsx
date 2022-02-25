@@ -1,9 +1,9 @@
 import * as React from "react";
 import homeImg from "../../Assets/Images/home.jpeg";
-import Footer from "../../Components/Home/Footer";
-import Body from "../../Components/Home/Body";
+import Footer from "../../Components/Common/Home/Footer";
+import Body from "../../Components/Common/Home/Body";
 import { Grid, Box, Typography } from "@mui/material";
-import Header from "../../Components/Home/Header";
+import Header from "../../Components/Common/Home/Header";
 import { isEmpty } from "../../Services/Utils/Generic";
 import IconRa from "../../Assets/Images/react.jpg";
 import {
@@ -13,7 +13,7 @@ import {
   Card,
   CardActionArea,
 } from "@mui/material";
-import SignInModal from "../../Components/Auth/SignInModal";
+import SignInModal from "../../Components/Common/Auth/SignInModal";
 
 export const JobTiles = (props) => {
   return (

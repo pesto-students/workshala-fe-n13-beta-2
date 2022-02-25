@@ -5,7 +5,7 @@ import SignUpModal from "./SignUpModal"
 import { useDispatch } from 'react-redux';
 import {useForm} from 'react-hook-form';
 import {useNavigate} from "react-router-dom";
-import signIn  from '../../redux/actions/signIn';
+import signIn  from '../../../redux/actions/signIn';
 
 import {
     Grid,

@@ -1,6 +1,9 @@
 import * as React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import dateFormat from "dateformat";
+import {makeStyles} from '@mui/styles';
+import {fetchRecApplicationsList} from '../../../redux/actions/applications'
+import { Download } from "@mui/icons-material";
 import {
   Button,
   Grid,
@@ -20,11 +23,12 @@ import {
   TableBody,
   Table,
   Paper,
+  IconButton,
 } from "@mui/material";
 import Links from "@mui/material/Link";
 import { useDispatch, useSelector } from "react-redux";
-import { getApplications } from "../../../redux/actions/applications";
 import { Link } from "react-router-dom";
+import { isEmpty } from "../../../Services/Utils/Generic";
 
 const suggestions = [
   {
@@ -47,21 +51,12 @@ const suggestions = [
 
 const columns = [
   { id: "id", label: "Application\u00a0ID" },
-  { id: "date", label: "Date\u00a0Applied" },
-  {
-    id: "title",
-    label: "Job\u00a0Title",
-    format: (value) => value.toLocaleString("en-US"),
-  },
   { id: "position", label: "Position" },
-  {
-    id: "candidateEmail",
-    label: "Candidate\u00a0Email-ID",
-    format: (value) => value.toLocaleString("en-US"),
-  },
+  { id: "candidateName", label: "Candidate\u00a0Name", format: (value) => value.toLocaleString("en-US") },
+  { id: "candidateEmail", label: "Candidate\u00a0Email-ID", format: (value) => value.toLocaleString("en-US")},
+  { id: "appliedOn", label: "Date\u00a0Applied" },
   { id: "resume", label: "Resume", format: (value) => value.toFixed(2) },
-
-  { id: "status", label: "Details", format: (value) => value.toFixed(2) },
+  { id: "status", label: "Details", format: (value) => value.toFixed(2) }
 ];
 
 function createData(id, date, title, position, candidateEmail, resume, status) {
@@ -222,19 +217,26 @@ const rows = [
 
 const DownloadResumeCell = (props) => {
   var statusColor = "blue";
+  
 
   return (
-    <Button
-      variant="outlined"
-      style={{
-        width: "100px",
-        height: "10%",
-        borderRadius: 10,
-        color: statusColor,
-      }}
-    >
-      Download
-    </Button>
+    <a href={props.resume} download="resume" target='_blank'>
+    <IconButton >
+        <Download style={{ color: 'brown'}}/>
+    </IconButton>
+    </a>
+    
+    // <Button
+    //   variant="outlined"
+    //   style={{
+    //     width: "100px",
+    //     height: "10%",
+    //     borderRadius: 10,
+    //     color: statusColor,
+    //   }}
+    // >
+    //   Download
+    // </Button>
   );
 };
 
@@ -257,12 +259,17 @@ const ColoredStatusCell = (props) => {
   );
 };
 
-export default function RecruiterApplication() {
-  //   const [sort, setValue] = React.useState("");
+export default function Application() {
+  const useStyles = makeStyles({
 
-  //   const handleChange = (event) => {
-  //     setValue(event.target.value);
-  //   };
+    root: {
+        "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "blue",
+        },
+    }
+  });
+  const classes = useStyles();
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -280,8 +287,15 @@ export default function RecruiterApplication() {
 
   const applications = useSelector((state) => state.applications);
 
+  const auth = useSelector((state) => state.user);
+
+  const filterData = {
+        'userId' : auth.user.data.objectId,
+        'role': auth.user.data.role
+  }
+
   React.useEffect(() => {
-    dispatch(getApplications());
+    dispatch(fetchRecApplicationsList(filterData));
   }, []);
 
   var appsList = [];
@@ -308,13 +322,13 @@ export default function RecruiterApplication() {
         // { id: "contact",  label: "Contact", format: (value) => value.toFixed(2)},
         // { id: "status", label: "Status",  format: (value) => value.toFixed(2)},
         appsList[i] = {
-          id: data[i].ObjectId,
-          date: dateFormat(data[i].createdAt, "mmmm dS, yyyy"),
-          title: "test",
-          position: data[i].position,
-          candidateEmail: data[i].email,
-          resume: "download",
-          status: data[i].status,
+          id: data[i].objectId,
+          appliedOn: dateFormat(data[i].createdAt, "mmmm dS, yyyy"),
+          candidateName: isEmpty(data[i].candidateName) ? "John Doe" : data[i].candidateName,
+          position: isEmpty(data[i].position) ? "Delivery" : data[i].position,
+          candidateEmail: isEmpty(data[i].email) ? "mail@gmail.com" : data[i].email,
+          resume: data[i].resume,
+          status: isEmpty(data[i].status) ? "In-Progress": data[i].status,
         };
       });
       console.log(appsList);
@@ -340,7 +354,7 @@ export default function RecruiterApplication() {
             variant="standard"
             InputProps={{
               endAdornment: (
-                <InputAdornment>
+                
                   <Button
                     variant="contained"
                     sx={{ width: 100, borderRadius: 4 }}
@@ -348,7 +362,7 @@ export default function RecruiterApplication() {
                   >
                     Find
                   </Button>
-                </InputAdornment>
+                
               ),
               disableUnderline: true,
             }}
@@ -367,7 +381,7 @@ export default function RecruiterApplication() {
             <Typography>Suggestions</Typography>
           </Grid>
           <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5}>
-            <Stack direction="colunm">
+            <Grid item >
               {suggestions.map((item, i) => (
                 <Chip
                   key={i}
@@ -376,12 +390,13 @@ export default function RecruiterApplication() {
                   sx={{ ml: 1 }}
                 />
               ))}{" "}
-            </Stack>
+            </Grid>
           </Grid>
           <Grid item sx={{ mt: 2 }} xs={0.5} sm={0.5} md={5} align="right">
             <Select
               sx={{ height: 35, width: 120, borderRadius: 4 }}
               // value={sort}
+              defaultValue={""}
               displayEmpty
               // onChange={handleChange}
             >
@@ -405,13 +420,13 @@ export default function RecruiterApplication() {
                 p: 1,
               }}
             >
-              <TableContainer sx={{ maxHeight: 500 }}>
+              <TableContainer sx={{ maxHeight: 500 }} style={{borderRadius: 8}}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
-                    <TableRow>
-                      {columns.map((column) => (
+                    <TableRow className={classes.root}>
+                      {columns.map((column, i) => (
                         <TableCell
-                          key={column.id}
+                          key={i}
                           align={column.align}
                           style={{ minWidth: column.minWidth, fontWeight: 550 }}
                         >
@@ -426,22 +441,22 @@ export default function RecruiterApplication() {
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .map((row) => {
+                      .map((row, i) => {
                         return (
                           <TableRow
                             hover
                             role="checkbox"
                             tabIndex={-1}
-                            key={row.code}
+                            key={i}
                           >
                             {columns.map((column, i) => {
                               const value = row[column.id];
                               return i === 5 ? (
-                                <TableCell>
-                                  <DownloadResumeCell value={value} />
+                                <TableCell key={i}>
+                                  <DownloadResumeCell resume={value}/>
                                 </TableCell>
                               ) : i === 6 ? (
-                                <TableCell>
+                                <TableCell key={i}>
                                   <ColoredStatusCell
                                     component={Link}
                                     to="/ActiveJob"
@@ -449,7 +464,7 @@ export default function RecruiterApplication() {
                                   />
                                 </TableCell>
                               ) : (
-                                <TableCell key={column.id} align={column.align}>
+                                <TableCell key={i} align={column.align}>
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : value}

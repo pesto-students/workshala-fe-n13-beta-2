@@ -34,20 +34,25 @@ function uploadFile(data) {
   };   
 }
 
-function getUserId (data) {
+export function getObjectId (data) {
     if(data !== undefined) {
       
-      var userId = data.userId;
-      
-      var url = baseUrl + "/functions/getUserInfoObjectId";
+      const userId = data.userId;
+      const role = data.role;
+
+      var url = baseUrl + "/functions/getUserObjectId";
      
       const params = {
           userId: userId,
+          role: role
       };
 
       return axios
           .post(url, params, { headers: headers })
           .then((response) => { return response})
+          .catch((error) => {
+            throw error;
+          });
     };
 }  
 
@@ -56,23 +61,26 @@ function updateUserInfoApi(data) {
     const baseData = data.data.result[0];
     const objectId = baseData.objectId;
     const origData = data.originalData;
+    const role = data.role;
       
     const payload = {
                 ...origData,
-               ...(!isEmpty(data.imgData)) && {"profileImg": {
+               ...(!isEmpty(data.imgData) && {"profileImg": {
                   "name": data.imgData.data.name,
                   "url": data.imgData.data.url,
                   "__type": "File"
-                }},
-                ...(!isEmpty(data.resumeData)) && {"resume" : {
+                }}),
+                ...(role === "candidate" && !isEmpty(data.resumeData) && {"resume" : {
                   "name": data.resumeData.data.name,
                   "url": data.resumeData.data.url,
                   "__type": "File"
-                }}
+                }})
     }
 
-    const url = baseUrl + "/classes/UserInfo/" + objectId;
-
+    const url = (role === "candidate") ? 
+                          (baseUrl + "/classes/UserInfo/" + objectId) : 
+                          (baseUrl + "/classes/CompanyInfo/" + objectId);
+     
     const custHeader = {
         ...headers,
         'Content-Type': 'application/json'
@@ -163,37 +171,36 @@ function* searchCandidates(action) {
 
 function* updateUserInfo(action) {
   
-  const {payload, navigation} = action.payload;
+  const {data, imgData, navigation, resumeData, role} = action.payload;
   
-  const imgData = payload.imgData;
-  const resumeData = payload.resumeData;
- 
   let imgResp = [];
   let resumeResp = [];
   try {
     //If no image to uploaded, then skip uploading 
     if(!isEmpty(imgData))     {              
-      imgResp = yield call(uploadFile, imgData);                      // 1. Upload image if available
+      imgResp = yield call(uploadFile, imgData);                                            // 1. Upload image if available
     }
 
     //If no image to uploaded, then skip uploading 
-    if(!isEmpty(resumeData))     {              
-      resumeResp = yield call(uploadFile, resumeData);                // 2. Upload resume if available
+    if(resumeData !== undefined && !isEmpty(resumeData))     {              
+      resumeResp = yield call(uploadFile, resumeData);                                      // 2. Upload resume if available
     }
 
-    const userInfo = yield call(getUserId, payload.data);             // 3. get userId from objectId
+    const argData = (role === "recruiter") ? {userId: data.recruiterId, role: role} : {userId: data.userId, role: role};
 
-    const {data} = userInfo;
+    const userInfo = yield call(getObjectId, argData);                                      // 3. get objectId from userId
+
     const arg = {
-        data: data,
-        originalData: payload.data,
+        data: userInfo.data,
+        originalData: data,
         imgData: imgResp,
-        resumeData: resumeResp
+        resumeData: resumeResp,
+        role: role
     }
 
-    const updateUserInfo = yield call(updateUserInfoApi, arg);        // 4. Attach to object
+    const updateUserInfo = yield call(updateUserInfoApi, arg);                              // 4. Attach to object
                     
-    navigation("/candidate/profile");                                           // 5. Navigate to profile
+    navigation("/" + role + "/profile");                                           // 5. Navigate to profile
     yield put({ type: "UPDATE_USER_SUCCESS", userInfo: updateUserInfo });
   } catch (e) {
     yield put({ type: "UPDATE_USER_FAILED", message: e.message });

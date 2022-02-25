@@ -9,10 +9,24 @@ const initialState = {
 
 export default function jobs(state= initialState, action) {
     switch (action.type) {
+        
+        case type.RECRUITER_POSTED_JOBS_REQUESTED:
+            return {
+                ...state,
+                loading: true
+            }
         case type.JOBS_LIST_REQUESTED:
             return {
                 ...state,
                 loading: true
+            }
+            
+        case type.RECRUITER_POSTED_JOBS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                jobs: action.jobs,
+                status: true
             }
         case type.JOBS_LIST_SUCCESS:
             return {
@@ -20,6 +34,12 @@ export default function jobs(state= initialState, action) {
                 loading: false,
                 jobs: action.jobs,
                 status: true
+            }
+        case type.RECRUITER_POSTED_JOBS_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.message
             }
         case type.JOBS_LIST_FAILED:
             return {

@@ -1,11 +1,11 @@
 import React from "react";
 import CandidateLayout from "../../Layouts/CandidateLayout";
-import ProfileDetails from "../../Components/Profile/Candidate/ProfileDetails";
-import ProfileInfo from "../../Components/Profile/Candidate/ProfileInfo";
-import { Grid } from "@mui/material";
+import ProfileDetails from "../../Components/Profile/Recruiter/ProfileDetail";
+import ProfileInfo from "../../Components/Profile/Recruiter/ProfileInfo";
 import {fetchProfile} from '../../redux/actions/user';
 import Loader from '../../Services/Utils/Loader'
 import { useDispatch, useSelector } from 'react-redux';
+import { Grid } from "@mui/material";
 
 export default function Profile() {
   const userInfo = useSelector(state => state.userInfo);
