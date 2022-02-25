@@ -14,7 +14,6 @@ import {
   Stack,
   Typography,
   InputAdornment,
-  Skeleton,
   TablePagination,
   TableRow,
   TableHead,
@@ -301,7 +300,7 @@ export default function Application() {
   var appsList = [];
 
   if (applications.loading) {
-    return <Skeleton />;
+    return <Loader />;
   } else {
     if (
       applications != undefined &&
