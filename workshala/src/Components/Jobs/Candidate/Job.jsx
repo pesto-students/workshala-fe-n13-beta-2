@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {getJobsList} from '../../../redux/actions/jobs'
 import Loader from '../../../Services/Utils/Loader'
-import {UpdateJobData} from './JobDetails'
-import {UpdateCompanyViewData} from './CompanyQuickView'
+import {FetchedData} from '../../../Pages/Candidate/CompanyDetails'
 
 var jobsList;
 
@@ -64,20 +63,11 @@ const CardTemplate = (props) => {
                 <Button size="small" color="primary" variant="contained"
                     style={{width:100}}
                     component={Link}
-                    to="/applyJob">
-                    Apply
-                </Button>
-                </Grid>
-                <Grid item md={12} align="right" sx={{mt:5}}>
-                <Button size="small" color="primary"
-                    component={Link}
-                    to="/companyDetails"
-                    style={{fontSize:9}}
+                    to="/candidate/companyDetails"
                     onClick={() => { 
-                                        UpdateJobData(props.itemData);
-                                        UpdateCompanyViewData(props.itemData);
-                                    }}>
-                    View more
+                        FetchedData(props.itemData)
+                    }}>
+                    Apply
                 </Button>
                 </Grid>
               </Grid>
@@ -177,58 +167,8 @@ export default function Job({quickViewToggle, quickViewClose, quickViewOpen}) {
         {/* Search bar */}
         <SearchBar/>
 
-        <Grid item container md={12}>
-            <Grid item
-                md={1.5}
-                sx={
-                    {
-                        ml: 2,
-                        mt: 3
-                    }
-            }>
-                <Typography>Suggestions</Typography>
-            </Grid>
-            <Grid item
-                sx={
-                    {mt: 2}
-                }
-                xs={0.5}
-                sm={0.5}
-                md={5}>
-                
-                    {
-                    suggestions.map((item, i) => (
-                        <Chip key={i} label={
-                                item.label
-                            }
-                            color={
-                                item.color
-                            }
-                            sx={
-                                {ml: 1}
-                            }/>
-                    ))
-                } 
-            </Grid>
-            <Grid item
-                sx={
-                    {mt:2}
-                }
-                xs={0.5}
-                sm={0.5}
-                md={5} align="right">
-                    
-                <Select sx={{height:35, width:120, borderRadius:4}}
-                        value={sort}    displayEmpty
-                        onChange={handleChange}>
-                    <MenuItem value="">Newest</MenuItem>
-                    <MenuItem value="Oldest">Oldest</MenuItem>
-                </Select>
-            </Grid>
-        </Grid>
         </Grid>
         <JobTiles data={jobsList}/>
-        
     </Grid>
     );
     }

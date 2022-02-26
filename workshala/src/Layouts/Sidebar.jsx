@@ -42,19 +42,9 @@ const SideMenuItems = [
         click: ''
     },
     {
-        title: 'Message',
-        icon: <MessageOutlinedIcon color="secondary"/>,
-        to: '/message',
-        click: ''
-    }, {
         title: 'Statistics',
         icon: <StackedBarChartOutlinedIcon color="secondary"/>,
         to: '/statistics',
-        click: ''
-    }, {
-        title: 'News',
-        icon: <NewspaperOutlinedIcon color="secondary"/>,
-        to: '/news',
         click: ''
     }
 ]

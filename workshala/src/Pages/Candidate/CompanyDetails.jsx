@@ -5,15 +5,21 @@ import QuickView from "../../Components/Jobs/Candidate/CompanyQuickView";
 import {
   Grid
 } from "@mui/material";
+
+let updatedData = [];
+export const FetchedData = (data) => {
+  updatedData = data;
+}
 export default function CompanyDetails() {
+
   return (
     <CandidateLayout>
       <Grid container>
         <Grid item md={3} >
-          <QuickView />
+          <QuickView data={updatedData}/>
         </Grid>
         <Grid item md={9} >
-          <JobDetails />
+          <JobDetails data={updatedData}/>
         </Grid>
       </Grid>
     </CandidateLayout>

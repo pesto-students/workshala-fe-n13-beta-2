@@ -24,22 +24,33 @@ var profileData = {
     "This is about the company . What company does and how many empolyees. This is just gibberish text nothing more than that.",
 };
 
-export const UpdateCompanyViewData = (data) => {
-    profileData = {
-                    Name: data.companyRef.firstName + " " +data.companyRef.lastName, 
-                    Role: data.companyRef.domain,
-                    Employees: data.companyRef.employees,
-                    Reviews: data.companyRef.reviews,
-                    Location: data.companyRef.location,
-                    Mobile: data.companyRef.mobile,
-                    Email: data.companyRef.email,
-                    AboutCompany: data.companyRef.about,
-                    Description: data.companyRef.about
-                  }
-}
+// export const UpdateCompanyViewData = (data) => {
+//     profileData = {
+//                     Name: data.companyRef.firstName + " " +data.companyRef.lastName, 
+//                     Role: data.companyRef.domain,
+//                     Employees: data.companyRef.employees,
+//                     Reviews: data.companyRef.reviews,
+//                     Location: data.companyRef.location,
+//                     Mobile: data.companyRef.mobile,
+//                     Email: data.companyRef.email,
+//                     AboutCompany: data.companyRef.about,
+//                     Description: data.companyRef.about
+//                   }
+// }
 
 export default function CompanyQuickView(props) {
-  if(!isEmpty(profileData)) {
+  if(!isEmpty(props.data)) {
+    profileData = {
+      Name: props.data.companyRef.firstName + " " + props.data.companyRef.lastName, 
+      Role: props.data.companyRef.domain,
+      Employees: props.data.companyRef.employees,
+      Reviews: props.data.companyRef.reviews,
+      Location: props.data.companyRef.location,
+      Mobile: props.data.companyRef.mobile,
+      Email: props.data.companyRef.email,
+      AboutCompany: props.data.companyRef.about,
+      Description: props.data.companyRef.about
+    }
   return (
     <Card 
     sx={{

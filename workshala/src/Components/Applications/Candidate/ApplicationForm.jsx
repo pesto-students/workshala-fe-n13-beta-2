@@ -1,5 +1,6 @@
 import React from "react";
 import companyLogo from "../../../Assets/Images/companyLogo.jpg";
+import Loader from '../../../Services/Utils/Loader'
 import {
   Paid,
   Group,
@@ -350,7 +351,7 @@ export default function ApplicationForm() {
   }
 
   if(isEmpty(JobApplnData))
-    return(<></>);
+    return(<Loader/>);
   else
   return (
     <Grid container spacing={1}>
