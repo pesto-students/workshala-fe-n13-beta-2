@@ -88,7 +88,7 @@ const AboutMeTile = () => {
                   <TextHeading2 text="First Name"/>
                 </Grid>
                 <Grid item md={6}>
-                  <TextField id="firstName" {...register("firstName")}></TextField>
+                  <TextField id="firstName" {...register("firstName", { required: true, maxLength: 30 })}></TextField>
                 </Grid>
               </Grid>
               <Grid item container md={12} spacing={1}>
@@ -96,18 +96,19 @@ const AboutMeTile = () => {
                   <TextHeading2 text="Last Name"/>
                 </Grid>
                 <Grid item md={6}>
-                  <TextField id="lastName" fullWidth {...register("lastName")}></TextField>
+                  <TextField id="lastName" fullWidth {...register("lastName", { required: true, maxLength: 30 })}></TextField>
                 </Grid>
               </Grid>
             </Grid>
 
             <Grid item container md={6} justifyContent={"center"}>
                 <Grid item >
-                <Avatar src={dev} sx={{width: 120, height: 120}}/>
+                  <Avatar src={dev} sx={{width: 120, height: 120}}/>
                 </Grid>
                 <Grid item>
                       <IconButton color="primary" component="label">
-                      <input type="file" id="profileImgUpload"  hidden                       
+                      <input type="file" id="profileImgUpload"  accept="image/*"
+                              hidden                       
                                   {...register('profileImg', {
                                     onChange: (e) => {handleImgUpload(e)}
                                   })}
@@ -123,8 +124,15 @@ const AboutMeTile = () => {
               <Grid item md={3} alignSelf={"center"} textAlign={"right"}>
                 <TextHeading2 text={item.title}/>
               </Grid>
+              
               <Grid item md={9}>
-                <TextField id={item.value} style ={{width: item.width}} {...register(item.value)} ></TextField>
+                {(i == 0 || i == 3) ? 
+                <TextField id={item.value} style ={{width: item.width}} 
+                multiline
+                rows={4}
+                {...register(item.value, { required: true, maxLength: 30 })} ></TextField> :
+                <TextField id={item.value} style ={{width: item.width}} 
+                {...register(item.value, { required: true, maxLength: 30 })} ></TextField>}
               </Grid>  
             </Grid>
           ))}
@@ -133,28 +141,28 @@ const AboutMeTile = () => {
             <TextHeading2 text="City"/>
           </Grid>
           <Grid item md={3}>
-            <TextField id="City" {...register("city")}></TextField>
+            <TextField id="City" {...register("city", { required: true, maxLength: 30 })}></TextField>
           </Grid>
 
           <Grid item md={3} alignSelf={"center"} textAlign={"right"}>
             <TextHeading2 text="State"/>
           </Grid>
           <Grid item md={3}>
-            <TextField id="State" {...register("state")}></TextField>
+            <TextField id="State" {...register("state", { required: true, maxLength: 30 })}></TextField>
           </Grid>
 
           <Grid item md={3} alignSelf={"center"} textAlign={"right"}>
             <TextHeading2 text="ZipCode"/>
           </Grid>
           <Grid item md={3}>
-            <TextField id="zipCode" {...register("pin")}></TextField>
+            <TextField id="zipCode" {...register("pin", { required: true, maxLength: 30 })}></TextField>
           </Grid>
 
           <Grid item md={3} alignSelf={"center"} textAlign={"right"}>
             <TextHeading2 text="Country"/>
           </Grid>
           <Grid item md={3}>
-            <TextField id="country" {...register("country")}></TextField>
+            <TextField id="country" {...register("country", { required: true, maxLength: 30 })}></TextField>
           </Grid>
 
           <Grid item md={3} alignSelf={"center"} textAlign={"right"}>
