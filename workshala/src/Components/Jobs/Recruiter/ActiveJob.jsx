@@ -1,255 +1,20 @@
 import * as React from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import {fetchRecruiterPostedJobs} from '../../../redux/actions/jobs'
 import {deletePostedJobs} from '../../../redux/actions/jobs'
-import {useNavigate} from "react-router-dom";
 import {
   Button,
   Grid,
-  TextField,
-  TablePagination,
-  TableRow,
-  TableHead,
-  TableContainer,
-  TableCell,
-  TableBody,
-  Table,
-  Skeleton,
-  Paper,
 } from "@mui/material";
 import dateFormat from "dateformat";
-import Links from "@mui/material/Link";
-import {makeStyles} from '@mui/styles';
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "../../../Services/Utils/Generic";
-import PostJob, {PrefillPostJob} from './PostJob'
-import PostAJob from "../../../Pages/Recruiter/PostJob";
+import {PrefillPostJob} from './PostJob'
+import Table from "../../../Services/Utils/Table";
+import Loader from "../../../Services/Utils/Loader";
 
-const columns = [
-  { id: "title", label: "Job\u00a0Title", format: (value) => value.toLocaleString("en-US") },
-  { id: "position", label: "Position", format: (value) => value.toFixed(2)},
-  { id: "type", label: "Type", format: (value) => value.toLocaleString("en-US") },
-  { id: "postedOn", label: "Posted\u00a0On" },
-  { id: "status", label: "Status", format: (value) => value.toFixed(2) },
-  { id: "action", label: "Actions", format: (value) => value.toFixed(2) },
-];
-
-function createData(id, date, title, type, position, status, detail) {
-  return { id, date, title, type, position, status, detail };
-}
-
-const rows = [
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "In-Progress",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "On-Hold",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Hired",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Rejected",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Hired",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-  createData(
-    "APL-067",
-    "Jan 28, 2021 23:05 PM",
-    "Delivery Executive",
-    "Delivery",
-    "Delivery Executive",
-    "Pending",
-    ""
-  ),
-];
-
-
-const ColoredStatusCell = (props) => {
-  var statusColor = "blue";
-  switch (props.value) {
-    case "Active":
-      statusColor = "green";
-      break;
-    case "InActive":
-      statusColor = "red";
-      break;
-    default:
-      statusColor = "blue";
-  }
-  return (
-    <Button
-      variant="outlined"
-      style={{
-        width: "100%",
-        height: "10%",
-        borderRadius: 10,
-        color: statusColor,
-      }}
-    >
-      {props.value}
-    </Button>
-  );
-};
 export default function ActiveJob() {
 const dispatch = useDispatch();
-const navigate = useNavigate();
-
-const useStyles = makeStyles({
-
-    root: {
-        "& .MuiTableCell-head": {
-            color: "white",
-            backgroundColor: "blue",
-        },
-    }
-});
-
-const HandleEdit = (props) => {
-  //PostJob(props);
-  PrefillPostJob(props);
-  // return (
-  // <PostJob data = {props}/>);
-  
-  // return (
-  // <Navigate to='/recruiter/postJob' replace={true}/>
-  // );
-};
-
-
-const HandleDelete = (props) => {
-
-  dispatch(deletePostedJobs(props));
-};
-
-const classes = useStyles();
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  
 
   const jobsInfo = useSelector(state => state.jobs);
 
@@ -257,11 +22,54 @@ const classes = useStyles();
     dispatch(fetchRecruiterPostedJobs());
   }, []);             // eslint-disable-line react-hooks/exhaustive-deps
 
-  var jobsList = [];
+  const HandleEdit = (event, cellValues) => {
+    PrefillPostJob(cellValues.row.id);
+  };
+  
+  const HandleDelete = (event, cellValues) => {
+    dispatch(deletePostedJobs(cellValues.row.id));
+  };
+  
+  const columnsList = [
+    { field: "id", headerName: "ID", width: 150 },
+    { field: "title", headerName: "Title", width: 150 },
+    { field: "position", headerName: "Position", width: 150 },
+    { field: "type", headerName: "Type", width: 150 },
+    { field: "postedOn", headerName: "Posted On", width: 180 },
+    { field: "status", headerName: "Status", width: 150 },
+    { field: "action", headerName: "Actions", width: 150,
+      renderCell: (cellValues) => {
+        return (
+          <Grid item container justifyContent={"center"}>
+            <Grid item md={6}>
+              <Button
+                component={Link}
+                to="/recruiter/postJob"
+                onClick={(event) => {
+                  HandleEdit(event, cellValues);
+                }}
+              >
+                Edit
+              </Button>
+            </Grid>
+            <Grid item md={6}>
+              <Button
+                style={{ color: "red" }}
+                onClick={(event) => {
+                  HandleDelete(event, cellValues);
+                }}
+              >
+                Delete
+              </Button>
+            </Grid>
+          </Grid>
+        );
+      },
+    },
+  ];
 
-  if (jobsInfo.loading) {
-    return <Skeleton />;
-  } else {
+  var jobsList = [];
+  
     if (
       jobsInfo !== undefined &&
       jobsInfo.status &&
@@ -281,147 +89,9 @@ const classes = useStyles();
           detail: "",
         };
       });
+
+      return <Table columns={columnsList} rows={jobsList} />;
+    } else {
+      return <Loader />;
     }
-
-    return (
-      <Grid container>
-        {/* Search bar */}
-        <Grid item md={10}>
-          <TextField
-            sx={{
-              width: "96%",
-              m: 1,
-              p: 1,
-              borderRadius: 4,
-              backgroundColor: "white",
-              border: 0,
-            }}
-            size="small"
-            border={0}
-            placeholder="Search by Title, company or keyword..."
-            variant="standard"
-            InputProps={{
-              endAdornment: (
-                
-                  <Button
-                    variant="contained"
-                    sx={{ width: 100, borderRadius: 4 }}
-                    startIcon={<SearchIcon />}
-                  >
-                    Find
-                  </Button>
-                
-              ),
-              disableUnderline: true,
-            }}
-          />
-        </Grid>
-
-        <Grid item md={2}>
-            <Button
-                component={Link}
-                to="/recruiter/postjob"
-                variant="contained"
-                sx={{
-                      width: "180px",
-                      height: "50px",
-                      marginLeft: "0 auto",
-                      borderRadius: 4,
-                      display: "flex",
-                      mt: 1,
-                    }}
-            >
-              Post a New Job
-            </Button>
-        </Grid>
-        <Grid item container md={12} spacing={1}>
-          <Grid
-            item
-            md={12}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Paper
-              sx={{
-                m: 1,
-                borderRadius: 4,
-                p: 1,
-              }}
-            >
-              <TableContainer sx={{ maxHeight: 500 }} style={{borderRadius: 8}}>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead >
-                    <TableRow className={classes.root} style={{textAlignLast:"center"}}>
-                      {columns.map((column, i) => (
-                        <TableCell
-                          key={i}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth, fontWeight: 550, textTransform: "uppercase" }}
-                        >
-                          {column.label}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {jobsList
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((row, i) => {
-                        return (
-                          <TableRow style={{textAlignLast:"center"}}
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={i}
-                          >
-                            {columns.map((column, i) => {
-                              const value = row[column.id];
-                              const objectId = row.id;
-                              return i === 4 ? (
-                                <TableCell key={i}>
-                                  <ColoredStatusCell value={value} />
-                                </TableCell>
-                              ) : i === 5 ? (
-                                <TableCell key={i} >
-                                  <Grid item container justifyContent={"center"}>
-                                    <Grid item>
-                                      <Button component={Link} to="/recruiter/postJob" onClick={() => {HandleEdit(objectId)}}>Edit</Button>
-                                    </Grid>
-                                    <Grid item>
-                                      <Button style={{color:"red"}} onClick={() => {HandleDelete(objectId)}}>Delete</Button>
-                                    </Grid>
-                                  </Grid>
-                                </TableCell>
-                              ) : (
-                                <TableCell key={i} align={column.align}>
-                                  {column.format && typeof value === "number"
-                                    ? column.format(value)
-                                    : value}
-                                </TableCell>
-                              );
-                            })}
-                          </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-  }
 }

@@ -8,7 +8,7 @@ import * as moment from "moment";
 import { IconButton, Link } from "@mui/material";
 import { Download } from "@mui/icons-material";
 
-const handleClick = (cellValues) => {
+const handleClick = (event, cellValues) => {
   window.open(cellValues.row.resume.url);
 };
 
