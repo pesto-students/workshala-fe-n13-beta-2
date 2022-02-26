@@ -48,7 +48,7 @@ function postApplicationApi(data) {
     var url = baseUrl + "/functions/postApplication";
 
     return axios
-      .post(url, data.payload, { headers: headers })
+      .post(url, data, { headers: headers })
       .then((response) => {
         return response;
       })
@@ -70,7 +70,7 @@ function* postApplication(action) {
   try {
     const application = yield call(postApplicationApi, action.payload.payload);
     navigation = action.payload.navigation;
-    navigation("/Applications");
+    navigation("/candidate/Applications");
     yield put({ type: "POST_APPLICATION_SUCCESS", application: application });
   } catch (e) {
     yield put({ type: "POST_APPLICATION_FAILED", message: e.message });
