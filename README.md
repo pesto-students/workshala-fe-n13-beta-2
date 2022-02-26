@@ -1,6 +1,18 @@
   ![alt text](https://github.com/pesto-students/workshala-fe-n13-beta-2/blob/feature_suyash7/workshala/screenshots/logo.png)
-# WorkShala      
+  ## Table of contents
+ - [Introduction](#intro)
+ - [Technologies](#technologies)
+ - [Setup](#setup)
+ - [Features](#features)
+ - [Screenshots](#screenshots)
+ - [Contributors](#contributors)
+ - [Community](#Community)
+ - 
+## Introduction      
 This portal aims to provide a bridge between an organisation and job seekers. An advertiser can post the job requirements, search for resumes, connect with job seekers and schedule an interview process while the job seeker can search for the organisations, apply to a post and track their interview process. This will help both organisations and job seekers to connect and grow together.
+-Live demo [_here_](https://workshala.netlify.app/).
+
+Frontend and Backend are hosted on Netlify.
 
 # High level overview of Application
 User can login on bais of role (applicant/recruiter), and create an account, login session would be persistent. 
@@ -39,6 +51,37 @@ User can login on bais of role (applicant/recruiter), and create an account, log
 #### Statistics ####
 ![alt text](https://github.com/pesto-students/workshala-fe-n13-beta-2/blob/feature_suyash7/workshala/screenshots/statistics.png)
 
+## Technologies used to build this project
+![Node.js **v14.15.0**](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)\
+ ![React JS](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)\
+ ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)\
+ ![Parse Platform and Cloud Functions](https://img.shields.io/badge/Parse--Platform--and--Cloud--Functions-0081AA?style=for-the-badge&logo=Formik&logoColor=white)\
+ ![Mongo](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+ 
+ ## Other Libraries Used
+![Material UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)\
+
+
+## Setup
+Requires [Node.js](https://nodejs.org/) to run (v14.15.0+).
+Install the dependencies and open the terminal and then run the following command one by one.
+```sh
+ $ git https://github.com/pesto-students/workshala-fe-n13-beta-2.git
+ $ cd workshala-fe-n13-beta-2
+ $ npm install
+ $ npm run start
+ ```
+ Verify by navigating to below address in your preferred browser.
+```sh
+ localhost:[3000] or running port
+ ```
+You should be able to see the landing page.
+
+## Resources
+<a href=" ">High Level Design</a>\
+ <a href=" "> PRD </a>\
+ <a href="https://www.figma.com/file/ltKSWWxHXn3zv5v1PvbO3p/Untitled?node-id=0%3A1"> Wireframes</a>
+ 
 # Dependencies
 
 ### Frontend ###
@@ -49,11 +92,7 @@ User can login on bais of role (applicant/recruiter), and create an account, log
 * axios
 * React
 
-### Back End ###
-* back4App
-* MongoDB
-
-### Hosted ###
-* Netlify
 
 
+## Community
+Thanks to the people who directly and indirectly supported me to accomplish this project.
