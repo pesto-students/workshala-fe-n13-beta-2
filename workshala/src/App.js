@@ -1,24 +1,23 @@
-//import HomePage from "./Home/HomePage";
 import * as React from "react";
+import { BrowserRouter } from "react-router-dom";
+import Parse from "parse/dist/parse.min.js";
+import RoutesMain from './Routes/RoutesMain'
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home";
-import Dashboard from "./Pages/Dashboard";
-import Error from "./Pages/Error";
-import Profile from "./Profile/Profile";
-import Jobs from "./Pages/Jobs";
-import Applications from "./Pages/Applications";
+// Your Parse initialization configuration goes here
+
+//Parse.serverURL = "https://workshala.b4a.io";
+
+Parse.serverURL = "https://parseapi.back4app.com";
+Parse.initialize(
+  "BxnHmCjdT1tQTZBT1OIaZuiMSJkcGMVj8oAPfhEf",
+  "Ktz3IYrX9NI0YpqGnfYjNkUVQGuVZUtVa5Ve6DsK"
+);
 
 function App() {
   return (
+    
     <BrowserRouter>
-      <Routes>
-        <Route index element={<Applications />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Home" element={<Home />} />
-
-        <Route path="*" element={<Error />} />
-      </Routes>
+      <RoutesMain />
     </BrowserRouter>
   );
 }
