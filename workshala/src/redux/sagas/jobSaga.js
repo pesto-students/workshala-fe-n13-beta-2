@@ -25,13 +25,10 @@ function getJobsList() {
 }
 
 function postAJob(data) {
-  const userHeader = {
-    ...headers,
-    "Content-Type": "application/json",
-  };
+  var url = baseUrl + "/functions/postJob";
 
   return axios
-    .post(baseUrl + "/classes/JobInfo", data, { headers: userHeader })
+    .post(url, data, { headers: headers })
     .then((response) => {
       return response;
     })
@@ -137,7 +134,7 @@ function* postJob(action) {
     let payload = [];
     if(companyInfo !== undefined && companyInfo.data !== undefined && companyInfo.data.result !== undefined) {
       payload = {
-        ...action.payload,
+        ...action.payload.data,
         'companyId': companyInfo.data.result[0].objectId
       }
     }

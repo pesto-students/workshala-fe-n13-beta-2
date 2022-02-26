@@ -45,7 +45,7 @@ const PostJobTile = () => {
                             <TextHeading2 text={"Position"}/>
                         </Grid>
                         <Grid item md={6} textAlign={"left"}>
-                            <TextField id={"Position"} fullWidth {...register("Position", { required: true, maxLength: 30 })}></TextField>
+                            <TextField id={"Position"} fullWidth {...register("position", { required: true, maxLength: 30 })}></TextField>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -165,9 +165,9 @@ export default function PostJob(props) {
   let data = (props !== undefined) ? props : [];
 
   const onSubmit = data => {
-    
+    data['status'] = 'Active';
     const payload = {
-        ...data,
+        data: data,
         role: role,
         navigation: navigate,
       };
@@ -181,7 +181,6 @@ export default function PostJob(props) {
         if(!isEmpty(prefillFlag)) {
           const filter = { 'objectId': prefillFlag}
           dispatch(searchJobs(filter));
-    
         }
     }, [])
 

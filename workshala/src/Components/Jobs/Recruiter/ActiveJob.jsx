@@ -85,12 +85,36 @@ const dispatch = useDispatch();
           title: isEmpty(data[i].title) ? "Technician" : data[i].title,
           type: isEmpty(data[i].type) ? "Delivery" : data[i].type,
           position: isEmpty(data[i].position) ? "Executive" : data[i].position,
-          status: isEmpty(data[i].status) ? "In-Progress" : data[i].status,
+          status: isEmpty(data[i].status) ? "Active" : data[i].status,
           detail: "",
         };
       });
 
-      return <Table columns={columnsList} rows={jobsList} />;
+      return (
+        <Grid container spacing={1}>
+          <Grid item md={12} sx={{textAlign:"-webkit-right"}}>
+            <Button
+              component={Link}
+              to="/recruiter/postjob"
+              variant="contained"
+              sx={{
+                width: "180px",
+                height: "50px",
+                marginLeft: "0 auto",
+                borderRadius: 4,
+                display: "flex",
+                mt: 1,
+              }}
+            >
+              Post a New Job
+            </Button>
+          </Grid>
+
+          <Grid item md={12}>
+            <Table columns={columnsList} rows={jobsList} />;
+          </Grid>
+        </Grid>
+      );
     } else {
       return <Loader />;
     }
