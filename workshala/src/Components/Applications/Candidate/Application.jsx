@@ -31,9 +31,9 @@ export default function Application() {
     applications.status &&
     applications.applications !== undefined &&
     applications.applications.data !== undefined &&
-    applications.applications.data.results !== undefined
+    applications.applications.data.result !== undefined
   ) {
-    const data = applications.applications.data.results;
+    const data = applications.applications.data.result;
     data.forEach(function (k, i) {
       appsList[i] = {
         id: data[i].objectId,

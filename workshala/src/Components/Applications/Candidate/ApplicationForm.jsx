@@ -1,6 +1,11 @@
 import React from "react";
 import companyLogo from "../../../Assets/Images/companyLogo.jpg";
 import Loader from '../../../Services/Utils/Loader'
+import * as moment from "moment";
+import DoneIcon from '@mui/icons-material/Done';
+import {
+  Download
+} from "@mui/icons-material";
 import {
   Paid,
   Group,
@@ -21,11 +26,12 @@ import {
   CardContent,
   Card,
 } from "@mui/material";
+import { useState } from "react";
 import { isEmpty } from "../../../Services/Utils/Generic";
 import { useSelector} from "react-redux";
 import {useForm} from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Navigate} from "react-router-dom";
 import {postApplication} from '../../../redux/actions/applications'
 
 const JobData = [
@@ -36,7 +42,7 @@ const JobData = [
 ];
 
 var JobApplnData = {};
-  
+let resumeData = [];
 var JobDetailsData = [];
 
 export const UpdateApplyjobData = (data) => {
@@ -161,8 +167,12 @@ const FormItems = [
 
 const FormInput = (props) => {
   const { register, handleSubmit} = useForm();
+  const [resData, setResData] = useState([]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  const auth = useSelector((state) => state.user);
 
   const onSubmit = data => {
     
@@ -171,7 +181,7 @@ const FormInput = (props) => {
         jobRef: JobApplnData.jobRef,
         aboutCandidate: props.data.aboutYou,
         position: JobApplnData.title,
-        status: "In-Progress",
+        status: "Pending",
         candidateName: data.FirstName + " " + data.LastName,
         dob: data.BirthDate,
         mobile: data.Mobile,
@@ -179,11 +189,39 @@ const FormInput = (props) => {
     }
     const payloadWrapper = {
       payload: payload,
+      resume: resumeData,
       navigation: navigate
     }
 
     dispatch(postApplication(payloadWrapper));
   }
+
+  
+  const handleResumeUpload = (event) => {
+    
+    if (event.target.files[0]) {
+      const selectedFile = event.target.files[0];
+      
+      var reader = new FileReader();
+      reader.onloadend = async function () {
+      const base64Response = await fetch(reader.result);
+      const blob = await base64Response.blob();
+      
+      resumeData = {
+        file: blob,
+        name: selectedFile.name,
+        dataType: 'application/pdf'
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+      setResData(selectedFile);
+    }
+  }
+
+  const showpdf = (directory) => {
+    window.open(directory.url);
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
     <Grid container>
@@ -244,20 +282,44 @@ const FormInput = (props) => {
       </Grid>
 
       <Grid item container>
-        <Grid item>
-            <CardTemplate
-                  logo={<Upload />}
-                  title="Upload Resume"
-                  content="(Format: .Pdf, .Doc)"
-            />
+        <Grid item sx={{ml:3, mt:2}}>
+            <Button 
+                variant="outlined" style={{borderRadius: 8, border:'dashed'}}
+                component="label" endIcon={<Upload style={{ color: 'brown'}}/>}
+>
+                Upload Resume <br/> (Format: .pdf, .doc) 
+                <input
+                      accept="application/pdf,application/msword"
+                      type="file" id="profilePhotoFileUpload"
+                      hidden                       
+                       {...register("resume")}
+                       {...register('resume', {
+                        onChange: (e) => {handleResumeUpload(e)}
+                      })}
+                />
+            </Button>
         </Grid>
-        <Grid item>
-            <CardTemplate
-                  logo={<Article />}
-                  title="Resume.pdf"
-                  content="871 KB"
-            />
-        </Grid>
+        {isEmpty(resData) ? 
+        <Grid item sx={{ml:3, mt:2}}>
+            <Button
+                variant="outlined" style={{borderRadius: 8, border:'dashed', width: '200px', height: '60px'}}
+                onClick={() => {
+                  showpdf(props.data.resume)
+                }}
+                endIcon={<Download style={{ color: 'brown'}}/>}>
+                    <Grid>
+                      <Grid item md={12}>
+                        Resume 
+                      </Grid>
+                      <Typography style={{fontSize:10}}>
+                        uploaded on {moment(props.data.updatedAt).format("YYYY-MM-DD")}
+                      </Typography>
+                  </Grid>
+                
+            </Button>
+        </Grid> : <Grid item sx={{ml:3, mt:3}}>
+            <DoneIcon style={{fontSize:50, verticalAlign:"middle"}}/>
+        </Grid>}
       </Grid>
 
       <Grid item container sx={{ ml: 1, mt: 2 }} spacing={2}>
@@ -341,13 +403,17 @@ const CardTemplate = (props) => {
 export default function ApplicationForm() {
 
   const userInfo = useSelector(state => state.userInfo.userInfo);
+  const navigate = useNavigate();
   var userData = {};
 
   if(userInfo !== undefined && userInfo.status && userInfo.data !== undefined 
             && userInfo.data.result !== undefined) {
       const temp = userInfo.data.result[0];
       userData = {FirstName: temp.firstName, LastName: temp.lastName, Mobile: temp.mobile, BirthDate: temp.dob,
-                  Email: temp.email, aboutYou: temp.bio};
+                  Email: temp.email, aboutYou: temp.bio, resume: temp.resume, updatedAt: temp.updatedAt};
+  } else {
+    //Move to Jobs page
+    <Navigate to="/jobs" replace={true} /> 
   }
 
   if(isEmpty(JobApplnData))

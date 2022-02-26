@@ -9,7 +9,7 @@ const headers = {
   "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
 };
 
-function uploadFile(data) {
+export function uploadFile(data) {
   if(data !== undefined) {
     const fileName = data.name;
     const fileData = data.file;
