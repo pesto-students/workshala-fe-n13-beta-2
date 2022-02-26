@@ -9,7 +9,8 @@ import {updateUserInfo} from '../../../redux/actions/user'
 import {useNavigate} from "react-router-dom";
 import Loader from '../../../Services/Utils/Loader'
 import {fetchProfile} from '../../../redux/actions/user'
-import { GetRole } from "../../../Services/Utils/Generic";
+import { GetRole, isEmpty } from "../../../Services/Utils/Generic";
+import DoneIcon from '@mui/icons-material/Done';
 
 import {
   Grid,
@@ -41,37 +42,40 @@ const TileHeading = (props) => {
   );
 }
 let imgData = [];
-const handleImgUpload = (event) => {
-    
-  if (event.target.files[0]) {
-    const selectedFile = event.target.files[0];
-    
-    var reader = new FileReader();
-    reader.onloadend = async function () {
-    const base64Response = await fetch(reader.result);
-    const blob = await base64Response.blob();
-    // setFile({
-    // file: blob,
-    // name: selectedFile.name,
-    // });
-    imgData = {
-      file: blob,
-      name: selectedFile.name,
-      dataType: 'image/jpeg'
-      }
-    };
-    reader.readAsDataURL(selectedFile);
-  }
-}
+
 
 const AboutMeTile = () => {
   const { register } = useFormContext();
+  const [profileImage, setprofileImage] = useState({dev});
   const Labels = [
-    {title: 'About Yourself', value: 'bio', width: '100%'},
-    {title: 'Email', value: 'email' , width: '50%'},
-    {title: 'Contact', value: 'mobile'},
-    {title: 'Address', value: 'address', width: '100%'}
+    {title: 'About Yourself', value: 'bio', width: '100%', maxAllowedLen: 300},
+    {title: 'Email', value: 'email' , width: '50%', maxAllowedLen: 30},
+    {title: 'Contact', value: 'mobile', maxAllowedLen: 13},
+    {title: 'Address', value: 'address', width: '100%', maxAllowedLen:200}
   ]
+
+  const handleImgUpload = (event) => {
+    
+    if (event.target.files[0]) {
+      const selectedFile = event.target.files[0];
+      
+      var reader = new FileReader();
+      reader.onloadend = async function () {
+      const base64Response = await fetch(reader.result);
+      const blob = await base64Response.blob();
+      setprofileImage(reader.result);
+      // file: blob,
+      // name: selectedFile.name,
+       
+      imgData = {
+        file: blob,
+        name: selectedFile.name,
+        dataType: 'image/jpeg'
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  }
   
   
   return (
@@ -103,7 +107,7 @@ const AboutMeTile = () => {
 
             <Grid item container md={6} justifyContent={"center"}>
                 <Grid item >
-                  <Avatar src={dev} sx={{width: 120, height: 120}}/>
+                  <Avatar src={""+profileImage} sx={{width: 120, height: 120}}/>
                 </Grid>
                 <Grid item>
                       <IconButton color="primary" component="label">
@@ -130,9 +134,9 @@ const AboutMeTile = () => {
                 <TextField id={item.value} style ={{width: item.width}} 
                 multiline
                 rows={4}
-                {...register(item.value, { required: true, maxLength: 30 })} ></TextField> :
+                {...register(item.value, { required: true, maxLength: item.maxAllowedLen })} ></TextField> :
                 <TextField id={item.value} style ={{width: item.width}} 
-                {...register(item.value, { required: true, maxLength: 30 })} ></TextField>}
+                {...register(item.value, { required: true, maxLength: item.maxAllowedLen })} ></TextField>}
               </Grid>  
             </Grid>
           ))}
@@ -393,31 +397,47 @@ const ExperienceTile = () => {
   );
 };
 
-// function handleResumeUpload () {
-//   const fileUploadControl = $("#profilePhotoFileUpload")[0];
-//   if (fileUploadControl.files.length > 0) {
-//     const file = fileUploadControl.files[0];
-//     const name = "photo.jpg";
-
-//     const parseFile = new Parse.File(name, file);
-//   }
-// }
-
+let resumeData = [];
 
 const ResumeTile = () => {
   const { register } = useFormContext();
+  const [resData, setResData] = useState([]);
+
+  const handleResumeUpload = (event) => {
+    
+    if (event.target.files[0]) {
+      const selectedFile = event.target.files[0];
+      
+      var reader = new FileReader();
+      reader.onloadend = async function () {
+      const base64Response = await fetch(reader.result);
+      const blob = await base64Response.blob();
+   
+      
+      resumeData = {
+        file: blob,
+        name: selectedFile.name,
+        dataType: 'application/pdf'
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+      setResData(selectedFile);
+    }
+  }
+
   return (
     <Paper sx={{borderRadius: 4, p:2}} >
       <TileHeading heading="Resume" size={18}/>
 
-      <Grid item container sx={{p:2}}>
+      <Grid item container sx={{p:2}} spacing={2}>
         <Grid item>
-            <Button
+            <Button 
                 variant="outlined" style={{borderRadius: 8, border:'dashed'}}
                 component="label" endIcon={<Upload style={{ color: 'brown'}}/>}
 >
                 Upload Resume <br/> (Format: .pdf, .doc) 
                 <input
+                      accept="application/pdf,application/msword"
                       type="file" id="profilePhotoFileUpload"
                       hidden                       
                        {...register("resume")}
@@ -426,31 +446,15 @@ const ResumeTile = () => {
                       })}
                 />
             </Button>
+            
         </Grid>
+        {isEmpty(resData) ? <></> : 
+        <Grid item>
+            <DoneIcon style={{fontSize:50, verticalAlign:"middle"}}/>
+        </Grid>}
     </Grid>
   </Paper>
   );
-}
-
-let resumeData = [];
-const handleResumeUpload = (event) => {
-    
-  if (event.target.files[0]) {
-    const selectedFile = event.target.files[0];
-    
-    var reader = new FileReader();
-    reader.onloadend = async function () {
-    const base64Response = await fetch(reader.result);
-    const blob = await base64Response.blob();
- 
-    resumeData = {
-      file: blob,
-      name: selectedFile.name,
-      dataType: 'application/pdf'
-      }
-    };
-    reader.readAsDataURL(selectedFile);
-  }
 }
 
 export default function EditProfileDetails(props) {
