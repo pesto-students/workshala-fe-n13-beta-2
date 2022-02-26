@@ -55,6 +55,19 @@ export function searchJobsApi(data) {
     });
 }
 
+export function deletePostedJobAPI(data) {
+  var url = baseUrl + "/classes/JobInfo/" + data;
+  
+  return axios
+    .delete(url, { headers: headers })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      throw error;
+    });
+}
+
 function* fetchJobsList(action) {
   try {
     const jobs = yield call(getJobsList, action);
@@ -70,6 +83,16 @@ function* searchJobs(action) {
     yield put({ type: "SEARCH_JOBS_SUCCESS", searchJobs: searchJobs });
   } catch (e) {
     yield put({ type: "SEARCH_JOBS_FAILED", message: e.message });
+  }
+}
+
+
+function* deletePostedJob(action) {
+  try {
+    const deletedJob = yield call(deletePostedJobAPI, action.payload);
+    yield put({ type: "DELETE_POSTED_JOB_SUCCESS", deletedJob: deletedJob });
+  } catch (e) {
+    yield put({ type: "DELETE_POSTED_JOB_FAILED", message: e.message });
   }
 }
 
@@ -109,7 +132,7 @@ function* postJob(action) {
       'userId' : userData.data.objectId,
       'role': userData.data.role
     }
-    
+
     const companyInfo = yield call(getObjectId, filterData);
     let payload = [];
     if(companyInfo !== undefined && companyInfo.data !== undefined && companyInfo.data.result !== undefined) {
@@ -133,7 +156,8 @@ function* jobSaga() {
   yield takeEvery("RECRUITER_POSTED_JOBS_REQUESTED", fetchRecruitersPostedJobs);
   yield takeEvery("POST_JOB_REQUESTED", postJob); // make entry in user - POST (reducer-signup) ->USER_SIGNUP_SUCCESS
   yield takeEvery("POST_JOB_SUCCESS", fetchRecruitersPostedJobs);
-  
+  yield takeEvery("DELETE_POSTED_JOB_REQUESTED", deletePostedJob);
+  yield takeEvery("DELETE_POSTED_JOB_SUCCESS", fetchRecruitersPostedJobs);
 }
 
 export default jobSaga;

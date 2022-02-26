@@ -34,3 +34,10 @@ export function postJob(data) {
     payload: data,
   };
 }
+
+export function deletePostedJobs(data) {
+  return {
+    type: type.DELETE_POSTED_JOB_REQUESTED,
+    payload: data,
+  };
+}

@@ -1,7 +1,8 @@
 import * as React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import {fetchRecruiterPostedJobs} from '../../../redux/actions/jobs'
-
+import {deletePostedJobs} from '../../../redux/actions/jobs'
+import {useNavigate} from "react-router-dom";
 import {
   Button,
   Grid,
@@ -19,20 +20,19 @@ import {
 import dateFormat from "dateformat";
 import Links from "@mui/material/Link";
 import {makeStyles} from '@mui/styles';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import UpdateJobDetails from "./PostJobComponent";
 import { isEmpty } from "../../../Services/Utils/Generic";
+import PostJob, {PrefillPostJob} from './PostJob'
+import PostAJob from "../../../Pages/Recruiter/PostJob";
 
 const columns = [
-  // { id: "id", label: "Job\u00a0ID" },
-  
   { id: "title", label: "Job\u00a0Title", format: (value) => value.toLocaleString("en-US") },
   { id: "position", label: "Position", format: (value) => value.toFixed(2)},
   { id: "type", label: "Type", format: (value) => value.toLocaleString("en-US") },
   { id: "postedOn", label: "Posted\u00a0On" },
   { id: "status", label: "Status", format: (value) => value.toFixed(2) },
-  { id: "detail", label: "Detail", format: (value) => value.toFixed(2) },
+  { id: "action", label: "Actions", format: (value) => value.toFixed(2) },
 ];
 
 function createData(id, date, title, type, position, status, detail) {
@@ -177,24 +177,6 @@ const rows = [
   ),
 ];
 
-const ColoredDetailsCell = (props) => {
-  var statusColor = "blue";
-
-  return (
-    <Links
-      href="#"
-      underline="hover"
-      variant="outlined"
-      style={{
-        width: "100%",
-        height: "10%",
-        color: statusColor,
-      }}
-    >
-      Details
-    </Links>
-  );
-};
 
 const ColoredStatusCell = (props) => {
   var statusColor = "blue";
@@ -223,6 +205,8 @@ const ColoredStatusCell = (props) => {
   );
 };
 export default function ActiveJob() {
+const dispatch = useDispatch();
+const navigate = useNavigate();
 
 const useStyles = makeStyles({
 
@@ -233,6 +217,24 @@ const useStyles = makeStyles({
         },
     }
 });
+
+const HandleEdit = (props) => {
+  //PostJob(props);
+  PrefillPostJob(props);
+  // return (
+  // <PostJob data = {props}/>);
+  
+  // return (
+  // <Navigate to='/recruiter/postJob' replace={true}/>
+  // );
+};
+
+
+const HandleDelete = (props) => {
+
+  dispatch(deletePostedJobs(props));
+};
+
 const classes = useStyles();
 
   const [page, setPage] = React.useState(0);
@@ -247,7 +249,7 @@ const classes = useStyles();
     setPage(0);
   };
 
-  const dispatch = useDispatch();
+  
 
   const jobsInfo = useSelector(state => state.jobs);
 
@@ -270,7 +272,7 @@ const classes = useStyles();
       const data = jobsInfo.jobs.data.results;
       data.forEach(function (k, i) {
         jobsList[i] = {
-          
+          id: data[i].objectId,
           postedOn: dateFormat(data[i].createdAt, "mmmm dS, yyyy"),
           title: isEmpty(data[i].title) ? "Technician" : data[i].title,
           type: isEmpty(data[i].type) ? "Delivery" : data[i].type,
@@ -349,7 +351,7 @@ const classes = useStyles();
               <TableContainer sx={{ maxHeight: 500 }} style={{borderRadius: 8}}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead >
-                    <TableRow className={classes.root}>
+                    <TableRow className={classes.root} style={{textAlignLast:"center"}}>
                       {columns.map((column, i) => (
                         <TableCell
                           key={i}
@@ -369,7 +371,7 @@ const classes = useStyles();
                       )
                       .map((row, i) => {
                         return (
-                          <TableRow
+                          <TableRow style={{textAlignLast:"center"}}
                             hover
                             role="checkbox"
                             tabIndex={-1}
@@ -377,20 +379,21 @@ const classes = useStyles();
                           >
                             {columns.map((column, i) => {
                               const value = row[column.id];
+                              const objectId = row.id;
                               return i === 4 ? (
                                 <TableCell key={i}>
                                   <ColoredStatusCell value={value} />
                                 </TableCell>
                               ) : i === 5 ? (
-                                <TableCell key={i}>
-                                  <ColoredDetailsCell
-                                    component={Link}
-                                    to="/ActiveJob"
-                                    value={value}
-                                    onClick={() => {
-                                      UpdateJobDetails(jobsList[value]);
-                                    }}
-                                  />
+                                <TableCell key={i} >
+                                  <Grid item container justifyContent={"center"}>
+                                    <Grid item>
+                                      <Button component={Link} to="/recruiter/postJob" onClick={() => {HandleEdit(objectId)}}>Edit</Button>
+                                    </Grid>
+                                    <Grid item>
+                                      <Button style={{color:"red"}} onClick={() => {HandleDelete(objectId)}}>Delete</Button>
+                                    </Grid>
+                                  </Grid>
                                 </TableCell>
                               ) : (
                                 <TableCell key={i} align={column.align}>

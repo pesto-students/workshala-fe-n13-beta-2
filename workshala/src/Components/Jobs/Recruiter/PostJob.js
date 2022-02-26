@@ -1,8 +1,8 @@
 import * as React from "react";
-import {  useDispatch} from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import { Link } from "react-router-dom";
 import {useForm, FormProvider, useFormContext} from 'react-hook-form';
-
+import {searchJobs} from '../../../redux/actions/jobs'
 import {useNavigate} from "react-router-dom";
 import {postJob} from "../../../redux/actions/jobs";
 
@@ -14,7 +14,7 @@ import {
   Button
 } from "@mui/material";
 import {TextHeading2} from '../../Common/Common'
-import { GetRole } from "../../../Services/Utils/Generic";
+import { GetRole, isEmpty } from "../../../Services/Utils/Generic";
 
 const PostJobTile = () => {
   const { register } = useFormContext();
@@ -149,15 +149,21 @@ const PostJobTile = () => {
       </Paper>
   );
 }
+let prefillFlag = [];
+export const PrefillPostJob = (props) => {
+  prefillFlag = props;
+}
 
 export default function PostJob(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
   const methods = useForm();
-  
-  const { register, handleSubmit} = methods;
+  const { register, handleSubmit, reset} = methods;
   const role = GetRole();
+
+  let data = (props !== undefined) ? props : [];
+
   const onSubmit = data => {
     
     const payload = {
@@ -168,6 +174,25 @@ export default function PostJob(props) {
   
       dispatch(postJob(payload));
     }
+  
+    const searchJob = useSelector(state => state.searchJobs);
+
+    React.useEffect(() => {
+        if(!isEmpty(prefillFlag)) {
+          const filter = { 'objectId': prefillFlag}
+          dispatch(searchJobs(filter));
+    
+        }
+    }, [])
+
+    React.useEffect(() => {
+      if(!searchJob.loading && searchJob.searchJobs !== undefined
+        && searchJob.searchJobs.data !== undefined) {
+          reset(searchJob.searchJobs.data.results[0])
+      }
+    }, [searchJob])
+
+    
     
   return (
     <FormProvider {...methods} >
