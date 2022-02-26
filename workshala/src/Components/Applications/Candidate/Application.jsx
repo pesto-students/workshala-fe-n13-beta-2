@@ -4,6 +4,7 @@ import { getApplications } from "../../../redux/actions/applications";
 import Loader from "../../../Services/Utils/Loader";
 import Table from "../../../Services/Utils/Table";
 import * as moment from "moment";
+import {Button} from '@mui/material'
 
 export default function Application() {
   const dispatch = useDispatch();
@@ -16,14 +17,27 @@ export default function Application() {
 
   let appsList = [];
 
+  const colorList = {
+                    "Pending" : "warning", 
+                    "In-Progress": "secondary", 
+                    "On-Hold": "primary", 
+                    "Hired": "success",
+                    "Rejected": "error"}
+
   const columnsList = [
     { field: "id", headerName: "ID", width: 120 },
     { field: "position", headerName: "Position", width: 160 },
-    { field: "type", headerName: "Type", width: 100 },
-    { field: "email", headerName: "Candidate Email", width: 200 },
-    { field: "date", headerName: "Date Applied", width: 200 },
-    { field: "contact", headerName: "Contact", width: 150 },
-    { field: "status", headerName: "Status", width: 150 },
+    { field: "type", headerName: "Type", width: 110 },
+    { field: "workLevel", headerName: "Level", width: 110 },
+    { field: "salary", headerName: "Salary Range", width: 150 },
+    { field: "location", headerName: "Location", width: 130 },
+    { field: "date", headerName: "Date Applied", width: 150 },
+    { field: "status", headerName: "Status", width: 150,
+    renderCell: (cellValues) => {
+      return (
+        <Button color={colorList[cellValues.row.status]}>{cellValues.row.status}</Button>
+      );
+    }},
   ];
 
   if (
@@ -39,9 +53,10 @@ export default function Application() {
         id: data[i].objectId,
         position: data[i].position,
         type: data[i].type,
-        email: data[i].email,
+        workLevel: data[i].jobRef.workLevel,
+        location: data[i].jobRef.location,
         date: moment(data[i].createdAt).format("YYYY-MM-DD"),
-        contact: data[i].mobile,
+        salary: data[i].jobRef.minSalary + " - " + data[i].jobRef.maxSalary,
         status: data[i].status,
       };
     });

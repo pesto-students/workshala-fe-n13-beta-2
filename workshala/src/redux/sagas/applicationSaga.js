@@ -11,8 +11,6 @@ const headers = {
   "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
 };
 
-let navigation = "";
-
 function getAppsList(data) {
     var url = baseUrl + "/functions/getApplnInfoByUserId";
   
@@ -45,7 +43,7 @@ function getApplicationsApi(data) {
 
 
 function postApplicationApi(data) {
-    var url = baseUrl + "/functions/postApplication";
+    var url = baseUrl + "/classes/ApplicationInfo";
 
     return axios
       .post(url, data, { headers: headers })
@@ -87,9 +85,10 @@ function* fetchApplications (action) {
 function* postApplication(action) {
   try {
     // Step-1: Post file
-   // const resumeData = action.payload.resume;
-    //const fileInfo = yield call(uploadFile, resumeData);
+    const {payload, resume, jobRef, navigation} = action.payload;
 
+    const fileInfo = yield call(uploadFile, resume);
+    
     const userData = yield select((state) => state.user.user);
     const role = userData.data.role
     
@@ -101,21 +100,25 @@ function* postApplication(action) {
     // step-1: Get ObjectId of userInfo from user's ID
     const userInfo = yield call(getObjectId, filterData);
 
-    let payload = [];
+    let finalPayload = [];
     if(userInfo !== undefined && userInfo.data !== undefined && userInfo.data.result !== undefined) {
-       payload = {
-         ...action.payload.payload,
+      finalPayload = {
+         ...payload,
       'userId': userInfo.data.result[0].objectId,
-      // ...(role === "candidate" && !isEmpty(resumeData) && {"resume" : {
-      //   "name": fileInfo.data.name,
-      //   "url": fileInfo.data.url,
-      //   "__type": "File"
-      // }})
-      }
+      ...(role === "candidate" && !isEmpty(resume) && {"resume" : {
+        "name": fileInfo.data.name,
+        "url": fileInfo.data.url,
+        "__type": "File"
+      }}),
+      "jobRef" : {
+                    "className": "JobInfo",
+                    "__type": "Pointer",
+                    "objectId": jobRef
+                }
+          }
     }
 
-    const application = yield call(postApplicationApi, payload);
-    navigation = action.payload.navigation;
+    const application = yield call(postApplicationApi, finalPayload);
     navigation("/candidate/Applications");
     yield put({ type: "POST_APPLICATION_SUCCESS", application: application });
   } catch (e) {

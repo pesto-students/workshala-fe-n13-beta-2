@@ -12,7 +12,6 @@ import {
   Work,
   School,
   Upload,
-  Article,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -22,9 +21,7 @@ import {
   Typography,
   TextField,
   Paper,
-  Box,
-  CardContent,
-  Card,
+  Box
 } from "@mui/material";
 import { useState } from "react";
 import { isEmpty } from "../../../Services/Utils/Generic";
@@ -172,13 +169,10 @@ const FormInput = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const auth = useSelector((state) => state.user);
-
   const onSubmit = data => {
     
     const payload = {
         type: JobApplnData.type,
-        jobRef: JobApplnData.jobRef,
         aboutCandidate: props.data.aboutYou,
         position: JobApplnData.title,
         status: "Pending",
@@ -190,6 +184,7 @@ const FormInput = (props) => {
     const payloadWrapper = {
       payload: payload,
       resume: resumeData,
+      jobRef: JobApplnData.jobRef,
       navigation: navigate
     }
 
@@ -347,63 +342,9 @@ const FormInput = (props) => {
   );
 };
 
-const CardTemplate = (props) => {
-  return (
-    <Card
-      style={{}}
-      sx={{
-        ml: 3,
-        mt: 1,
-        border: 1,
-        borderStyle: "dashed",
-        width: 200,
-        height: 70,
-        color: "brown",
-        borderColor: "black",
-        borderRadius: 2,
-      }}
-    >
-      <CardContent sx={{ p: 1 }}>
-        <Grid container>
-          <Grid item xs={10} sm={10} md={10} sx={{ mt: 1 }}>
-            <Grid container>
-              <Grid item xs={12} sm={12} md={12}>
-                <Typography
-                  fontSize={15}
-                  color={"black"}
-                  sx={{ mx: 2.5 }}
-                  align={"left"}
-                >
-                  {props.title}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={12} md={12}>
-                <Typography
-                  sx={{
-                    fontSize: 12,
-                    color: "black",
-                    mx: 2.5,
-                  }}
-                  align={"left"}
-                >
-                  {props.content}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={2} sm={2} md={2} sx={{ mt: 2 }}>
-            {props.logo}
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
-};
-
 export default function ApplicationForm() {
 
   const userInfo = useSelector(state => state.userInfo.userInfo);
-  const navigate = useNavigate();
   var userData = {};
 
   if(userInfo !== undefined && userInfo.status && userInfo.data !== undefined 
