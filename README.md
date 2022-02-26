@@ -7,7 +7,7 @@
  - [Screenshots](#screenshots)
  - [Contributors](#contributors)
  - [Community](#Community)
- - 
+ 
 ## Introduction      
 This portal aims to provide a bridge between an organisation and job seekers. An advertiser can post the job requirements, search for resumes, connect with job seekers and schedule an interview process while the job seeker can search for the organisations, apply to a post and track their interview process. This will help both organisations and job seekers to connect and grow together.
 -Live demo [_here_](https://workshala.netlify.app/).
