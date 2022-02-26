@@ -92,7 +92,7 @@ export default function Footer() {
 
             {
             footerItems.map((item, i) => (
-                <Grid item key={i}>
+                <Grid item key={i} md={2.5}>
                     <CardTemplate logo={
                             item.logo
                         }

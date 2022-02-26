@@ -9,7 +9,12 @@ import { IconButton, Link } from "@mui/material";
 import { Download } from "@mui/icons-material";
 
 const handleClick = (event, cellValues) => {
-  window.open(cellValues.row.resume.url);
+  const path = cellValues.row.resume;
+  if(path === undefined) {
+    alert("Resume not available");
+  } else {
+    window.open(cellValues.row.resume.url);
+  }
 };
 
 const columnsList = [
