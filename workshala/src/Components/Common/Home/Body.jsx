@@ -138,11 +138,11 @@ const FindJobs = (props) => {
       {selectedTab === 0 ? (
         <form onSubmit={handleSubmit(onCandidateSubmit)}>
           <Grid
-            container
+            container md={12} 
             sx={{ backgroundColor: "white", borderRadius: 2, p: 1 }}
             spacing={1}
           >
-            <Grid item xs={3} sm={3} md={3}>
+            <Grid item xs={3} sm={3} md={3} >
               <TextField
                 id="title"
                 label="Title"

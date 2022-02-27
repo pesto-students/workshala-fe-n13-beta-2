@@ -108,7 +108,10 @@ function* postApplication(action) {
     // Step-1: Post file
     const {payload, resume, jobRef, navigation} = action.payload;
 
-    const fileInfo = yield call(uploadFile, resume);
+    let fileInfo = [];
+    if(resume  !== undefined && !isEmpty(resume)) {
+      fileInfo = yield call(uploadFile, resume);
+    }
     
     const userData = yield select((state) => state.user.user);
     const role = userData.data.role

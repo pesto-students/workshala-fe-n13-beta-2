@@ -39,7 +39,7 @@ const CardTemplate = (props) => {
                     p: 3,
                     border: 0,
                     width: 200,
-                    height: 200
+                    height: 225
                 }
         }>
             <CardContent>

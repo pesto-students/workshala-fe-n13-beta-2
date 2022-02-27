@@ -53,7 +53,7 @@ export default function Application() {
         id: data[i].objectId,
         position: data[i].position,
         type: data[i].type,
-        workLevel: data[i].jobRef.workLevel,
+        workLevel: (data[i].jobRef ? data[i].jobRef.workLevel : "Senior"),
         location: data[i].jobRef.location,
         date: moment(data[i].createdAt).format("YYYY-MM-DD"),
         salary: data[i].jobRef.minSalary + " - " + data[i].jobRef.maxSalary,
