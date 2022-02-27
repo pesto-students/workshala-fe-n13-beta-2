@@ -65,6 +65,7 @@ You should be able to see the landing page.
 ## Demo Login Credentials
 
 Recruiter: surendra.rec@gmail.com / surendra
+
 Candidate: surendra@gmail.com / surendra
 
 ## Features
