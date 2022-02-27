@@ -54,9 +54,9 @@ export default function Application() {
         position: data[i].position,
         type: data[i].type,
         workLevel: (data[i].jobRef ? data[i].jobRef.workLevel : "Senior"),
-        location: data[i].jobRef.location,
+        location: (data[i].jobRef ? data[i].jobRef.location : "Hyderbad"),
         date: moment(data[i].createdAt).format("YYYY-MM-DD"),
-        salary: data[i].jobRef.minSalary + " - " + data[i].jobRef.maxSalary,
+        salary: (data[i].jobRef ? data[i].jobRef.minSalary + " - " + data[i].jobRef.maxSalary : "$100k - $150k"),
         status: data[i].status,
       };
     });
