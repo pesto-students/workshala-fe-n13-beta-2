@@ -14,6 +14,13 @@ export function postApplication(data)  {
   };
 }
 
+export function updateApplication(data)  {
+  return {
+    type: type.UPDATE_APPLICATION_REQUESTED,
+    payload: data
+  };
+}
+
 export function fetchRecApplicationsList(data)  {
   return {
     type: type.FETCH_APPLICATIONS_REQUESTED,

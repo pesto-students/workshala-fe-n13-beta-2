@@ -1,9 +1,33 @@
 import React from 'react';
 import Chart from 'chart.js/auto';
 import {Grid, Typography, Paper} from "@mui/material";
-
+import * as moment from "moment";
 import {Line} from "react-chartjs-2";
+import { isEmpty } from '../../Services/Utils/Generic';
 
+export const updateData = (data) => {
+
+    /* Since we have to plot on basis of months
+     * but we don'e have enough data, so currently
+     * Plotting minutes wise
+     */
+
+    /* Step-1: Create Array of minutes from data, 
+     * this would be our label array
+     */
+    let labels = [];
+    Object.keys(data).forEach((key, i) => { 
+        const d = data[key]['updatedAt']
+        labels[i] = moment(d).minutes();
+    })
+    console.log(labels);
+    
+    /* Step-2: Create Data Array for 
+     * Applications sent and In-Progress over minutes
+     */
+
+    /* In-Progress */
+}
 const data = {
     labels: [
         "Jan",
@@ -62,9 +86,12 @@ const options = {
     responsive: true
 };
 
-export default function VacancyStat() {
-    return (
+export default function VacancyStat(props) {
+    if(props.data !== undefined && !isEmpty(props.data)) {
+        updateData(props.data)
+    }
 
+    return (
         <Paper sx={{ borderRadius: 4, p:3 }}> 
             <Grid container >
                 <Grid item xs={12} sm={12} md={12}>

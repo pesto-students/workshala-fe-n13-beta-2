@@ -5,8 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "../../../Services/Utils/Generic";
 import Table from "../../../Services/Utils/Table";
 import * as moment from "moment";
-import { IconButton, Link } from "@mui/material";
+import { IconButton, Button, Typography} from "@mui/material";
+import {default as MailLink}  from "@mui/material/Link";
 import { Download } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import {updateStatus} from './ApplicationDetails'
 
 const handleClick = (event, cellValues) => {
   const path = cellValues.row.resume;
@@ -17,22 +20,27 @@ const handleClick = (event, cellValues) => {
   }
 };
 
+const handleStatus = (event, cellValues) => {
+  const data = cellValues.row;
+  updateStatus({id: data.id, status: data.status});
+}
+
 const columnsList = [
   { field: "id", headerName: "ID", width: 150 },
-  { field: "position", headerName: "Position", width: 200 },
+  { field: "position", headerName: "Position", width: 150 },
   {
     field: "candidateEmail",
     headerName: "Candidate Email",
     width: 200,
     renderCell: (params) => (
-      <Link href={`mailto:${params.value}`}>{params.value}</Link>
+      <MailLink href={`mailto:${params.value}`}>{params.value}</MailLink>
     ),
   },
-  { field: "appliedOn", headerName: "Date Applied", width: 200 },
+  { field: "appliedOn", headerName: "Date Applied", width: 150 },
   {
     field: "resume",
     headerName: "Resume",
-    width: 150,
+    width: 120,
     renderCell: (cellValues) => {
       return (
         <IconButton
@@ -45,7 +53,28 @@ const columnsList = [
       );
     },
   },
-  { field: "status", headerName: "Status", width: 150 },
+  { field: "status", headerName: "Status", width: 150, 
+  renderCell: (cellValues) => {
+    return (
+      <Typography color="secondary"> 
+        {cellValues.row.status}
+      </Typography>
+    );
+  }
+},
+  { field: "action", headerName: "", width: 150, 
+  renderCell: (cellValues) => {
+    return (
+      <Button component={Link} to="/recruiter/applicationAction"
+        onClick={(event) => {
+          handleStatus(event, cellValues);
+        }}
+      > 
+      Action
+      </Button>
+    );
+  }
+},
 ];
 
 export default function Application() {

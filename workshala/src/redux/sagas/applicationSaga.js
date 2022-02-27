@@ -26,6 +26,27 @@ function getAppsList(data) {
   }
 
   
+function updateApplicationsApi(arg) {
+    const ObjectId = arg.objectId;
+    const payload = arg.data;
+
+    var url = baseUrl + "/classes/ApplicationInfo/" + ObjectId;
+
+    const custHeader = {
+      ...headers,
+      'Content-Type': 'application/json'
+    }
+
+    return axios
+      .put(url, payload, { headers: custHeader })
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+    });
+}
+  
 function getApplicationsApi(data) {
   var url = baseUrl + "/classes/ApplicationInfo?where=";
 
@@ -161,14 +182,28 @@ function* fetchRecApplicationsList(action) {
   }
 }
 
+function* updateApplication(action) {
+  try {
+   
+    const payload = {
+        data: action.payload.data,
+        objectId: action.payload.objectId
+    }
+    
+    const applications = yield call(updateApplicationsApi, payload);
+    yield put({ type: "UPDATE_APPLICATION_SUCCESS", applications: applications });
+  } catch (e) {
+    yield put({ type: "UPDATE_APPLICATION_FAILED", message: e.message });
+  }
+}
+
 function* applicationSaga() {
   //applications
   yield takeEvery('APPLICATIONS_LIST_REQUESTED', fetchApplications);       // list requested by candidate
   yield takeEvery('POST_APPLICATION_REQUESTED', postApplication);
-
   yield takeEvery('POST_APPLICATION_SUCCESS', fetchApplications);       // list requested by candidate
-  
   yield takeEvery("FETCH_APPLICATIONS_REQUESTED", fetchRecApplicationsList);      // Applications list by recruiter
+  yield takeEvery("UPDATE_APPLICATION_REQUESTED", updateApplication);    // Requested by recruiter
 }
 
 export default applicationSaga;

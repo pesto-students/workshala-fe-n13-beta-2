@@ -16,6 +16,7 @@ import EditProfile from '../Pages/Recruiter/EditProfile';
 import ActiveJobs from '../Pages/Recruiter/ActiveJobs';
 import Applications from '../Pages/Recruiter/Applications';
 import PostJob from '../Pages/Recruiter/PostJob';
+import ApplicationAction from "../Pages/Recruiter/ApplicationAction";
 
 import Statistics from '../Pages/Candidate/Statistics';
 
@@ -34,6 +35,7 @@ export default function RecruiterRoutes({auth}) {
       <Route path="/recruiter/applications" element={<Applications />} />
       <Route path="/recruiter/profile" element={<Profile />} />
       <Route path="/recruiter/editProfile" element={<EditProfile />} />
+      <Route path="/recruiter/applicationAction" element={<ApplicationAction />} />
       <Route path="/contactUs" element={<ContactUs />} />
       <Route path="/aboutUs" element={<AboutUs />} />
       <Route path="/blog" element={<Blog />} />

@@ -10,6 +10,11 @@ const initialState = {
 export default function applications(state= initialState, action) {
     switch (action.type) {
         
+        case type.UPDATE_APPLICATION_REQUESTED:
+            return {
+                ...state,
+                loading: true
+            }
         case type.FETCH_APPLICATIONS_REQUESTED:
             return {
                 ...state,
@@ -21,6 +26,13 @@ export default function applications(state= initialState, action) {
                 loading: true
             }
         case type.FETCH_APPLICATIONS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                applications: action.applications,
+                status: true
+            }
+        case type.UPDATE_APPLICATION_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -41,6 +53,12 @@ export default function applications(state= initialState, action) {
                 error: action.message
             }
         case type.APPLICATIONS_LIST_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.message
+            }
+        case type.UPDATE_APPLICATION_FAILED:
             return {
                 ...state,
                 loading: false,

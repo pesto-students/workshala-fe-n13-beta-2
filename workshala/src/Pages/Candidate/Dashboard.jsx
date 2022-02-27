@@ -9,6 +9,7 @@ import {fetchProfile} from '../../redux/actions/user'
 import { useSelector} from "react-redux";
 import Loader from '../../Services/Utils/Loader'
 import { getApplications } from "../../redux/actions/applications";
+import { isEmpty } from "../../Services/Utils/Generic";
 
 const getAppStats = (data) => {
     if (
@@ -26,8 +27,11 @@ const getAppStats = (data) => {
                 IntSched += 1;
               }
             })
-            
-            return {'Interviews Scheduled': IntSched, 'Applications Sent': resp.length}
+            //prepareChart(resp);
+            return {
+                    'topTiles': {'Interviews Scheduled': IntSched, 'Applications Sent': resp.length},
+                    'vacancyChart': resp
+                   }
       }
 }
 
@@ -51,6 +55,12 @@ export default function Dashboard() {
                 userData = userInfo.userInfo.data.result[0];
         }
         const AppStats = getAppStats(applications);
+        let topTilesData = [];
+        let vacancyStatsData = [];
+        if(!isEmpty(AppStats)) {
+            topTilesData = AppStats['topTiles'];
+            vacancyStatsData = AppStats['vacancyChart'];
+        }
     return (
         <CandidateLayout>
             <div>
@@ -67,7 +77,7 @@ export default function Dashboard() {
                             xs={12}
                             sm={12}
                             md={12} >
-                            <TopContent data={AppStats}/>
+                            <TopContent data={topTilesData}/>
                         </Grid>
                     
                         <Grid item
@@ -76,7 +86,7 @@ export default function Dashboard() {
                             md={12}
                             >
                             {/*<RightContent/>*/}
-                            <VacancyStat/>
+                            <VacancyStat data={vacancyStatsData}/>
                         </Grid>
                     </Grid>
                 </Grid>
