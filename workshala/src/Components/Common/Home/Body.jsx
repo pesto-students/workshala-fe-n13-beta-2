@@ -16,7 +16,8 @@ import {
 import { withStyles } from "@mui/styles";
 import { isEmpty } from "../../../Services/Utils/Generic";
 
-var RecruiterFilterData = {};
+let RecruiterFilterData = {};
+let flag = 0;                       //TODO - workaround for records not found scenario
 const CustomTab = withStyles({
   selected: {
     backgroundColor: "white",
@@ -68,6 +69,7 @@ const FindJobs = (props) => {
 
   const onRecruiterSubmit = (data) => {
     var payload = "";
+    flag = 1;
     RecruiterFilterData = data; // Saving it now to use it for filter later
 
     /* Fetch all the records on basis of location specified
@@ -88,7 +90,7 @@ const FindJobs = (props) => {
       searchCandidate.searchCandidates.data !== undefined
     ) {
       const resp = searchCandidate.searchCandidates.data.results;
-      if (isEmpty(resp)) {
+      if (isEmpty(resp) && flag) {
         alert("No Recors found, Please try again later!!");
       }
       // Filter By skills and experience
@@ -99,8 +101,8 @@ const FindJobs = (props) => {
   }, [searchCandidate]);
 
   const onCandidateSubmit = (data) => {
+    flag = 1;
     removeEmptyFields(data);
-
     dispatch(searchJobs(data));
   };
 
@@ -111,7 +113,7 @@ const FindJobs = (props) => {
       searchJob.searchJobs.data !== undefined
     ) {
       const resp = searchJob.searchJobs.data.results;
-      if (isEmpty(resp)) {
+      if (isEmpty(resp) && flag) {
         alert("No Recors found, Please try again later!!");
       }
       props.click(resp);
@@ -236,6 +238,7 @@ const FindJobs = (props) => {
 };
 
 export default function Body({ setSearchData }) {
+  flag = 0;
   return (
     <Grid container>
       <Grid item xs={12} sm={12} md={12}>
