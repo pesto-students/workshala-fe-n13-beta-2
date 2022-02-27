@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Grid} from "@mui/material";
-import TopContent from '../../Components/Dashboard/Candidate/TopContent';
+import TopContent from '../../Components/Dashboard/Recruiter/TopContent';
 import ProfileInfo from "../../Components/Profile/Candidate/ProfileInfo";
 import VacancyStat from "../../charts/Candidate/VacancyStat";
 import CandidateLayout from "../../Layouts/CandidateLayout";
