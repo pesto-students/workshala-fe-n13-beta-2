@@ -8,13 +8,38 @@ import { useDispatch } from 'react-redux';
 import {fetchProfile} from '../../redux/actions/user'
 import { useSelector} from "react-redux";
 import Loader from '../../Services/Utils/Loader'
+import { getApplications } from "../../redux/actions/applications";
+
+const getAppStats = (data) => {
+    if (
+        data !== undefined &&
+        data.status &&
+        data.applications !== undefined &&
+        data.applications.data !== undefined &&
+        data.applications.data.result !== undefined
+      ) {
+          const resp = data.applications.data.result;
+          
+          let IntSched = 0;
+          Object.keys(resp).forEach((key,i) => {
+              if(resp[key]['status'] === 'In-Progress') {
+                IntSched += 1;
+              }
+            })
+            
+            return {'Interviews Scheduled': IntSched, 'Applications Sent': resp.length}
+      }
+}
 
 export default function Dashboard() {
     const userInfo = useSelector(state => state.userInfo);
+    const applications = useSelector((state) => state.applications);
     const dispatch = useDispatch();
 
     React.useEffect(() => {
+        dispatch(getApplications());
         dispatch(fetchProfile());
+        
     }, []);                     // eslint-disable-line react-hooks/exhaustive-deps
 
     if(userInfo !== undefined && userInfo.loading ) {
@@ -25,6 +50,7 @@ export default function Dashboard() {
                 && userInfo.userInfo.data.result !== undefined) {
                 userData = userInfo.userInfo.data.result[0];
         }
+        const AppStats = getAppStats(applications);
     return (
         <CandidateLayout>
             <div>
@@ -41,7 +67,7 @@ export default function Dashboard() {
                             xs={12}
                             sm={12}
                             md={12} >
-                            <TopContent/>
+                            <TopContent data={AppStats}/>
                         </Grid>
                     
                         <Grid item

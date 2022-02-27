@@ -19,33 +19,25 @@ const tileItems = [
         logo: <AppsOutlinedIcon style={{ fontSize: 40 }}/>,
         title: 'Applications Sent',
         content: '51'
-    }, 
-    // {
-    //     logo: <ContactPageIcon style={{ fontSize: 40 }}/>,
-    //     title: 'Profile Viewed',
-    //     content: '48,340'
-    // }, {
-    //     logo: <EmailIcon style={{ fontSize: 40 }}/>,
-    //     title: 'Unread Message',
-    //     content: '47'
-    // }
+    }
 ]
 
 const CardTemplate = (props) => {
+    const AnalyticsData = props.data;
+    let content = "";
+    if(AnalyticsData !== undefined) {
+        content = AnalyticsData[props.title]
+    }
     return (
         <Card style={{backgroundColor: "#88B3F4"}} sx={
-            {
-                
+            {   
                 border: 0,
-                
-                
                 color: blue,
                 borderRadius: 8
             }
         }>
             <CardContent sx={{p:1}}>
                 <Grid container  >
-                    
                     <Grid item xs={10} sm={10} md={9} sx={{mt:3}}>
                         <Grid container>
                             <Grid item xs={12} sm={12} md={12}>
@@ -67,7 +59,7 @@ const CardTemplate = (props) => {
                                         }
                                     }
                                     align={"left"}>
-                                    {props.content} 
+                                    {content} 
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -76,13 +68,12 @@ const CardTemplate = (props) => {
                         {props.logo}
                     </Grid>
                 </Grid>
-
             </CardContent>
         </Card>
     );
 };
 
-export default function TopContent() {
+export default function TopContent(props) {
     return (
         <Grid container spacing={1}
             alignItems={"center"}
@@ -98,7 +89,8 @@ export default function TopContent() {
                         }
                         content={
                             item.content
-                        }/>
+                        }
+                        data={props.data}/>
                 </Grid>
             ))
         } </Grid>
