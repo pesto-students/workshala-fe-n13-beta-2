@@ -15,14 +15,10 @@ function getUser(data) {
     const userId = data.data.objectId;
 
     var url = baseUrl + "/users/" + userId;
-    //var url = baseUrl + "/functions/getCandidateProfile";
-    //const params = {userId: userId}
 
     return axios
       .get(url, { headers: headers })
       .then((response) => {
-        //setProfileData(response.data);
-        //navigation('Dashboard');
         return response;
       })
       .catch((error) => {
@@ -99,73 +95,72 @@ function signInApi(data) {
 }
 
 function* fetchCurrentUser(action) {
-    try {
-      const userData = yield select((state) => state.user.user);
-      const currentUser = yield call(getCurrentUser, userData);
-      yield put({ type: "CURRENT_USER_REQUESTED", currentUser: currentUser });
-    } catch (e) {
-      yield put({ type: "CURRENT_USER_REQUESTED", message: e.message });
-    }
+  try {
+    const userData = yield select((state) => state.user.user);
+    const currentUser = yield call(getCurrentUser, userData);
+    yield put({ type: "CURRENT_USER_REQUESTED", currentUser: currentUser });
+  } catch (e) {
+    yield put({ type: "CURRENT_USER_REQUESTED", message: e.message });
   }
+}
 
 function* signInUser(action) {
+  try {
+    const user = yield call(signInApi, action.payload.data);
+    navigation = action.payload.navigation;
+    const role = user.data.role;
+    const path = "/" + role + "/dashboard";
+    navigation(path);
+    yield put({ type: "USER_SUCCESS", user: user });
+  } catch (e) {
+    yield put({ type: "USER_FAILED", message: e.message });
+  }
+}
+
+function* fetchUser(parentComp, action) {
+  var userData = "";
+  if (parentComp === "signIn") {
+    userData = yield select((state) => state.signIn.signIn);
+  } else {
+    userData = yield select((state) => state.signUp.signUp);
+  }
+
+  if (userData === undefined) {
+    yield put({ type: "USER_FAILED", message: "userData is null" });
+  } else {
     try {
-      const user = yield call(signInApi, action.payload.data);
-      navigation = action.payload.navigation;
-      const role = user.data.role;
-      const path = "/" + role + "/dashboard"
-      navigation(path);
+      const user = yield call(getUser, userData);
       yield put({ type: "USER_SUCCESS", user: user });
     } catch (e) {
       yield put({ type: "USER_FAILED", message: e.message });
     }
+  }
 }
 
-function* fetchUser(parentComp, action) {
-    var userData = "";
-    if (parentComp === "signIn") {
-      userData = yield select((state) => state.signIn.signIn);
-    } else {
-      userData = yield select((state) => state.signUp.signUp);
-    }
-  
-    if (userData === undefined) {
-      yield put({ type: "USER_FAILED", message: "userData is null" });
-    } else {
-      try {
-        const user = yield call(getUser, userData);
-        yield put({ type: "USER_SUCCESS", user: user });
-      } catch (e) {
-        yield put({ type: "USER_FAILED", message: e.message });
-      }
-    }
-  }
-
 function* signUpUser(action) {
-    try {
-      const signUp = yield call(signUpApi, action.payload);
-      yield put({ type: "USER_SIGNUP_SUCCESS", signUp: signUp });
-    } catch (e) {
-      yield put({ type: "USER_SIGNUP_FAILED", message: e.message });
-    }
+  try {
+    const signUp = yield call(signUpApi, action.payload);
+    yield put({ type: "USER_SIGNUP_SUCCESS", signUp: signUp });
+  } catch (e) {
+    yield put({ type: "USER_SIGNUP_FAILED", message: e.message });
   }
+}
 
 function* logOut(action) {
-    try {
-      const user = yield select((state) => state.user.user);
-      yield put({ type: "USER_LOGOUT_SUCCESS", user: user });
-    } catch (e) {
-      yield put({ type: "USER_LOGOUT_FAILED", message: e.message });
-    }
+  try {
+    const user = yield select((state) => state.user.user);
+    yield put({ type: "USER_LOGOUT_SUCCESS", user: user });
+  } catch (e) {
+    yield put({ type: "USER_LOGOUT_FAILED", message: e.message });
+  }
 }
 
 function* authSaga() {
-
   yield takeEvery("USER_SIGNUP_REQUESTED", signUpUser); // make entry in user - POST (reducer-signup) ->USER_SIGNUP_SUCCESS
   yield takeEvery("USER_SIGNIN_REQUESTED", signInUser); // login, reducer-signIn, -> USER_SUCCESS
   yield takeEvery("USER_SIGNUP_SUCCESS", fetchUser, "signUp"); // get userId from sigup, GET (users/UserId) -> USER_SUCCESS
   yield takeEvery("CURRENT_USER_REQUESTED", fetchCurrentUser);
-  yield takeEvery("USER_LOG_OUT", logOut)
+  yield takeEvery("USER_LOG_OUT", logOut);
 }
 
 export default authSaga;

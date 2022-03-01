@@ -17,11 +17,11 @@ import { withStyles } from "@mui/styles";
 import { isEmpty } from "../../../Services/Utils/Generic";
 
 let RecruiterFilterData = {};
-let flag = 0;                       //TODO - workaround for records not found scenario
+let flag = 0; //TODO - workaround for records not found scenario
 const CustomTab = withStyles({
   selected: {
     backgroundColor: "white",
-    borderRadius: 4
+    borderRadius: 4,
   },
 })(Tab);
 
@@ -138,11 +138,11 @@ const FindJobs = (props) => {
       {selectedTab === 0 ? (
         <form onSubmit={handleSubmit(onCandidateSubmit)}>
           <Grid
-            container md={12} 
+            container
             sx={{ backgroundColor: "white", borderRadius: 2, p: 1 }}
             spacing={1}
           >
-            <Grid item xs={3} sm={3} md={3} >
+            <Grid item xs={3} sm={3} md={3}>
               <TextField
                 id="title"
                 label="Title"
@@ -238,7 +238,7 @@ const FindJobs = (props) => {
 };
 
 export default function Body({ setSearchData }) {
-  flag = 0
+  flag = 0;
   return (
     <Grid container>
       <Grid item xs={12} sm={12} md={12}>
@@ -256,7 +256,7 @@ export default function Body({ setSearchData }) {
           Your Dream Job is Waiting
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={12} md={12}>
+      <Grid item>
         <FindJobs click={setSearchData} />
       </Grid>
     </Grid>

@@ -4,7 +4,7 @@ import { getApplications } from "../../../redux/actions/applications";
 import Loader from "../../../Services/Utils/Loader";
 import Table from "../../../Services/Utils/Table";
 import * as moment from "moment";
-import {Button} from '@mui/material'
+import { Button } from "@mui/material";
 
 export default function Application() {
   const dispatch = useDispatch();
@@ -18,11 +18,12 @@ export default function Application() {
   let appsList = [];
 
   const colorList = {
-                    "Pending" : "warning", 
-                    "In-Progress": "secondary", 
-                    "On-Hold": "primary", 
-                    "Hired": "success",
-                    "Rejected": "error"}
+    Pending: "warning",
+    "In-Progress": "secondary",
+    "On-Hold": "primary",
+    Hired: "success",
+    Rejected: "error",
+  };
 
   const columnsList = [
     { field: "id", headerName: "ID", width: 120 },
@@ -32,12 +33,18 @@ export default function Application() {
     { field: "salary", headerName: "Salary Range", width: 150 },
     { field: "location", headerName: "Location", width: 130 },
     { field: "date", headerName: "Date Applied", width: 150 },
-    { field: "status", headerName: "Status", width: 150,
-    renderCell: (cellValues) => {
-      return (
-        <Button color={colorList[cellValues.row.status]}>{cellValues.row.status}</Button>
-      );
-    }},
+    {
+      field: "status",
+      headerName: "Status",
+      width: 150,
+      renderCell: (cellValues) => {
+        return (
+          <Button color={colorList[cellValues.row.status]}>
+            {cellValues.row.status}
+          </Button>
+        );
+      },
+    },
   ];
 
   if (
@@ -53,10 +60,12 @@ export default function Application() {
         id: data[i].objectId,
         position: data[i].position,
         type: data[i].type,
-        workLevel: (data[i].jobRef ? data[i].jobRef.workLevel : "Senior"),
-        location: (data[i].jobRef ? data[i].jobRef.location : "Hyderbad"),
+        workLevel: data[i].jobRef ? data[i].jobRef.workLevel : "Senior",
+        location: data[i].jobRef ? data[i].jobRef.location : "Hyderbad",
         date: moment(data[i].createdAt).format("YYYY-MM-DD"),
-        salary: (data[i].jobRef ? data[i].jobRef.minSalary + " - " + data[i].jobRef.maxSalary : "$100k - $150k"),
+        salary: data[i].jobRef
+          ? data[i].jobRef.minSalary + " - " + data[i].jobRef.maxSalary
+          : "$100k - $150k",
         status: data[i].status,
       };
     });
