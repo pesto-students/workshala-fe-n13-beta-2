@@ -4,7 +4,7 @@ const initialState = {
   signIn: [],
   loading: false,
   error: null,
-  status: false
+  status: false,
 };
 
 export default function signIn(state = initialState, action) {
@@ -12,21 +12,21 @@ export default function signIn(state = initialState, action) {
     case type.USER_SIGNIN_REQUESTED:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case type.USER_SIGNIN_SUCCESS:
       return {
         ...state,
         loading: false,
         signIn: action.signIn,
-        status: true
+        status: true,
       };
     case type.USER_SIGNIN_FAILED:
       return {
         ...state,
         loading: false,
         error: action.message,
-        status: false
+        status: false,
       };
     default:
       return state;

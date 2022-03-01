@@ -1,22 +1,18 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   Typography,
   FormControl,
   Paper,
-  TextField,
   Button,
-  Slider,
   InputLabel,
   MenuItem,
   Select,
   Box,
 } from "@mui/material";
-import { Download } from "@mui/icons-material";
 import Loader from "../../../Services/Utils/Loader";
-import { GetRole, isEmpty } from "../../../Services/Utils/Generic";
+import { isEmpty } from "../../../Services/Utils/Generic";
 import { updateApplication } from "../../../redux/actions/applications";
 
 let flag = 0;
@@ -27,8 +23,6 @@ export const updateStatus = (data) => {
   ApplnId = data.id;
   DefaultStatus = data.status;
 };
-
-const marks = ["Pending", "In-Progress", "On-Hold", "Hired", "Rejected"];
 
 const TileHeading = (props) => {
   return (
@@ -47,8 +41,6 @@ const AboutMeTile = (props) => {
   const applications = useSelector((state) => state.applications);
   const dispatch = useDispatch();
 
-  const role = GetRole();
-
   const [defaultState, setdefaultState] = React.useState(DefaultStatus);
   const menuItems = ["Pending", "In-Progress", "On-Hold", "Hired", "Rejected"];
 
@@ -56,21 +48,21 @@ const AboutMeTile = (props) => {
     setdefaultState(event.target.value);
   };
 
-  
   const handleUpdate = (event) => {
-      payload = {
+    payload = {
       objectId: ApplnId,
       data: { status: defaultState },
     };
     //update in DB
     dispatch(updateApplication(payload));
-  }
+  };
 
   if (
     applications !== undefined &&
     !applications.loading &&
-    applications.applications.status == '200' &&
-    !flag    && !isEmpty(payload)                                               //workaround
+    applications.applications.status === "200" &&
+    !flag &&
+    !isEmpty(payload) //workaround
   ) {
     alert("Application Status updated Successfully...!!!");
     flag = 1;
@@ -103,9 +95,9 @@ const AboutMeTile = (props) => {
                   ))}
                 </Select>
               </FormControl>
-              <Button variant="contained" sx={{mt:1}}
-              onClick={handleUpdate}
-              >Update</Button>
+              <Button variant="contained" sx={{ mt: 1 }} onClick={handleUpdate}>
+                Update
+              </Button>
             </Box>
           </Grid>
         </Grid>
@@ -157,81 +149,6 @@ const TileRow = (props) => {
   );
 };
 
-const SkillsRow = (props) => {
-  return (
-    <Grid container sx={{ ml: 3, mr: 3 }} spacing={2}>
-      <Grid item md={5}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          disabled
-          label={props.skill}
-          name={props.skill}
-          variant="standard"
-        />
-      </Grid>
-
-      <Grid item md={5} sx={{ mb: 3 }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          disabled
-          label={props.experience}
-          name={props.experience}
-          variant="standard"
-        />
-      </Grid>
-    </Grid>
-  );
-};
-
-const ExpRow = (props) => {
-  return (
-    <Grid container sx={{ ml: 3, mr: 3 }} spacing={2}>
-      <Grid item md={3.5}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          disabled
-          id={props.lastCompany}
-          label={props.lastCompany}
-          name={props.lastCompany}
-          variant="standard"
-        />
-      </Grid>
-
-      <Grid item md={3.5} sx={{ mb: 3 }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          disabled
-          id={props.startDate}
-          label={props.startDate}
-          name={props.startDate}
-          variant="standard"
-        />
-      </Grid>
-
-      <Grid item md={3.5} sx={{ mb: 3 }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          disabled
-          id={props.endDate}
-          label={props.endDate}
-          name={props.endDate}
-          variant="standard"
-        />
-      </Grid>
-    </Grid>
-  );
-};
-
 const TileTemplate = (props) => {
   return (
     <Paper sx={{ borderRadius: 4, p: 2 }}>
@@ -246,81 +163,7 @@ const TileTemplate = (props) => {
   );
 };
 
-const SkillsForm = (props) => {
-  return props.data === undefined ? (
-    <Loader />
-  ) : (
-    <Paper sx={{ borderRadius: 4, p: 2 }}>
-      <TileHeading heading="Skills" size={18} />
-
-      <Grid item container>
-        {props.data.map((item, i) => (
-          <SkillsRow
-            key={i}
-            skill={"" + item.skill}
-            experience={"" + item.experience}
-          />
-        ))}
-      </Grid>
-    </Paper>
-  );
-};
-
-const ExperienceTile = (props) => {
-  return props.data === undefined ? (
-    <Loader />
-  ) : (
-    <Paper sx={{ borderRadius: 4, p: 2 }}>
-      <TileHeading heading="Experience" size={18} />
-
-      <Grid item container>
-        {props.data.map((item, i) => (
-          <ExpRow
-            key={i}
-            lastCompany={item.lastCompany}
-            startDate={item.startDate}
-            endDate={item.endDate}
-          />
-        ))}
-      </Grid>
-    </Paper>
-  );
-};
-
-const showpdf = (directory) => {
-  window.open(directory);
-};
-
-const ResumeTile = (props) => {
-  return (
-    <Paper sx={{ borderRadius: 4, p: 2 }}>
-      <TileHeading heading="Resume" size={18} />
-
-      <Grid item container sx={{ p: 2 }} spaning={2}>
-        <Grid item>
-          <Button
-            variant="outlined"
-            style={{ borderRadius: 8, border: "dashed" }}
-            onClick={() => {
-              showpdf(props.data);
-            }}
-            endIcon={<Download style={{ color: "brown" }} />}
-          >
-            Resume
-          </Button>
-        </Grid>
-        <Grid item sx={{ m: 3 }}>
-          <Typography style={{ fontSize: 10 }}>
-            uploaded on {props.uploadedOn}
-          </Typography>
-        </Grid>
-      </Grid>
-    </Paper>
-  );
-};
-
 export default function ProfileDetails(props) {
-  // if(props.data !== undefined) {
   if (true) {
     const userData = props.data;
 

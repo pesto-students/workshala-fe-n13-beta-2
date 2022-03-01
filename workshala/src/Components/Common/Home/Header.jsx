@@ -4,19 +4,19 @@ import RoleSelectionModal from "./RoleSelectionModel";
 import SignInModal from "../Auth/SignInModal";
 import { Link } from "react-router-dom";
 import {
-    Grid,
-    Divider,
-    Tabs,
-    Tab,
-    IconButton,
-    AppBar,
-    Toolbar,
-    Typography,
-    Box
-  } from "@mui/material";
+  Grid,
+  Divider,
+  Tabs,
+  Tab,
+  IconButton,
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+} from "@mui/material";
 
 export default function Header() {
-  const [value] = React.useState('one');
+  const [value] = React.useState("one");
   return (
     <AppBar color="transparent" elevation={0}>
       <Toolbar>
@@ -49,15 +49,20 @@ export default function Header() {
             ></IconButton>
             <Box flexGrow={1} />
             <Tabs value={value} textColor="inherit">
-              <Tab label="Home" to="/" value="one"/>
-              <Tab label="About" component={Link} to="/aboutUs" value="two"/>
-              <Tab label="Blog" component={Link} to="/blog" value="three"/>
-              <Tab label="Contact" component={Link} to="/contactUs" value="four"/>
+              <Tab label="Home" to="/" value="one" />
+              <Tab label="About" component={Link} to="/aboutUs" value="two" />
+              <Tab label="Blog" component={Link} to="/blog" value="three" />
+              <Tab
+                label="Contact"
+                component={Link}
+                to="/contactUs"
+                value="four"
+              />
             </Tabs>
           </Grid>
 
-          <Grid item xs={2} sm={2} md={2} sx={{p:3}}>
-            <SignInModal title="Post a Job" comp="button"/>
+          <Grid item xs={2} sm={2} md={2} sx={{ p: 3 }}>
+            <SignInModal title="Post a Job" comp="button" />
           </Grid>
           <Grid item xs={0.5} sm={0.5} md={0.5}>
             <Divider
@@ -72,7 +77,11 @@ export default function Header() {
           </Grid>
 
           <Grid item xs={0.8} sm={0.8} md={0.8}>
-            <SignInModal page="home" title="Already a user? Sign In" comp="link"/>
+            <SignInModal
+              page="home"
+              title="Already a user? Sign In"
+              comp="link"
+            />
           </Grid>
         </Grid>
       </Toolbar>

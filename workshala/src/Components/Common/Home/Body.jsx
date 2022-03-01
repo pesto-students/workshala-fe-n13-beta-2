@@ -98,7 +98,7 @@ const FindJobs = (props) => {
 
       props.click(filteredData);
     }
-  }, [searchCandidate]);
+  }, [searchCandidate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onCandidateSubmit = (data) => {
     flag = 1;
@@ -118,7 +118,7 @@ const FindJobs = (props) => {
       }
       props.click(resp);
     }
-  }, [searchJob]);
+  }, [searchJob]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);

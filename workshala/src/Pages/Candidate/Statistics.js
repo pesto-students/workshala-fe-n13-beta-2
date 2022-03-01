@@ -1,11 +1,11 @@
 import * as React from "react";
 import CandidateLayout from "../../Layouts/CandidateLayout";
-import Stats from '../../Components/Statistics/Stats'
+import Stats from "../../Components/Statistics/Stats";
 
 export default function Statistics() {
-    return (
-        <CandidateLayout>
-            <Stats/>
-        </CandidateLayout>
-    );
+  return (
+    <CandidateLayout>
+      <Stats />
+    </CandidateLayout>
+  );
 }

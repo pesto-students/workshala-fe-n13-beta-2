@@ -79,13 +79,13 @@ const CardTemplate = (props) => {
       <CardActionArea onClick={props.click}>
         <CardContent align="center">
           <Avatar src={IconRa} />
-          <Typography gutterBottom variant="h6" style={{color:"white"}}>
+          <Typography gutterBottom variant="h6" style={{ color: "white" }}>
             {props.title}{" "}
           </Typography>
-          <Typography variant="body2" style={{color:"white"}}>
+          <Typography variant="body2" style={{ color: "white" }}>
             {props.subTitle}{" "}
           </Typography>
-          <Typography variant="body2" style={{color:"white"}}>
+          <Typography variant="body2" style={{ color: "white" }}>
             {props.exp}{" "}
           </Typography>
         </CardContent>
@@ -151,7 +151,6 @@ export default function Job({
   quickViewClose,
   quickViewOpen,
 }) {
-  const [sort, setValue] = React.useState("");
   const [chipData, setChipData] = React.useState([]);
 
   const dispatch = useDispatch();
@@ -166,10 +165,6 @@ export default function Job({
     jobsList.forEach(function (k, i) {
       if (jobsList[i].title === chipToDelete.label) delete jobsList[i];
     });
-  };
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
   };
 
   React.useEffect(() => {

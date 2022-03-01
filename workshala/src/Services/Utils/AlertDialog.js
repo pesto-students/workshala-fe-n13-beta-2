@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AlertDialog({handleClickOpen}) {
+export default function AlertDialog({ handleClickOpen }) {
   const [open, setOpen] = React.useState(false);
 
   handleClickOpen = () => {
@@ -29,7 +29,7 @@ export default function AlertDialog({handleClickOpen}) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-{/* {props.data.title} */}
+          {/* {props.data.title} */}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">

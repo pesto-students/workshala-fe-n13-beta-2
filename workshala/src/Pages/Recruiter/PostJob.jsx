@@ -5,7 +5,7 @@ import PostJob from "../../Components/Jobs/Recruiter/PostJob";
 export default function PostAJob() {
   return (
     <CandidateLayout>
-      <PostJob/>
+      <PostJob />
     </CandidateLayout>
   );
 }

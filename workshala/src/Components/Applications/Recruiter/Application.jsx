@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "../../../Services/Utils/Generic";
 import Table from "../../../Services/Utils/Table";
 import * as moment from "moment";
-import { IconButton, Button, Typography} from "@mui/material";
-import {default as MailLink}  from "@mui/material/Link";
+import { IconButton, Button, Typography } from "@mui/material";
+import { default as MailLink } from "@mui/material/Link";
 import { Download } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import {updateStatus} from './ApplicationDetails'
+import { updateStatus } from "./ApplicationDetails";
 
 const handleClick = (event, cellValues) => {
   const path = cellValues.row.resume;
-  if(path === undefined) {
+  if (path === undefined) {
     alert("Resume not available");
   } else {
     window.open(cellValues.row.resume.url);
@@ -22,8 +22,8 @@ const handleClick = (event, cellValues) => {
 
 const handleStatus = (event, cellValues) => {
   const data = cellValues.row;
-  updateStatus({id: data.id, status: data.status});
-}
+  updateStatus({ id: data.id, status: data.status });
+};
 
 const columnsList = [
   { field: "id", headerName: "ID", width: 150 },
@@ -53,28 +53,32 @@ const columnsList = [
       );
     },
   },
-  { field: "status", headerName: "Status", width: 150, 
-  renderCell: (cellValues) => {
-    return (
-      <Typography color="secondary"> 
-        {cellValues.row.status}
-      </Typography>
-    );
-  }
-},
-  { field: "action", headerName: "", width: 150, 
-  renderCell: (cellValues) => {
-    return (
-      <Button component={Link} to="/recruiter/applicationAction"
-        onClick={(event) => {
-          handleStatus(event, cellValues);
-        }}
-      > 
-      Action
-      </Button>
-    );
-  }
-},
+  {
+    field: "status",
+    headerName: "Status",
+    width: 150,
+    renderCell: (cellValues) => {
+      return <Typography color="secondary">{cellValues.row.status}</Typography>;
+    },
+  },
+  {
+    field: "action",
+    headerName: "",
+    width: 150,
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          component={Link}
+          to="/recruiter/applicationAction"
+          onClick={(event) => {
+            handleStatus(event, cellValues);
+          }}
+        >
+          Action
+        </Button>
+      );
+    },
+  },
 ];
 
 export default function Application() {
@@ -90,7 +94,7 @@ export default function Application() {
 
   React.useEffect(() => {
     dispatch(fetchRecApplicationsList(filterData));
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   var appsList = [];
 

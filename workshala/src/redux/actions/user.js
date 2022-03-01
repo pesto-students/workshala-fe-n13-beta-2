@@ -27,4 +27,3 @@ export function logOut(data) {
     payload: data,
   };
 }
-

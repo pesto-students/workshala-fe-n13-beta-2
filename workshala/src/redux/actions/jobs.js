@@ -1,23 +1,23 @@
-import {type} from '../reducers/types';
+import { type } from "../reducers/types";
 
-export function getJobsList(data)  {
+export function getJobsList(data) {
   return {
     type: type.JOBS_LIST_REQUESTED,
-    payload: data
+    payload: data,
   };
 }
 
-export function getJobsListByJobId(data)  {
+export function getJobsListByJobId(data) {
   return {
     type: type.JOBS_LIST_BY_ID_REQUESTED,
-    payload: data
+    payload: data,
   };
 }
 
-export function searchJobs(data)  {
+export function searchJobs(data) {
   return {
     type: type.SEARCH_JOBS_REQUESTED,
-    payload: data
+    payload: data,
   };
 }
 
