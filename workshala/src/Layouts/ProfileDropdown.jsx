@@ -12,7 +12,7 @@ import { Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOut } from "../redux/actions/user";
 import { purgeStoredState } from "redux-persist";
-import { GetRole } from "../Services/Utils/Generic";
+import { GetRole } from "../Utils/Generic";
 
 import { Link } from "react-router-dom";
 

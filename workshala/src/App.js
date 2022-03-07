@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Parse from "parse/dist/parse.min.js";
-import RoutesMain from "./Routes/RoutesMain";
+import RoutesMain from "./Routes/Index";
 
 // Your Parse initialization configuration goes here
 Parse.serverURL = "https://parseapi.back4app.com";

@@ -1,6 +1,6 @@
 import * as React from "react";
 import Header from "./Header";
-import SideBar from "./Sidebar";
+import SideBar from "../Components/Nav/Sidebar";
 import { Grid } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import GlobalStyles from "@mui/material/GlobalStyles";

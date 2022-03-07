@@ -1,69 +1,11 @@
 import { call, put, takeEvery, select } from "redux-saga/effects";
-import axios from "axios";
-import { getObjectId } from "./userSaga";
-
-const baseUrl = "https://parseapi.back4app.com";
-
-const headers = {
-  "X-Parse-Application-Id": "BxnHmCjdT1tQTZBT1OIaZuiMSJkcGMVj8oAPfhEf",
-  "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
-};
-
-function getJobsList() {
-  var url = baseUrl + "/functions/getJobInfoById";
-  const params = {};
-  return new Promise((resolve) => {
-    axios
-      .post(url, params, { headers: headers })
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  });
-}
-
-function postAJob(data) {
-  var url = baseUrl + "/functions/postJob";
-
-  return axios
-    .post(url, data, { headers: headers })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      throw error;
-    });
-}
-
-export function searchJobsApi(data) {
-  var url = baseUrl + "/classes/JobInfo?where=";
-
-  url += JSON.stringify(data);
-
-  return axios
-    .get(url, { headers: headers })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      throw error;
-    });
-}
-
-export function deletePostedJobAPI(data) {
-  var url = baseUrl + "/classes/JobInfo/" + data;
-
-  return axios
-    .delete(url, { headers: headers })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      throw error;
-    });
-}
+import { getObjectId } from "../../Services/User/User";
+import {
+  getJobsList,
+  postAJob,
+  searchJobsApi,
+  deletePostedJobAPI,
+} from "../../Services/Jobs/Jobs";
 
 function* fetchJobsList(action) {
   try {

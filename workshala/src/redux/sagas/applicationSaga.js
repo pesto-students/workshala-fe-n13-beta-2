@@ -1,78 +1,13 @@
 import { call, put, takeEvery, select } from "redux-saga/effects";
-import axios from "axios";
-import { searchJobsApi } from "./jobSaga";
-import { getObjectId, uploadFile } from "./userSaga";
-import { isEmpty } from "../../Services/Utils/Generic";
-
-const baseUrl = "https://parseapi.back4app.com";
-
-const headers = {
-  "X-Parse-Application-Id": "BxnHmCjdT1tQTZBT1OIaZuiMSJkcGMVj8oAPfhEf",
-  "X-Parse-REST-API-Key": "vPnwq9UPU2V4dIR6VASkdAQxTTucnLLvMSNzUZRi",
-};
-
-function getAppsList(data) {
-  var url = baseUrl + "/functions/getApplnInfoByUserId";
-
-  return axios
-    .post(url, data, { headers: headers })
-    .then((response) => {
-      return response;
-    })
-
-    .catch((error) => {
-      throw error;
-    });
-}
-
-function updateApplicationsApi(arg) {
-  const ObjectId = arg.objectId;
-  const payload = arg.data;
-
-  var url = baseUrl + "/classes/ApplicationInfo/" + ObjectId;
-
-  const custHeader = {
-    ...headers,
-    "Content-Type": "application/json",
-  };
-
-  return axios
-    .put(url, payload, { headers: custHeader })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      throw error;
-    });
-}
-
-function getApplicationsApi(data) {
-  var url = baseUrl + "/classes/ApplicationInfo?where=";
-
-  url += JSON.stringify(data);
-
-  return axios
-    .get(url, { headers: headers })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      throw error;
-    });
-}
-
-function postApplicationApi(data) {
-  var url = baseUrl + "/classes/ApplicationInfo";
-
-  return axios
-    .post(url, data, { headers: headers })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      throw error;
-    });
-}
+import { searchJobsApi } from "../../Services/Jobs/Jobs";
+import { getObjectId, uploadFile } from "../../Services/User/User";
+import { isEmpty } from "../../Utils/Generic";
+import {
+  getAppsList,
+  updateApplicationsApi,
+  getApplicationsApi,
+  postApplicationApi,
+} from "../../Services/Applications/Applications";
 
 function* fetchApplications(action) {
   try {

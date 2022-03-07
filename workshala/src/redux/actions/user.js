@@ -27,3 +27,17 @@ export function logOut(data) {
     payload: data,
   };
 }
+
+export function signIn(data) {
+  return {
+    type: type.USER_SIGNIN_REQUESTED,
+    payload: data,
+  };
+}
+
+export function signUp(data) {
+  return {
+    type: type.USER_SIGNUP_REQUESTED,
+    payload: data,
+  };
+}

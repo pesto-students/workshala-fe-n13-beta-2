@@ -1,24 +1,24 @@
 import * as React from "react";
 
 import { Route, Routes } from "react-router-dom";
-import { isEmpty } from "../Services/Utils/Generic";
+import { isEmpty } from "../Utils/Generic";
 import { Navigate } from "react-router-dom";
 
-import ContactUs from "../Pages/Common/ContactUs";
-import Error from "../Pages/Common/Error";
-import AboutUs from "../Pages/Common/AboutUs";
-import Blog from "../Pages/Common/Blog";
-import Home from "../Pages/Common/Home";
+import ContactUs from "../Pages/ContactUs";
+import Error from "../Pages/Error";
+import AboutUs from "../Pages/AboutUs";
+import Blog from "../Pages/Blog";
+import Home from "../Pages/Home/Index";
 
-import Dashboard from "../Pages/Recruiter/Dashboard";
-import Profile from "../Pages/Recruiter/Profile";
-import EditProfile from "../Pages/Recruiter/EditProfile";
-import ActiveJobs from "../Pages/Recruiter/ActiveJobs";
-import Applications from "../Pages/Recruiter/Applications";
-import PostJob from "../Pages/Recruiter/PostJob";
-import ApplicationAction from "../Pages/Recruiter/ApplicationAction";
+import Dashboard from "../Pages/Dashboard/Recruiter/Index";
+import Profile from "../Pages/Profile/Recruiter/Index";
+import EditProfile from "../Pages/Profile/Recruiter/EditProfile";
+import ActiveJobs from "../Pages/Jobs/Recruiter/ActiveJobs/Index";
+import Applications from "../Pages/Applications/Recruiter/Index";
+import PostJob from "../Pages/Jobs/Recruiter/PostJob/Index";
+import ApplicationAction from "../Pages/Applications/Recruiter/ApplicationAction";
 
-import Statistics from "../Pages/Candidate/Statistics";
+import Statistics from "../Pages/Statistics/Candidate/Index";
 
 export default function RecruiterRoutes({ auth }) {
   return (

@@ -1,20 +1,20 @@
 import * as React from "react";
 
 import { Route, Routes } from "react-router-dom";
-import { isEmpty } from "../Services/Utils/Generic";
-import Statistics from "../Pages/Candidate/Statistics";
-import ApplyJob from "../Pages/Candidate/ApplyJob";
-import Jobs from "../Pages/Candidate/Jobs";
-import Applications from "../Pages/Candidate/Applications";
-import CompanyDetails from "../Pages/Candidate/CompanyDetails";
-import ContactUs from "../Pages/Common/ContactUs";
-import AboutUs from "../Pages/Common/AboutUs";
-import Blog from "../Pages/Common/Blog";
-import Home from "../Pages/Common/Home";
-import Dashboard from "../Pages/Candidate/Dashboard";
-import Error from "../Pages/Common/Error";
-import Profile from "../Pages/Candidate/Profile";
-import EditProfile from "../Pages/Candidate/EditProfile";
+import { isEmpty } from "../Utils/Generic";
+import Statistics from "../Pages/Statistics/Candidate/Index";
+import ApplyJob from "../Pages/Jobs/Candidate/ApplyJob";
+import Jobs from "../Pages/Jobs/Candidate/Index";
+import Applications from "../Pages/Applications/Candidate/Index";
+import CompanyDetails from "../Pages/Jobs/Candidate/CompanyDetails";
+import ContactUs from "../Pages/ContactUs";
+import AboutUs from "../Pages/AboutUs";
+import Blog from "../Pages/Blog";
+import Home from "../Pages/Home/Index";
+import Dashboard from "../Pages/Dashboard/Candidate/Index";
+import Error from "../Pages/Error";
+import Profile from "../Pages/Profile/Candidate/Index";
+import EditProfile from "../Pages/Profile/Candidate/EditProfile";
 import { Navigate } from "react-router-dom";
 
 export default function CandidateRoutes({ auth }) {
