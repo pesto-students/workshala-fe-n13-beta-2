@@ -21,8 +21,6 @@ import {
   FormControlLabel,
 } from "@mui/material";
 
-function AutoFillCreds() {}
-
 function Copyright(props) {
   return (
     <Typography

@@ -1,9 +1,5 @@
 import { call, put, takeEvery, select } from "redux-saga/effects";
-import {
-  getUser,
-  getCurrentUser,
-  login,
-} from "../../Services/Authorisation/Login";
+import { getCurrentUser, login } from "../../Services/Authorisation/Login";
 import { register } from "../../Services/Authorisation/SignUp";
 
 function* fetchCurrentUser(action) {
