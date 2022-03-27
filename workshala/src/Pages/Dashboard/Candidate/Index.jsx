@@ -70,24 +70,22 @@ export default function Dashboard() {
     }
     return (
       <CandidateLayout>
-        <div>
-          <Grid container spacing={1}>
-            <Grid item xs={3} sm={3} md={3} width="20%">
+        <Grid item container spacing={1} sm={12} md={12} lg={12}>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <TopContent data={topTilesData} />
+          </Grid>
+
+          <Grid item container sm={12} md={12} lg={12} spacing={1}>
+            <Grid item container sm={3} md={3} lg={3}>
               <ProfileInfo data={userData} />
               {/* <RecentActivity/> */}
             </Grid>
-            <Grid item container md={9} spacing={1}>
-              <Grid item xs={12} sm={12} md={12}>
-                <TopContent data={topTilesData} />
-              </Grid>
-
-              <Grid item xs={12} sm={12} md={12}>
-                {/*<RightContent/>*/}
-                <VacancyStat data={vacancyStatsData} />
-              </Grid>
-            </Grid>
+            {/*            <Grid item sm={8.9} md={8.9} lg={8.9}>
+              {/* <RightContent/>  */}
+            {/*   <VacancyStat data={vacancyStatsData} />
+            </Grid>*/}
           </Grid>
-        </div>
+        </Grid>
       </CandidateLayout>
     );
   }

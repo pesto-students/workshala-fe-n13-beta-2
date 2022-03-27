@@ -141,8 +141,12 @@ const FindJobs = (props) => {
             container
             sx={{ backgroundColor: "white", borderRadius: 2, p: 1 }}
             spacing={1}
+            sm={12}
+            md={12}
+            lg={12}
+            xs={12}
           >
-            <Grid item xs={3} sm={3} md={3}>
+            <Grid item xs={2} sm={3} md={3}>
               <TextField
                 id="title"
                 label="Title"
@@ -241,12 +245,12 @@ export default function Body({ setSearchData }) {
   flag = 0;
   return (
     <Grid container>
-      <Grid item xs={12} sm={12} md={12}>
+      <Grid item xs={12} sm={12} md={12} textAlign={"center"}>
         <Typography component="h1" fontSize={14} color="black">
           We have 900,000 great job offers you deserve
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={12} md={12}>
+      <Grid item xs={12} sm={12} md={12} textAlign={"-webkit-center"}>
         <Typography
           component="h1"
           fontSize={38}
@@ -256,9 +260,9 @@ export default function Body({ setSearchData }) {
           Your Dream Job is Waiting
         </Typography>
       </Grid>
-      <Grid item>
+      {/* <Grid item xs={12} sm={12} md={12}>
         <FindJobs click={setSearchData} />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }

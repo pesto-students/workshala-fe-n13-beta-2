@@ -3,6 +3,7 @@ import whatsapp from "../../../Assets/Images/whatsapp.png";
 import Phone_icon from "../../../Assets/Images/Phone_icon.png";
 import email from "../../../Assets/Images/email.png";
 import dev from "../../../Assets/Images/dev.png";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 import {
   Grid,
@@ -25,6 +26,38 @@ let profileData = {
   Email: "Tow@gmail.com",
 };
 
+const theme = createTheme();
+
+theme.typography.h6 = {
+  "@media (min-width:600px)": {
+    fontSize: "0.8rem",
+  },
+  [theme.breakpoints.down("lg")]: {
+    fontSize: "0.6rem",
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "0.55rem",
+  },
+};
+
+theme.typography.h5 = {
+  "@media (min-width:600px)": {
+    fontSize: "1.0rem",
+  },
+  [theme.breakpoints.down("lg")]: {
+    fontSize: "0.7rem",
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "0.6rem",
+  },
+};
+
+theme.Avatar = {
+  [theme.breakpoints.down("md")]: {
+    width: 10,
+  },
+};
+
 export default function ProfileInfo(props) {
   if (props.data !== undefined) {
     profileData = {
@@ -43,135 +76,108 @@ export default function ProfileInfo(props) {
   }
 
   return (
-    <Card sx={{ borderRadius: 4 }}>
-      <CardMedia
-        height="45%"
-        component="img"
-        image={profileData.Image}
-        alt="User Profile Image"
-      />
-      <CardContent>
-        <Typography
-          variant="h5"
-          fontSize={18}
-          style={{ fontWeight: 600 }}
-          align="center"
-        >
-          {profileData.Name}{" "}
-        </Typography>
-        <Typography variant="h5" fontSize={14} align="center">
-          {profileData.Profile}{" "}
-        </Typography>
-        <Grid container>
-          <Grid item xs={5} sm={5} md={5}>
-            <Typography
-              variant="h6"
-              fontSize={15}
-              sx={{
-                mt: 1,
-                marginLeft: -3,
-              }}
-              align="center"
-              style={{ fontWeight: 600 }}
-            >
-              {profileData.Followers}{" "}
-            </Typography>
-          </Grid>
-          <Grid item xs={5} sm={5} md={5}>
-            <Typography
-              variant="h6"
-              fontSize={15}
-              sx={{ mt: 1 }}
-              align="right"
-              style={{ fontWeight: 600 }}
-            >
-              {profileData.Following}{" "}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={5} sm={5} md={5}>
-            <Typography
-              variant="h6"
-              fontSize={15}
-              color="#A69F9F"
-              align="left"
-              style={{ fontWeight: 600 }}
-            >
-              {"Followers"}{" "}
-            </Typography>
-          </Grid>
-          <Grid item xs={5} sm={5} md={5} sx={{ mx: 1 }}>
-            <Typography
-              variant="h6"
-              fontSize={15}
-              color="#A69F9F"
-              sx={{ mx: 5 }}
-              align="right"
-              style={{ fontWeight: 600 }}
-            >
-              {"Following"}{" "}
-            </Typography>
-          </Grid>
-        </Grid>
+    <ThemeProvider theme={theme}>
+      <Card sx={{ borderRadius: 4, width: "100%" }}>
+        <CardMedia
+          height="35%"
+          component="img"
+          image={profileData.Image}
+          alt="User Profile Image"
+        />
+        <CardContent>
+          <Typography variant="h5" style={{ fontWeight: 600 }} align="center">
+            {profileData.Name}
+          </Typography>
+          <Typography variant="h5" align="center">
+            {profileData.Profile}
+          </Typography>
 
-        <Grid container sx={{ p: 3 }}>
-          <Grid item xs={3} sm={3} md={3}>
-            <Avatar
-              src={Phone_icon}
-              sx={{
-                width: 30,
-                height: 30,
-              }}
-            />
-          </Grid>
-          <Grid item xs={9} sm={9} md={9} sx={{ mt: 0.5 }}>
-            {profileData.Mobile}{" "}
-          </Grid>
-        </Grid>
+          <Grid container textAlign={"center"} sx={{ mt: 3 }}>
+            <Grid item container direction="column" md={6} lg={6}>
+              <Grid item md={6} lg={6}>
+                <Typography variant="h6" style={{ fontWeight: 600 }}>
+                  {profileData.Followers}
+                </Typography>
+              </Grid>
+              <Grid item md={6} lg={6}>
+                <Typography
+                  variant="h6"
+                  color="#A69F9F"
+                  style={{ fontWeight: 600 }}
+                >
+                  {"Followers"}
+                </Typography>
+              </Grid>
+            </Grid>
 
-        <Grid
-          container
-          sx={{
-            p: 3,
-            mt: -4,
-          }}
-        >
-          <Grid item xs={3} sm={3} md={3}>
-            <Avatar
-              src={whatsapp}
-              sx={{
-                width: 30,
-                height: 30,
-              }}
-            />
+            <Grid item container direction="column" md={6} lg={6}>
+              <Grid item md={6} lg={6}>
+                <Typography variant="h6" style={{ fontWeight: 600 }}>
+                  {profileData.Following}
+                </Typography>
+              </Grid>
+              <Grid item md={6} lg={6}>
+                <Typography
+                  variant="h6"
+                  color="#A69F9F"
+                  style={{ fontWeight: 600 }}
+                >
+                  {"Following"}
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={9} sm={9} md={9} sx={{ mt: 0.5 }}>
-            {profileData.Whatsapp}{" "}
-          </Grid>
-        </Grid>
 
-        <Grid
-          container
-          sx={{
-            p: 3,
-            mt: -4,
-          }}
-        >
-          <Grid item xs={3} sm={3} md={3}>
-            <Avatar
-              src={email}
-              sx={{
-                width: 30,
-                height: 30,
-              }}
-            />
+          <Grid item container sx={{ mt: 3 }} spacing={1}>
+            <Grid item container>
+              <Grid item xs={3} sm={3} md={3} lg={3}>
+                <Avatar
+                  src={Phone_icon}
+                  sx={{
+                    width: { sm: 15, md: 30, lg: 30 },
+                    height: { sm: 15, md: 30, lg: 30 },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={9} sm={9} md={9} lg={9} alignSelf={"center"}>
+                <Typography variant="h6">{profileData.Mobile}</Typography>
+              </Grid>
+            </Grid>
+
+            <Grid item container>
+              <Grid item xs={3} sm={3} md={3} lg={3}>
+                <Avatar
+                  src={whatsapp}
+                  sx={{
+                    width: { sm: 15, md: 30, lg: 30 },
+                    height: { sm: 15, md: 30, lg: 30 },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={9} sm={9} md={9} lg={9} alignSelf={"center"}>
+                <Typography variant="h6">{profileData.Whatsapp}</Typography>
+              </Grid>
+            </Grid>
+
+            <Grid item container>
+              <Grid item xs={3} sm={3} md={3} lg={3}>
+                <Avatar
+                  src={email}
+                  sx={{
+                    width: { sm: 15, md: 30, lg: 30 },
+                    height: { sm: 15, md: 30, lg: 30 },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={9} sm={9} md={9} lg={9} alignSelf={"center"}>
+                <Typography variant="h6" sx={{ overflowWrap: "break-word" }}>
+                  {profileData.Email}
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={9} sm={9} md={9} sx={{ mt: 0.5 }}>
-            {profileData.Email}{" "}
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </ThemeProvider>
   );
 }

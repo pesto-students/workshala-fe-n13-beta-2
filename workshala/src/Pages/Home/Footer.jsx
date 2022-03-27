@@ -16,18 +16,18 @@ const footerItems = [
     logo: manageJobs,
     title: "Easy To Manage Jobs",
     content:
-      "Its easier to track applied jobs status under one roof, Its never gonna easier than this",
+      "Its easier to track applied jobs status under one roof, Its never gonna easier than this.",
   },
   {
     logo: career,
     title: "Top Carrers",
-    content: "Search Top Jobs across different domains under one place",
+    content: "Search Top Jobs across different domains under one place.",
   },
   {
     logo: expert,
     title: "Search Expert Candidates",
     content:
-      "Now recruiters can search for candidates with the expertise and their experience level",
+      "Now recruiters can search for candidates with the expertise and their experience level.",
   },
 ];
 
@@ -37,8 +37,9 @@ const CardTemplate = (props) => {
       sx={{
         p: 3,
         border: 0,
-        width: 200,
-        height: 225,
+        maxHeight: 230,
+        height: 230,
+        width: 205,
       }}
     >
       <CardContent>
@@ -51,15 +52,13 @@ const CardTemplate = (props) => {
           variant="square"
         />
         <Typography
-          variant="h6"
           fontSize={15}
           sx={{
-            my: 2,
-            width: 200,
+            mt: 2,
           }}
           style={{ fontWeight: 600 }}
         >
-          {props.title}{" "}
+          {props.title}
         </Typography>
 
         <Typography
@@ -70,7 +69,7 @@ const CardTemplate = (props) => {
           }}
           align={"justify"}
         >
-          {props.content}{" "}
+          {props.content}
         </Typography>
       </CardContent>
     </Card>
@@ -79,16 +78,24 @@ const CardTemplate = (props) => {
 
 export default function Footer() {
   return (
-    <Grid container alignItems={"center"} justifyContent={"center"} spacing={1}>
+    <Grid container alignItems={"center"} justifyContent={"center"} spacing={2}>
       {footerItems.map((item, i) => (
-        <Grid item key={i} md={2.5}>
+        <Grid
+          item
+          key={i}
+          xs={7}
+          sm={5.5}
+          md={5}
+          lg={2.7}
+          sx={{ width: "100%" }}
+        >
           <CardTemplate
             logo={item.logo}
             title={item.title}
             content={item.content}
           />
         </Grid>
-      ))}{" "}
+      ))}
     </Grid>
   );
 }

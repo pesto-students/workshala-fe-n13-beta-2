@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Typography, Box, Grid, Drawer } from "@mui/material";
+import { Typography, Box, Grid, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -12,13 +12,8 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import StackedBarChartOutlinedIcon from "@mui/icons-material/StackedBarChartOutlined";
 import { GetRole } from "../../Utils/Generic";
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-  },
-});
+import { styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const SideMenuItems = [
   {
@@ -47,108 +42,145 @@ const SideMenuItems = [
   },
 ];
 
-export default function SideBar({
-  dashBoardSideNavOpen,
-  dashBoardSideNavToggle,
-  dashBoardSideNavClose,
-}) {
-  const classes = useStyles();
+const NavIcon = styled("div")(({ theme }) => ({
+  // [theme.breakpoints.down("lg")]: {
+  //   display: "none",
+  // },
+  // [theme.breakpoints.down("md")]: {
+  //   display: "block",
+  // },
+}));
+const NavTitle = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
+
+const Title = styled("div")(({ theme }) => ({
+  [theme.breakpoints.up("md")]: {
+    display: "block",
+    alignSelf: "center",
+  },
+  [theme.breakpoints.down("lg")]: {
+    display: "none",
+  },
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+  [theme.breakpoints.down("xs")]: {
+    display: "none",
+  },
+}));
+
+const theme = createTheme();
+
+theme.typography.h6 = {
+  "@media (min-width:600px)": {
+    fontSize: "1.2rem",
+  },
+  [theme.breakpoints.down("lg")]: {
+    fontSize: "0.8rem",
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "0.63rem",
+  },
+};
+
+export default function SideBar() {
   const [selectedIndex] = React.useState(1);
 
   const role = GetRole();
   return (
-    <Drawer
-      variant="persistent"
-      anchor="left"
-      open={dashBoardSideNavOpen}
-      onClose={dashBoardSideNavToggle}
-      PaperProps={{ elevation: 10 }}
-    >
-      <Grid
-        container
-        sx={{
-          width: 270,
-          boxShadow: 1,
-          height: "100%",
-          backgroundColor: "#EDEAEA",
-        }}
-        alignContent={"start"}
+    <ThemeProvider theme={theme}>
+      <Paper
+        elevation={10}
+        sx={{ backgroundColor: "#EDEAEA", height: "100vh" }}
       >
-        <Grid item xs={12} sm={12} md={12}>
+        <Grid
+          container
+          sx={{
+            backgroundColor: "#EDEAEA",
+          }}
+        >
           <Grid
+            item
             container
-            sx={{
-              mx: 4,
-              mt: 2,
-            }}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            justifyContent={"center"}
           >
-            <Grid item xs={3} sm={3} md={3}>
+            {/* Logo */}
+            <Grid item lg={5} md={5} sm={6} xs={5} sx={{ mt: 5 }}>
               <Box
                 component="img"
                 sx={{
-                  height: 70,
-                  width: 70,
-                  mt: 2,
-                  marginRight: 0,
+                  width: "100%",
                 }}
                 alt="Logo"
                 src={logo}
               />
             </Grid>
-            <Grid item xs={9} sm={9} md={6}>
-              <Typography
-                component="h1"
-                variant="h5"
-                color="Black"
-                sx={{
-                  mt: 4,
-                  mx: 1,
-                  marginRight: 0,
-                }}
-              >
-                Workshala
-              </Typography>
-            </Grid>
+            {/* Title */}
+            <Title>
+              <Grid item lg={12}>
+                <Typography component="h1" variant="h5" color="Black">
+                  Workshala
+                </Typography>
+              </Grid>
+            </Title>
           </Grid>
-        </Grid>
-        <Grid
-          item
-          xs={3}
-          sm={3}
-          md={3}
-          sx={{
-            mt: 3,
-            mx: 2,
-          }}
-          className={classes.root}
-        >
-          <List
-            component="nav"
-            aria-label="main menu list"
+
+          <Grid
+            item
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
             sx={{
-              p: 3,
+              ml: 1,
               mt: 5,
             }}
           >
-            {SideMenuItems.map((item, i) => (
-              <ListItem
-                key={i}
-                button
-                component={Link}
-                to={"/" + role + item.to}
-                classes={{ root: useStyles.listItem }}
-                selected={selectedIndex === 0}
-              >
-                <ListItemIcon> {item.icon} </ListItemIcon>
-                <ListItemText
-                  primaryTypographyProps={{ fontSize: "22px" }}
-                  primary={item.title}
-                />
-              </ListItem>
-            ))}{" "}
-          </List>
+            <List component="nav" aria-label="main menu list">
+              {SideMenuItems.map((item, i) => (
+                <ListItem
+                  key={i}
+                  button
+                  component={Link}
+                  to={"/" + role + item.to}
+                  selected={selectedIndex === 0}
+                  //sx={{ justifyContent: "end" }}
+                >
+                  <ListItemIcon
+                    sx={{ minWidth: { sm: "25px", md: "40px", lg: "50px" } }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+
+                  <ListItemText
+                    sx={{
+                      display: {
+                        xs: "none",
+                        sm: "block",
+                        md: "block",
+                        lg: "block",
+                      },
+                    }}
+                    disableTypography
+                    primary={
+                      <Typography variant="h6" justifyContent="center" sx={{}}>
+                        {item.title}
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
         </Grid>
-      </Grid>
-    </Drawer>
+      </Paper>
+    </ThemeProvider>
   );
 }

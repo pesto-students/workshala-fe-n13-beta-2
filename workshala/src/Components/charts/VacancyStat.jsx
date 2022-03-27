@@ -20,7 +20,7 @@ export const updateData = (data) => {
     const d = data[key]["updatedAt"];
     labels[i] = moment(d).minutes();
   });
-  console.log(labels);
+  //console.log(labels);
 
   /* Step-2: Create Data Array for
    * Applications sent and In-Progress over minutes
@@ -73,9 +73,13 @@ export default function VacancyStat(props) {
 
   return (
     <Paper sx={{ borderRadius: 4, p: 3 }}>
-      <Grid container>
-        <Grid item xs={12} sm={12} md={12}>
-          <Typography variant="h5" fontSize={18} style={{ fontWeight: 600 }}>
+      <Grid item container lg={12} md={12}>
+        <Grid item xs={12} sm={12} md={12} lg={12}>
+          <Typography
+            variant="h5"
+            style={{ fontWeight: 600 }}
+            sx={{ fontSize: { sm: 10, md: 15, lg: 18 } }}
+          >
             {"Vacancy Stats"}
           </Typography>
         </Grid>

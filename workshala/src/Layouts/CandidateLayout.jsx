@@ -6,15 +6,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import GlobalStyles from "@mui/material/GlobalStyles";
 
 export default function CandidateLayout({ children }) {
-  const [dashBoardSideNavOpen, setDashBoardSideNavOpen] = React.useState(true);
-
-  const dashBoardSideNavToggle = () => {
-    setDashBoardSideNavOpen(!dashBoardSideNavOpen);
-  };
-  const dashBoardSideNavClose = () => {
-    setDashBoardSideNavOpen(false);
-  };
-
   const theme = createTheme({
     palette: {
       background: {
@@ -30,25 +21,25 @@ export default function CandidateLayout({ children }) {
           body: { backgroundColor: "#EDEAEA" },
         }}
       />
-      <Grid container>
-        <Grid item width="20%">
-          <SideBar
-            dashBoardSideNavOpen={dashBoardSideNavOpen}
-            dashBoardSideNavToggle={dashBoardSideNavToggle}
-            dashBoardSideNavClose={dashBoardSideNavClose}
-          />
+      <Grid container spacing={1}>
+        <Grid item xs={2.5} sm={2.5} md={2.5} lg={2.5}>
+          <SideBar />
         </Grid>
         <Grid
           item
           container
-          direction="row"
-          width={dashBoardSideNavOpen ? "80%" : "100%"}
+          xs={9.4}
+          sm={9.4}
+          md={9.4}
+          lg={9.4}
+          direction="column"
+          spacing={1}
         >
-          <Grid item xs={12} sm={12} md={12}>
-            <Header dashBoardSideNavToggle={dashBoardSideNavToggle} />
+          <Grid item xs={1} sm={1} md={1} lg={1}>
+            <Header />
           </Grid>
 
-          <Grid item xs={12} sm={12} md={12} sx={{ m: 2 }}>
+          <Grid item container xs={10.5} sm={10.5} md={10.5} lg={10.5}>
             {children}
           </Grid>
         </Grid>

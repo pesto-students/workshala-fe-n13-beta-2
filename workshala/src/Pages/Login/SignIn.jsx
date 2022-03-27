@@ -173,7 +173,7 @@ export default function SignInModal(props) {
       <div>
         <Button
           variant="outlined"
-          sx={{ borderRadius: 8, my: 3 }}
+          sx={{ borderRadius: 8 }}
           onClick={handleOpen}
         >
           Sign In
@@ -213,7 +213,6 @@ export default function SignInModal(props) {
           size="small"
           color="primary"
           variant="contained"
-          style={{ width: 100 }}
           sx={{ borderRadius: 8 }}
           onClick={() => {
             console.info("I'm a SignIn button.");

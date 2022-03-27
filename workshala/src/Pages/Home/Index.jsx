@@ -44,13 +44,13 @@ const CardTemplate = (props) => {
         <CardContent align="center">
           <Avatar src={IconRa} />
           <Typography gutterBottom variant="h6">
-            {props.title}{" "}
+            {props.title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {props.subTitle}{" "}
+            {props.subTitle}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {props.exp}{" "}
+            {props.exp}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -75,7 +75,7 @@ export default function Home() {
     backgroundSize: "cover",
     height: "490px",
     display: "flex",
-    margin: -8,
+    width: "100%",
   };
 
   const [searchData, setSearchData] = React.useState("");
@@ -95,7 +95,7 @@ export default function Home() {
           <Grid item xs={12} sm={12} md={12}>
             <Header />
           </Grid>
-          <Grid item xs={12} sm={12} md={12} sx={{ mx: 50, mt: 25 }}>
+          <Grid item xs={12} sm={12} md={12} sx={{ mt: 25 }}>
             <Body setSearchData={setSearchData} />
           </Grid>
         </Grid>
