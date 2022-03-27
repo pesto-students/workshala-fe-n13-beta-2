@@ -5,20 +5,12 @@ import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import { Grid, Typography, CardContent, Card } from "@mui/material";
 import { blue } from "@mui/material/colors";
 
-const Icon = styled("div")(({ theme }) => ({
-  [theme.breakpoints.down("md")]: {
-    display: "none",
-  },
-}));
-
 const Tile = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     height: "18px",
-    //fontSize: "0.6rem",
   },
   [theme.breakpoints.down("sm")]: {
     height: "5px",
-    //fontSize: "0.6rem",
   },
 }));
 

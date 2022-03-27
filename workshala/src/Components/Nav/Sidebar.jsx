@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Box, Grid, Paper } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -41,20 +40,6 @@ const SideMenuItems = [
     click: "",
   },
 ];
-
-const NavIcon = styled("div")(({ theme }) => ({
-  // [theme.breakpoints.down("lg")]: {
-  //   display: "none",
-  // },
-  // [theme.breakpoints.down("md")]: {
-  //   display: "block",
-  // },
-}));
-const NavTitle = styled("div")(({ theme }) => ({
-  [theme.breakpoints.down("md")]: {
-    display: "none",
-  },
-}));
 
 const Title = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {

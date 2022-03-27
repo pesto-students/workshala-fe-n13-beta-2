@@ -22,9 +22,15 @@ const getAppStats = (data) => {
     const resp = data.applications.data.result;
 
     let IntSched = 0;
+    let IntRejected = 0;
+    let IntHold = 0;
     Object.keys(resp).forEach((key, i) => {
       if (resp[key]["status"] === "In-Progress") {
         IntSched += 1;
+      } else if (resp[key]["status"] === "Rejected") {
+        IntRejected += 1;
+      } else if (resp[key]["status"] === "On-Hold") {
+        IntHold += 1;
       }
     });
     //prepareChart(resp);
@@ -32,6 +38,8 @@ const getAppStats = (data) => {
       topTiles: {
         "Interviews Scheduled": IntSched,
         "Applications Sent": resp.length,
+        "Applications Rejected": IntRejected,
+        "Applications On-Hold": IntHold,
       },
       vacancyChart: resp,
     };
@@ -80,10 +88,10 @@ export default function Dashboard() {
               <ProfileInfo data={userData} />
               {/* <RecentActivity/> */}
             </Grid>
-            {/*            <Grid item sm={8.9} md={8.9} lg={8.9}>
+            <Grid item sm={8.9} md={8.9} lg={8.9}>
               {/* <RightContent/>  */}
-            {/*   <VacancyStat data={vacancyStatsData} />
-            </Grid>*/}
+              <VacancyStat data={vacancyStatsData} />
+            </Grid>
           </Grid>
         </Grid>
       </CandidateLayout>
