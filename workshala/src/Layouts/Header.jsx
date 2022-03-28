@@ -1,7 +1,6 @@
 import * as React from "react";
-import SegmentIcon from "@mui/icons-material/Segment";
 import ProfileDropdown from "../Layouts/ProfileDropdown";
-import { Grid, IconButton, Typography, Paper } from "@mui/material";
+import { Grid, Typography, Paper } from "@mui/material";
 import { useSelector } from "react-redux";
 import { isEmpty } from "../Utils/Generic";
 import Loader from "../Utils/Loader";
@@ -70,21 +69,14 @@ export default function Header({ dashBoardSideNavToggle }) {
       <ThemeProvider theme={theme}>
         <Paper elevation={1} sx={{ backgroundColor: "#EDEAEA" }}>
           <Grid container sx={{ maxHeight: "10vh", mt: 1 }}>
-            {/* icon */}
-            <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5}>
-              <IconButton onClick={dashBoardSideNavToggle}>
-                <SegmentIcon />
-              </IconButton>
-            </Grid>
-
             <Grid
               item
               container
               justifyContent={"flex-end"}
-              lg={11.5}
-              md={11.5}
-              sm={11}
-              xs={10.8}
+              lg={12}
+              md={12}
+              sm={11.5}
+              xs={11.3}
             >
               <Grid
                 item
