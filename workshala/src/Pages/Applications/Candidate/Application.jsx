@@ -26,17 +26,54 @@ export default function Application() {
   };
 
   const columnsList = [
-    { field: "id", headerName: "ID", width: 120 },
-    { field: "position", headerName: "Position", width: 160 },
-    { field: "type", headerName: "Type", width: 110 },
-    { field: "workLevel", headerName: "Level", width: 110 },
-    { field: "salary", headerName: "Salary Range", width: 150 },
-    { field: "location", headerName: "Location", width: 130 },
-    { field: "date", headerName: "Date Applied", width: 150 },
+    {
+      field: "id",
+      headerName: "ID",
+      width: 120,
+      headerClassName: "super-app-theme--header",
+    },
+    {
+      field: "position",
+      headerName: "Position",
+      width: 160,
+      type: "string",
+      headerClassName: "super-app-theme--header",
+    },
+    {
+      field: "type",
+      headerName: "Type",
+      width: 110,
+      headerClassName: "super-app-theme--header",
+    },
+    {
+      field: "workLevel",
+      headerName: "Level",
+      width: 110,
+      headerClassName: "super-app-theme--header",
+    },
+    {
+      field: "salary",
+      headerName: "Salary Range",
+      width: 150,
+      headerClassName: "super-app-theme--header",
+    },
+    {
+      field: "location",
+      headerName: "Location",
+      width: 130,
+      headerClassName: "super-app-theme--header",
+    },
+    {
+      field: "date",
+      headerName: "Date Applied",
+      width: 150,
+      headerClassName: "super-app-theme--header",
+    },
     {
       field: "status",
       headerName: "Status",
       width: 150,
+      headerClassName: "super-app-theme--header",
       renderCell: (cellValues) => {
         return (
           <Button color={colorList[cellValues.row.status]}>
@@ -70,7 +107,7 @@ export default function Application() {
       };
     });
 
-    return <Table columns={columnsList} rows={appsList} />;
+    return <Table data={{ columns: columnsList, rows: appsList }} />;
   } else {
     return <Loader />;
   }
